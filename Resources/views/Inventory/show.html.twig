@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% set pts_del_lk_id = 'acc_pts_del_lk' %}
+{% set pts_dlg_lk_id = 'acc_pts_dlg_lk' %}
+{% set pts_dlg_title = 'inventory.edit_inventory_item'|trans %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js' %}
+        <script type="text/ecmascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
+    <script type='text/javascript'>
+        jQuery(document).ready(function() {
+            // Replace Delete Form Submit button
+            $('#{{ pts_del_lk_id }}').on('click', function(event){
+                event.preventDefault();
+                alert({{ delete_form.vars.attr.id }});
+                $('#{{ delete_form.vars.attr.id }}').find(':submit').click(); 
+            });
+        });
+    </script>
+{% endblock javascripts %}
+
+{% block body_title -%}
+    {{ parts.itemname }}
+{% endblock %}
+
+{% block body -%}
+    <a class="loading-btn" href="{{ path('morus_accetic_inventory') }}">{{ 'btn.back'|trans }}</a>
+            
+    <a id="{{ pts_dlg_lk_id }}" class="loading-btn" href="#" />{{ 'btn.edit_item'|trans }}</a>
+
+    <a id="{{ pts_del_lk_id }}" class="loading-btn" href="#" />{{ 'btn.delete'|trans }}</a>
+
+    {{ form(delete_form) }}
+    
+    <br/>
+    <br/>
+    <h2>{{ parts.itemname }}</h2><br/>
+    {{ parts.itemcode }}<br/>
+    
+    <br/>
+    {% if (parts.forpurchase) %}
+        <h3>{{ 'inventory.purchases'|trans }}</h3>
+        <hr/>
+        {{ 'inventory.unitprice'|trans }} {{ parts.lastcost }} / {{ parts.unit }}
+        <hr/>
+        {{ 'inventory.description'|trans }} {{ parts.purchaseDescription }}
+    {% endif %}
+    <br/>
+    {% if (parts.forsale) %}
+        <h3>{{ 'inventory.sales'|trans }}</h3>
+        <hr/>
+        {{ 'inventory.unitprice'|trans }} {{ parts.listprice }} / {{ parts.unit }}
+        <hr/>
+        {{ 'inventory.description'|trans }} {{ parts.saleDescription }}
+    {% endif %}
+    
+    <hr/>
+    
+    {# Edit Parts Dialog #}
+    {{ include('MorusAcceticBundle:Inventory:parts.dialog.html.twig', {  
+        'pts_dlg_title' : pts_dlg_title,
+        'pts_dlg_lk_id' : pts_dlg_lk_id,
+        'parts_form' : parts_edit_form
+    }) }}
+{% endblock %}

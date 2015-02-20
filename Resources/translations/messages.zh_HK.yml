@@ -1,0 +1,105 @@
+contact:
+    contact_person: 聯絡人
+    add_contact: 新增通訊錄
+    contacts: 通訊錄
+    all: 所有
+    customers: 客戶
+    suppliers: 供應商
+    employees: 員工
+    archived: 已刪除
+    first_name: 名
+    last_name: 姓
+    email: 電郵
+    telephone: 電話
+    fax: 傳真
+    mobile: 流動電話
+    direct: 直線電話
+    website: 網址
+    display_name: 顯示名稱
+    primary_person: 主要聯絡人
+    people: 其他聯絡人
+    remove: 移除
+    attention: 收件人
+    address_po_box: 地址或郵政信箱
+    city: 城市 / 鎮
+    state: 地區 / 省份
+    zip_code: 郵政編號
+    country: 國家
+    contact_details: 聯絡資料
+    address: 地址
+    postal_address: 郵寄地址
+    physical_address: 聯絡地址
+    contact_information: 通訊錄資料
+    others: 其他
+    btn:
+        save: 儲存
+        delete: 刪除
+        edit: 修改
+        back: 返回列表
+        add_contact: 通訊錄
+        add_supplier: 供應商
+        add_employee: 僱員
+        add_another_person: 添加聯絡人
+        add_person: 新增聯絡人
+              
+ar:
+    number: 編號
+    to: 給
+    date: 日期
+    due_date: 到期日
+    paid: 已付
+    due: 欠
+    status: 狀態
+    sent: 已送出
+    new_invoice: 新增發票
+    invnumber: 發票編號
+    transdate: 日期
+    duedate: 到期日
+    reference: 備註
+    save: 儲存
+    approve: 通過批核
+    cancel: 取消
+    subtotal: 小計
+    total: 總數
+    bills_due: 到期票據
+    overdue_bills: 過期票據
+    sales_invoices_due: 到期發票
+    overdue_sales_invoices: 過期發票
+    invoice: 
+        part: 產品編號
+        description: 描述
+        qty: 數量
+        sellprice: 單價
+        discount: 折扣%
+        amount: 合計
+        
+inventory:
+    inventory_items: 庫存貨品
+    new_inventory_item: 新增庫存貨品
+    edit_inventory_item: 修改庫存貨品
+    itemcode: 貨品編號
+    itemname: 貨品名稱
+    lastcost: 成本價格
+    listprice: 銷售價格
+    total_items: 合共%num%件貨品
+    unit: 單位
+    purchase: 我購買此貨品
+    lastcost: 單價
+    purchaseDescription: 采購描述
+    sale: 我售賣此貨品
+    listprice: 單價
+    saleDescription: 銷售描述
+    purchases: 采購
+    sales: 銷售
+    unitprice: 單價
+    description: 描述
+    
+btn:
+    add_new_item: 新增貨品
+    edit_item: 修改貨品
+    save: 儲存
+    edit: 修改
+    cancel: 取消
+    delete: 刪除
+    back: 返回
+        

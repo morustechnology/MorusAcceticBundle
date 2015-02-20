@@ -1,0 +1,78 @@
+#   This table stores contact information for entities
+Morus\AcceticBundle\Entity\Contact:
+    type: entity
+    table: accetic_contact
+    indexes:
+        IDX_contact_class_id:
+            columns:
+                - contact_class_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: " The first 7 values are reserved and permanent.  Individuals who create new classes, however, should coordinate with others for ranges to use."
+            generator:
+                strategy: AUTO
+        unit_id:
+            associationKey: true
+        contact_class_id:
+            associationKey: true
+        
+    fields:
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        sortOrder:
+            type: integer
+            nullable: true
+            column: sort_order
+            options:
+                unsigned: true
+                default: 0
+        active:
+            type: boolean
+            options:
+                default: 1
+        createDate:
+            type: datetime
+            column: create_date
+        lastModifiedDate:
+            type: datetime
+            nullable: true
+            column: last_modified_date
+        inactiveDate:
+            type: datetime
+            nullable: true
+            column: inactive_date
+    manyToOne:
+        unit:
+            targetEntity: Unit
+            cascade: ["persist"]
+            inversedBy: contacts
+            joinColumns:
+                unit_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        person:
+            targetEntity: Person
+            cascade: ["persist"]
+            inversedBy: contacts
+            joinColumns:
+                person_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        contactClass:
+            targetEntity: ContactClass
+            cascade: ["persist"]
+            inversedBy: contacts
+            joinColumns:
+                contact_class_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: 
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]

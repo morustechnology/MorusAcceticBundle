@@ -1,0 +1,34 @@
+morus_accetic_ar:
+    path:     /
+    defaults: { _controller: "MorusAcceticBundle:Ar:index" }
+
+morus_accetic_ar_show:
+    path:     /{id}/show
+    defaults: { _controller: "MorusAcceticBundle:Ar:showAr" }
+
+morus_accetic_ar_new:
+    path:     /new
+    defaults: { _controller: "MorusAcceticBundle:Ar:newAr" }
+
+morus_accetic_ar_create:
+    path:     /create
+    defaults: { _controller: "MorusAcceticBundle:Ar:createAr" }
+    requirements: { _method: post }
+
+morus_accetic_ar_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MorusAcceticBundle:Ar:editAr" }
+
+morus_accetic_ar_update:
+    path:     /{id}/update
+    defaults: { _controller: "MorusAcceticBundle:Ar:updateAr" }
+    requirements: { _method: post|put }
+
+morus_accetic_ar_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MorusAcceticBundle:Ar:deleteAr" }
+    requirements: { _method: post|delete }
+    
+morus_accetic_ar_data:
+    path: /data
+    defaults: { _controller: "MorusAcceticBundle:Ar:data", _format: "json" }

@@ -1,0 +1,10 @@
+services:
+    morus_accetic.form.type.parts:
+        class: Morus\AcceticBundle\Form\Type\PartsType
+        tags:
+            - { name: form.type, alias: accetic_parts }
+
+    morus_accetic.form.type.parts_list:
+        class: Morus\AcceticBundle\Form\Type\PartsListType
+        tags:
+            - { name: form.type, alias: accetic_parts_list }

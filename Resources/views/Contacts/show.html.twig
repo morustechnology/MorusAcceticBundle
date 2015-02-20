@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block body_title -%}
+    {{ 'contact.contact_person'|trans }}
+{% endblock %}
+
+{% block body -%}        
+    <div id="contact-box">
+        <h2 id="contact-person" class="view">
+            <span>{{ entity.name }}</span>
+            <a class="blue-btn" href="{{ path('morus_accetic_contacts_edit', { 'id': entity.id }) }}">{{ 'contact.btn.edit'|trans }}</a>
+        </h2>
+
+        <div id="contact-detail">
+            <div class="field">
+                <label>id</label>
+                <span>{{ entity.id }}</span>
+            </div>
+            <div class="field">
+                <label>Name</label>
+                <span>{{ entity.name }}</span>
+            </div>
+            <div class="field">
+                <label>Sortorder</label>
+                <span>{{ entity.sortOrder }}</span>
+            </div>
+            <div class="field">
+                <label>Active</label>
+                <span>{{ entity.active }}</span>
+            </div>
+            <div class="field">
+                <label>Createdate</label>
+                <span>{{ entity.createDate|date('Y-m-d H:i:s') }}</span>
+            </div>
+            <div class="field">
+                <label>Lastmodifieddate</label>
+                <span>{{ entity.lastModifiedDate|date('Y-m-d H:i:s') }}</span>
+            </div>
+            <div class="field">
+                <label>Inactivedate</label>
+                <span>{{ entity.inactiveDate|date('Y-m-d H:i:s') }}</span>
+            </div>
+        </div>
+
+        <h2 id="contact-subdeatil"></h2>
+
+    </div>
+
+    <ul class="record_actions page-control">
+        <li>
+            <a class="simple-btn" href="{{ path('morus_accetic_contacts_list') }}">
+                {{ 'contact.btn.back'|trans }}
+            </a>
+        </li>
+        <li>
+            <a class="simple-btn" href="{{ path('morus_accetic_contacts_edit', { 'id': entity.id }) }}">
+                {{ 'contact.btn.edit'|trans }}
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}

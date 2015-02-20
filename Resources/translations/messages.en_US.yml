@@ -1,0 +1,105 @@
+contact:
+    contact_person: Contact Person
+    add_contact: Add Contact
+    contacts: Contacts
+    all: All
+    customers: Customers
+    suppliers: Suppliers
+    employees: Employees
+    archived: Archived
+    first_name: First Name
+    last_name: Last Name
+    email: Email
+    telephone: Telephone
+    fax: Fax
+    mobile: Mobile
+    direct: Direct Dial
+    website: Website
+    display_name: Display Name
+    primary_person: Primary Person
+    people: People
+    remove: Remove
+    attention: Attention
+    address_po_box: Street Address or PO Box
+    city: Town / City
+    state: State / Region
+    zip_code: Postal / Zip Code
+    country: Country
+    contact_details: Contact Details
+    address: Address
+    postal_address: Postal Address
+    physical_address: Physical Address
+    contact_information: Contact Information
+    others: Others
+    btn:
+        save: Save
+        delete: Delete
+        edit: Edit
+        back: Back to the list
+        add_contact: Add Contact
+        add_supplier: Add Supplier
+        add_employee: Add Employee
+        add_another_person: Add another person
+        add_person: Add Contact
+        
+ar:
+    number: Number
+    reference: Ref
+    to: To
+    date: Date
+    due_date: Due Date
+    paid: Paid
+    due: Due
+    status: Status
+    sent: Sent
+    new_invoice: New Invoice
+    invnumber: Invoice Number
+    transdate: Date
+    duedate: Due Date
+    save: Save
+    approve: Approve
+    cancel: Cancel
+    subtotal: Subtotal
+    total: Total
+    bills_due: Bills Due
+    overdue_bills: Overdue Bills
+    sales_invoices_due: Sales Invoices Due
+    overdue_sales_invoices: Overdue Sales Invoices
+    invoice:
+        part: Item
+        description: Description
+        qty: Qty
+        sellprice: Unit Price
+        discount: Disc %
+        amount: Amount
+
+inventory:
+    inventory_items: Inventory Items
+    new_inventory_item: New Inventory Item
+    edit_inventory_item: Edit Inventory Item
+    itemcode: Item Code
+    itemname: Item Name
+    lastcost: Cost Price
+    listprice: Sale Price
+    total_items: %num% total items
+    unit: Unit
+    purchase: I purchase this item
+    lastcost: Unit Price
+    purchaseDescription: Pruchases Description
+    sale: I sell this item
+    listprice: Unit Price
+    saleDescription: Sales Description
+    purchases: Purchases
+    sales: Sales
+    unitprice: Unit Price
+    description: Description
+    
+btn:
+    add_new_item: New Item
+    edit_item: Edit Item
+    save: Save
+    edit: Edit
+    cancel: Cancel
+    delete: Delete
+    back: Back
+        

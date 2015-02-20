@@ -1,0 +1,104 @@
+contact:
+    contact_person: 联络人
+    add_contact: 新增通讯录
+    contacts: 通讯录
+    all: 所有
+    customers: 客户
+    suppliers: 供应商
+    employees: 雇员
+    archived: 已删除
+    first_name: 名
+    last_name: 姓
+    email: 电邮
+    telephone: 电话
+    fax: 传真
+    mobile: 流动电话
+    direct: 直拨电话
+    website: 网址
+    display_name: 显示名称
+    primary_person: 主要联络人
+    people: 其他联络人
+    remove: 移除
+    attention: 收件人
+    address_po_box: 地址或邮政信箱
+    city: 城市 / 镇
+    state: 地区 / 省份
+    zip_code: 邮政编号
+    country: 国家
+    contact_details: 联络资料
+    address: 地址
+    postal_address: 邮寄地址
+    physical_address: 联络地址
+    contact_information: 通讯录资料
+    others: 其他
+    btn:
+        save: 保存
+        delete: 删除
+        edit: 修改
+        back: 返回列表
+        add_contact: 通讯录
+        add_supplier: 供应商
+        add_employee: 雇员
+        add_another_person: 添加联络人
+        add_person: 新增联络人
+        
+ar:
+    number: 编号
+    to: 给
+    date: 日期
+    due_date: 到期日
+    paid: 已付
+    due: 欠
+    status: 状态
+    sent: 已发送
+    new_invoice: 新增发票
+    invnumber: 发票编号
+    transdate: 日期
+    duedate: 到期日
+    reference: 备注
+    save: 保存
+    approve: 通过批核
+    cancel: 取消
+    subtotal: 小计
+    total: 总数
+    bills_due: 到期票据
+    overdue_bills: 过期票据
+    sales_invoices_due: 到期发票
+    overdue_sales_invoices: 过期发票
+    invoice:
+        part: 产品编号
+        description: 描述
+        qty: 数量
+        sellprice: 单价
+        discount: 折扣%
+        amount: 合计
+        
+inventory:
+    inventory_items: 库存货品
+    new_inventory_item: 新增库存货品
+    edit_inventory_item: 修改库存货品
+    itemcode: 货品编号
+    itemname: 货品名称
+    lastcost: 成本价格
+    listprice: 销售价格
+    total_items: 合共%num%件货品
+    unit: 单位
+    purchase: 我购买此货品
+    lastcost: 单价
+    purchaseDescription: 采购描述
+    sale: 我售卖此货品
+    listprice: 单价
+    saleDescription: 销售描述
+    purchases: 采购
+    sales: 销售
+    unitprice: 单价
+    description: 描述
+    
+btn:
+    add_new_item: 新增货品
+    dit_item: 修改货品
+    edit: 修改
+    save: 保存
+    cancel: 取消
+    delete: 删除
+    back: 返回

@@ -1,0 +1,15 @@
+morus_accetic_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MorusAcceticBundle:Default:index }
+    
+morus_accetic_accountsReceivable:
+    resource: "@MorusAcceticBundle/Resources/config/routing/ar.yml"
+    prefix:   /AccountsReceivable
+    
+morus_accetic_contacts:
+    resource: "@MorusAcceticBundle/Resources/config/routing/contacts.yml"
+    prefix:   /Contacts
+    
+morus_accetic_inventory:
+    resource: "@MorusAcceticBundle/Resources/config/routing/inventory.yml"
+    prefix:   /Inventory

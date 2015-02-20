@@ -1,0 +1,58 @@
+#   Defines the class type such as vendor, customer, contact, employee
+Morus\AcceticBundle\Entity\UnitClass:
+    type: entity
+    table: accetic_unit_class
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: " The first 7 values are reserved and permanent.  Individuals who create new classes, however, should coordinate with others for ranges to use."
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        controlCode:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: ''
+            column: control_code
+        class:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        sortOrder:
+            type: integer
+            nullable: true
+            column: sort_order
+            options:
+                unsigned: true
+                default: 0
+        active:
+            type: boolean
+            options:
+                default: 1
+        createDate:
+            type: datetime
+            column: create_date
+        lastModifiedDate:
+            type: datetime
+            nullable: true
+            column: last_modified_date
+        inactiveDate:
+            type: datetime
+            nullable: true
+            column: inactive_date
+    lifecycleCallbacks: 
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]

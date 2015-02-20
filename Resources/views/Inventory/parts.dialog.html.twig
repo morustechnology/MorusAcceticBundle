@@ -1,0 +1,172 @@
+{% set pts_dlg_div_id = 'acc_pts_dlg_div' %}
+{% set pts_dlg_sal_dtl_id = 'acc_pts_dlg_sal_dtl' %}
+{% set pts_dlg_pur_dtl_id = 'acc_pts_dlg_pur_dtl' %}
+
+{% stylesheets '@MorusAcceticBundle/Resources/public/css/jquery-ui.min.css' filter='cssrewrite' %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{{ asset_url }}" />
+{% endstylesheets %}
+    
+{% javascripts 
+    '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js'
+    '@MorusAcceticBundle/Resources/public/js/jquery-ui.min.js'
+    '@MorusAcceticBundle/Resources/public/js/jquery.inputmask.js'
+    '@MorusAcceticBundle/Resources/public/js/jquery.inputmask.numeric.extensions.js'
+%}
+    <script type="text/ecmascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type='text/javascript'>
+    jQuery(document).ready(function() {
+        // Initialize Document
+        // =====================================================================
+
+        init();
+        function init() {
+            // Show/Hide purchase division base on default value
+            var purchase = $('#{{ parts_form.forpurchase.vars.id }}').prop('checked');
+            if ( purchase ) {
+                $('#{{ pts_dlg_pur_dtl_id }}').show();
+            } else {
+                $('#{{ pts_dlg_pur_dtl_id }}').hide();
+            }
+
+            // Show/Hide sale division base on default value
+            var sale = $('#{{ parts_form.forsale.vars.id }}').prop('checked');
+            if ( sale ) {
+                $('#{{ pts_dlg_sal_dtl_id }}').show();
+            } else {
+                $('#{{ pts_dlg_sal_dtl_id }}').hide();
+            }
+
+            $('#{{ parts_form.listprice.vars.id }}').inputmask("decimal", { 
+                radixPoint: ".", 
+                groupSeparator: ",",
+                groupSize: 3,
+                digits: 2,
+                autoGroup: true,
+                placeholder: "0.00"
+            });
+            $('#{{ parts_form.lastcost.vars.id }}').inputmask("decimal", { 
+                radixPoint: ".", 
+                groupSeparator: ",",
+                groupSize: 3,
+                digits: 2,
+                autoGroup: true,
+                placeholder: "0.00"
+            });
+        }
+
+
+        // New Parts Dialog
+        // =====================================================================
+        // Init New Parts Dialog Box
+        $( "#{{ pts_dlg_div_id }}" ).dialog({
+            autoOpen: false,
+            height: 300,
+            width: 650,
+            modal: true,
+            buttons: {
+                "{{ 'btn.save'|trans }}": function() {
+                    $('#{{ parts_form.vars.attr.id }}').find(':submit').click();  // Trigger form submit button
+                },
+                "{{ 'btn.cancel'|trans }}": function() {
+                    $( "#{{ pts_dlg_div_id }}" ).dialog( "close" );
+                }
+            },
+            show: {
+                effect: "fade",
+                duration: 500
+            },
+            hide: {
+                effect: "fade",
+                duration: 500
+            }
+        });
+
+        // When purchse checkbox value change
+        $('#{{ parts_form.forpurchase.vars.id }}').change(function() {
+            if (this.checked) {
+                $('#{{ pts_dlg_pur_dtl_id }}').show('blind');
+            } else {
+                $('#{{ pts_dlg_pur_dtl_id }}').hide('blind');
+            }
+        }); 
+
+        // When sale checkbox value change
+        $('#{{ parts_form.forsale.vars.id }}').change(function() {
+            if (this.checked) {
+                $('#{{ pts_dlg_sal_dtl_id }}').show('blind');
+            } else {
+                $('#{{ pts_dlg_sal_dtl_id }}').hide('blind');
+            }
+        }); 
+
+        // Init Add New Parts button
+        $( "#{{ pts_dlg_lk_id }}" ).on('click', function(event){
+            event.preventDefault();
+            $( "#{{ pts_dlg_div_id }}" ).dialog( "open" );
+        });
+
+        // Init Dialog Box -> New Parts form submit action
+        $('#{{ parts_form.vars.attr.id }}').submit(function(event) {
+            event.preventDefault();
+            postNewForm( $(this), function( response ) {
+                if (response.success) {
+                    location.reload();
+                }
+                $( "#{{ pts_dlg_div_id }}" ).dialog( "close" );
+            });
+
+            return false;
+        });
+
+        // Post Form and get result
+        function postNewForm( $form, callback ){
+            /*
+             * Get all form values
+             */
+            var values = {};
+            $.each( $form.serializeArray(), function(i, field) {
+                var id = $('input[name="' + field.name + '"]').attr("id");
+                values[field.name] = field.value;
+            });
+            /*
+             * Throw the form values to the server!
+             */
+            $.ajax({
+                type        : $form.attr( 'method' ),
+                url         : $form.attr( 'action' ),
+                data        : values,
+                success     : function(response) {
+                    callback( jQuery.parseJSON(response) );
+                }
+            });
+        }
+    });
+</script>
+    
+<div id="{{ pts_dlg_div_id }}" title="{{ pts_dlg_title }}">  
+    {{ form_start(parts_form) }}
+        {{ form_errors(parts_form) }}
+
+        {{ 'inventory.itemcode'|trans }} {{ form_widget(parts_form.itemcode) }}{{ form_errors(parts_form.itemcode) }} <br/>
+        {{ 'inventory.itemname'|trans }} {{ form_widget(parts_form.itemname) }} {{ form_errors(parts_form.itemname) }}
+        {{ 'inventory.unit'|trans }} {{ form_widget(parts_form.unit) }}
+        <hr/>
+
+        {{ form_widget(parts_form.forsale) }} {{ 'inventory.sale'|trans }}
+        <div id="{{ pts_dlg_sal_dtl_id }}" >
+        {{ 'inventory.listprice'|trans }} {{ form_widget(parts_form.listprice) }}
+        {{ 'inventory.saleDescription'|trans }} {{ form_widget(parts_form.saleDescription) }}
+        </div>
+
+        <br/>
+        {{ form_widget(parts_form.forpurchase) }} {{ 'inventory.purchase'|trans }} 
+        <div id="{{ pts_dlg_pur_dtl_id }}" >
+            {{ 'inventory.lastcost'|trans }} {{ form_widget(parts_form.lastcost) }}
+            {{ 'inventory.purchaseDescription'|trans }} {{ form_widget(parts_form.purchaseDescription) }}
+        </div>
+        {{ form_widget( parts_form.submit ) }}
+        {{ form_rest(parts_form) }}
+    {{ form_end(parts_form) }}
+</div>

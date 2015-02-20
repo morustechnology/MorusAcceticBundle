@@ -1,0 +1,38 @@
+morus_accetic_contacts_list:
+    path:     /list/{ecc}
+    defaults: { _controller: "MorusAcceticBundle:Contacts:index", ecc: "All" }
+
+morus_accetic_contacts_show:
+    path:     /{id}/show
+    defaults: { _controller: "MorusAcceticBundle:Contacts:show" }
+
+morus_accetic_contacts_new:
+    path:     /new
+    defaults: { _controller: "MorusAcceticBundle:Contacts:new" }
+
+morus_accetic_contacts_new_supplier:
+    path:     /supplier/new
+    defaults: { _controller: "MorusAcceticBundle:Contacts:newSupplier" }
+    
+morus_accetic_contacts_new_employee:
+    path:     /employee/new
+    defaults: { _controller: "MorusAcceticBundle:Contacts:newEmployee" }
+    
+morus_accetic_contacts_create:
+    path:     /create
+    defaults: { _controller: "MorusAcceticBundle:Contacts:create" }
+    requirements: { _method: post }
+
+morus_accetic_contacts_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MorusAcceticBundle:Contacts:edit" }
+
+morus_accetic_contacts_update:
+    path:     /{id}/update
+    defaults: { _controller: "MorusAcceticBundle:Contacts:update" }
+    requirements: { _method: post|put }
+
+morus_accetic_contacts_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MorusAcceticBundle:Contacts:delete" }
+    requirements: { _method: post|delete }

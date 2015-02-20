@@ -1,0 +1,130 @@
+{% extends '::base.html.twig' %}
+
+{% set pts_del_lk_id = 'acc_pts_del_lk' %}
+{% set pts_dlg_lk_id = 'acc_pts_dlg_lk' %}
+{% set pts_dlg_title = 'inventory.new_inventory_item'|trans %}
+
+{% block stylesheets %}
+    {% stylesheets '@MorusAcceticBundle/Resources/public/css/jquery-ui.min.css' filter='cssrewrite' %}
+        <link type="text/css" rel="stylesheet" media="screen" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts 
+        '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js'
+        '@MorusAcceticBundle/Resources/public/js/jquery-ui.min.js'
+        '@MorusAcceticBundle/Resources/public/js/jquery.inputmask.js'
+        '@MorusAcceticBundle/Resources/public/js/jquery.inputmask.numeric.extensions.js'
+    %}
+        <script type="text/ecmascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
+    <script type='text/javascript'>
+        jQuery(document).ready(function() {
+            // Parts List Script
+            // =====================================================================
+            
+            // Check All input box action
+            $('#check_all').change(function() {
+                if (this.checked) {
+                    $("input[id^='accetic_parts_list_id']").prop('checked', true);
+                } else {
+                    $("input[id^='accetic_parts_list_id']").prop('checked', false);
+                }
+            });
+            
+            // Replace Form Submit button
+            $('#{{ pts_del_lk_id }}').on('click', function(event){
+                event.preventDefault();
+                $('#{{ parts_list_form.vars.attr.id }}').find(':submit').click(); 
+            });
+        
+            // Delete Action
+            $('#{{ parts_list_form.vars.attr.id }}').submit(function(event) {
+                event.preventDefault();
+                postDeleteForm( $(this), function( response ) {
+                    if (response.success) {
+                        location.reload();
+                    }
+                });
+                
+                return false;
+            });
+            
+            // Post Form and get result
+            function postDeleteForm( $form, callback ){
+                /*
+                 * Get all form values
+                 */
+                var values = {};
+                $("input[name^=accetic_parts_list]", $form).each( function(index) {
+                    if ( this.checked ) {
+                        values[this.id] = this.value;
+                    }
+                });
+        
+                /*
+                 * Throw the form values to the server!
+                 */
+                $.ajax({
+                    type        : $form.attr( 'method' ),
+                    url         : $form.attr( 'action' ),
+                    data        : values,
+                    success     : function(response) {
+                        callback( jQuery.parseJSON(response) );
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock javascripts %}
+
+{% block body_title -%}
+    {{ 'inventory.inventory_items'|trans }}
+{% endblock %}
+
+{% block body -%}
+    <a id="{{ pts_dlg_lk_id }}" class="loading-btn" />{{ 'btn.add_new_item'|trans }}</a>
+    <a id="{{ pts_del_lk_id }}" class="loading-btn" />{{ 'btn.delete'|trans }}</a>
+    <br/><br/>
+    <div id="accetic_inventory_list">
+        {{ form_start(parts_list_form) }}
+            {{ form_errors(parts_list_form) }}
+            
+            {{ form_widget(parts_list_form.delete_parts) }}
+            <table>
+                <tr>
+                {# sorting of properties based on query components #}
+                    <th><input id="check_all" type="checkbox"/></th>
+                    <th>{{ 'inventory.itemcode'|trans }}</th>
+                    <th>{{ 'inventory.itemname'|trans }}</th>
+                    <th>{{ 'inventory.lastcost'|trans }}</th>
+                    <th>{{ 'inventory.listprice'|trans }}</th>
+
+                </tr>
+
+                {# table body #}
+                {% for p in parts %}
+                <tr>
+                    <td>{{ form_widget(parts_list_form.id[p.id], { 'attr' : { 'name' : p.id  }}) }}</td>
+                    <td><a href="{{ path('morus_accetic_inventory_show', { 'id': p.id }) }}">{{ p.itemcode }}</a></td>
+                    <td>{{ p.itemname }}</td>
+                    <td>{{ p.lastcost|number_format(2, '.', ',') }}</td>
+                    <td>{{ p.listprice|number_format(2, '.', ',') }}</td>
+
+                </tr>
+                {% endfor %}
+            </table>
+            {{ form_rest(parts_list_form) }}
+        {{ form_end(parts_list_form) }}
+    </div>
+    
+    {# New Parts Dialog #}
+    {{ include('MorusAcceticBundle:Inventory:parts.dialog.html.twig', {  
+        'pts_dlg_title' : pts_dlg_title,
+        'pts_dlg_lk_id' : pts_dlg_lk_id,
+        'parts_form' : parts_new_form
+    }) }}
+    
+{% endblock %}

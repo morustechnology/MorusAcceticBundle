@@ -1,0 +1,407 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 14, 2015, 4:16:07 PM
+    Author     : luklwy
+*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+    margin: 0;
+    font-size: 13px;
+    line-height: 18px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5,h6{
+    margin: 0 0 10px 0;
+}
+
+h1{
+    font-size: 24px;
+    color: #515151;
+} 
+
+h2{
+    font-size: 21px;
+} 
+
+h3{
+    font-size: 18px;
+} 
+
+h4{
+    font-size: 16px;
+} 
+
+h5{
+    font-size: 14px;
+} 
+
+h6{
+    font-size: 12px;
+} 
+
+table{
+    border-collapse: collapse;
+    clear: both;
+    font-size: 12px;
+}
+
+table th.left, table td.left{
+    text-align: left;
+}
+
+table th.right, table td.right{
+    text-align: right;
+}
+
+thead tr{
+    border-bottom: 1px solid #000;
+}
+
+ul,ol{
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color: #048fc2;
+}
+
+a:hover{
+    color: #005e7b;
+}
+
+#header{
+    display: inline-block;
+    background: #048abb;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    width: 100%;
+}
+
+#main-container{
+    width: 100%;
+    position: relative;
+    float: left;
+}
+
+.container{
+    padding: 0 15px;
+    width: 940px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.top-container{
+    padding: 20px 0;
+}
+
+.top-container h1{
+    margin-bottom: 0;
+    line-height: 24px;
+}
+
+.fullwidth-space{
+    clear: both;
+    display: block;
+    height: 20px;
+}
+
+/*Main-Nav Header Menu*/
+.main-nav ul{
+    float: left;
+    padding: 0;
+}
+.main-nav ul li{
+    float: left;
+    list-style: none;
+    padding: 0 5px;
+}
+.main-nav ul li a{
+    color: #fff;
+}
+.main-nav ul li a:hover{
+    color: #264b63;
+}
+
+/*Page Layout*/
+.page-title{
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(50%, rgba(246,246,246,1)), color-stop(100%, rgba(246,246,246,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );
+}
+.page-content{
+    float: none;
+    width: auto;
+}
+.page-content:after{
+    clear: both;
+    content: "";
+    display: block;
+    float: none;
+    height: 0;
+    visibility: hidden;
+}
+
+/*Page Control (button)*/
+.page-control{
+    float: left;
+    width: 100%;
+}
+.page-control li{
+    float: left;
+    margin-right: 5px;
+    list-style: none;
+}
+.loading-btn{
+    float: left;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 3px 10px;
+    color: #048fc2;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(50%, rgba(246,246,246,1)), color-stop(100%, rgba(246,246,246,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 50%, rgba(246,246,246,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );
+}
+em.add{
+    width: 13px;
+    height: 13px;
+    overflow: hidden;
+    margin-top: 3px;
+    margin-right: 5px;
+    float: left;
+}
+.simple-btn{
+    float: left;
+    border: 1px solid #048fc2;
+    border-radius: 3px;
+    padding: 3px 5px;
+    color: #f2f6ff;
+    background: #048fc2;
+    font-size: 12px;
+}
+.blue-btn{
+    border: 1px solid;
+    border-color: #4eaacf #027ca7 #027ca7 #4eaacf;
+    border-radius: 3px;
+    padding: 4px 15px;
+    color: #f2f6ff;
+    background: #35b2dc;
+    font-size: 11px;
+}
+.blue-btn:hover{
+    background: #1dc1ed;
+    color: #fff;
+}
+.green-btn{
+    border: 1px solid;
+    border-color: #2aa82a #1c8e1c #1c8e1c #2aa82a;
+    border-radius: 3px;
+    padding: 4px 15px;
+    color: #f2f6ff;
+    background: #25a52b;
+    font-size: 11px;
+    cursor: pointer;
+}
+.green-btn:hover{
+    background: #3fba3f;
+    color: #fff;
+}
+
+/*Contact List (Table)*/
+#contact-list{
+    width: 940px;
+}
+#contact-list a{
+    color: #048fc2;
+}
+#contact-list a:hover{
+    color: #005e7b;
+    text-decoration: underline;
+}
+table.contact thead th{
+    background: #f2f6ff;
+    border-bottom: 1px solid #b7c0c7;
+    white-space: nowrap;
+    font-weight: normal;
+    color: #048fc2;
+}
+table.contact tr td{
+    border-bottom: 1px solid #ddd;
+}
+table.contact tr th, table.contact tr td{
+    height: 30px;
+    padding: 0 5px;
+    vertical-align: middle;
+}
+table.contact tr:hover{
+    background: #e8f1ff;
+}
+
+/*Contact Show (Div Box)*/
+#contact-box{
+    float: left;
+    width: 450px;
+    border: 1px solid #ccc;
+}
+#contact-box .view span{
+    margin-right: 5px;
+    float: left;
+}
+#contact-box .view a{
+    float: right;
+    cursor: pointer;
+}
+#contact-person{
+    float: left;
+    width: 430px;
+    padding: 10px 10px;
+    margin: 0;
+}
+#contact-detail{
+    float: left;
+    width: 430px;
+    padding: 10px;
+}
+#contact-detail .field{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    padding: 8px 0;
+    clear: both;
+}
+#contact-detail .field label{
+    float: left;
+    color: #666;
+    width: 150px;
+    text-align: left;
+    font-size: 11px;
+}
+#contact-subdeatil{
+    float: left;
+    width: 100%;
+    background: #f2f2f2;
+    border-top: 1px solid #ccc;
+    height: 20px;
+    margin: 0;
+}
+
+/*Contact New (Div Box)*/
+#contact-new{
+    width: 940px;
+    border: 1px solid #ccc;
+}
+#contact-new .field{
+    float: left;
+    width: 100%;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+#contact-new .inline{
+    float: left;
+    width: auto;
+}
+.section-header{
+    border-bottom: 1px solid #c1c1c1;
+    padding: 10px;
+}
+.section-header h3{
+    margin-bottom: 0;
+}
+.section-form{
+    background: #e8f1ff;
+    padding: 10px;
+    width: 920px;
+}
+.section-form fieldset{
+    border: 0;
+    border-bottom: 1px solid #bfd3f2;
+    margin: 0;
+    padding: 0 0 20px 0;
+}
+
+.section-form fieldset label{
+    float: left;
+    width: 100%;
+    font-size: 11px;
+}
+.section-form h4{
+    border-bottom-width: 0;
+    border-top: 1px solid #fff;
+    padding-top: 15px;
+}
+.section-form h4.first{
+    border-bottom-width: 0;
+    border-top: 0;
+    padding-top: 15px;
+}
+
+/*Input Width ()*/
+input{
+    border: 1px solid #7f9db9;
+    clear: both;
+    height: 17px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.long input{
+    width: 219px;
+}
+
+/*Column Style*/
+.column{
+    float: left;
+    width: 100%;
+    clear: both;
+    margin-bottom: 10px;
+}
+.col-1-3{
+    float: left;
+    width: 278px;
+    padding-right: 43px; 
+}
+.col-1-3.last{
+    padding-right: 0; 
+}
+
+/*Three Column Form (label+input)*/
+.col-1-3 fieldset{
+    border: 0;
+}
+.col-1-3 fieldset label{
+    width: 90px;
+    padding: 2px 5px 0 0;
+    text-align: right;
+    line-height: 13px;
+}
+.col-1-3 fieldset input, .col-1-3 fieldset textarea, .col-1-3 fieldset select{
+    width: 183px;
+}
+.col-1-3 fieldset textarea{
+    height: 85px;
+    resize:vertical;
+}
+
+/*Three Column Form (numbers)*/
+#numbers label{
+    line-height: 18px;
+    margin-bottom: 0;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}

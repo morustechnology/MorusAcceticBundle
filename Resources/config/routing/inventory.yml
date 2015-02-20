@@ -1,0 +1,24 @@
+morus_accetic_inventory:
+    path:     /
+    defaults: { _controller: "MorusAcceticBundle:Inventory:index" }
+
+morus_accetic_inventory_show:
+    path:     /{id}/show
+    defaults: { _controller: "MorusAcceticBundle:Inventory:show" }
+    
+morus_accetic_inventory_new_ajax:
+    path:     /newAjax
+    defaults: { _controller: "MorusAcceticBundle:Inventory:newAjax" }
+
+morus_accetic_inventory_edit_ajax:
+    path:     /editAjax
+    defaults: { _controller: "MorusAcceticBundle:Inventory:editAjax" }
+
+morus_accetic_inventory_delete_ajax:
+    path:     /deleteAjax
+    defaults: { _controller: "MorusAcceticBundle:Inventory:deleteAjax" }
+
+morus_accetic_inventory_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MorusAcceticBundle:Inventory:delete" }
+    requirements: { _method: post|delete }
