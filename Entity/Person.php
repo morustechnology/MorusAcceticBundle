@@ -75,7 +75,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     private $contacts;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      */
     private $unit;
 
@@ -356,10 +356,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      * @return Person
      */
-    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -369,9 +369,9 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -389,10 +389,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Person
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -402,7 +402,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {

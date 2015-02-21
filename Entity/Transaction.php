@@ -5,9 +5,9 @@ namespace Morus\AcceticBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LocationClass
+ * Transaction
  */
-class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
+class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
 {
     /**
      * @var integer
@@ -17,17 +17,17 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     /**
      * @var string
      */
-    private $controlCode;
+    private $tableName;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $class;
+    private $approved;
 
     /**
-     * @var string
+     * @var \DateTime
      */
-    private $description;
+    private $approvedAt;
 
     /**
      * @var integer
@@ -55,19 +55,31 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     private $inactiveDate;
 
     /**
+     * @var \Morus\AcceticBundle\Entity\Ar
+     */
+    private $ar;
+
+    /**
+     * @var \Morus\AcceticBundle\Entity\Ap
+     */
+    private $ap;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $locations;
+    private $invoices;
+
+    /**
+     * @var \Morus\AcceticBundle\Entity\Unit
+     */
+    private $unit;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->locations = new \Doctrine\Common\Collections\ArrayCollection();
-        
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -81,79 +93,79 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     }
 
     /**
-     * Set controlCode
+     * Set tableName
      *
-     * @param string $controlCode
-     * @return LocationClass
+     * @param string $tableName
+     * @return Transaction
      */
-    public function setControlCode($controlCode)
+    public function setTableName($tableName)
     {
-        $this->controlCode = $controlCode;
+        $this->tableName = $tableName;
 
         return $this;
     }
 
     /**
-     * Get controlCode
+     * Get tableName
      *
      * @return string 
      */
-    public function getControlCode()
+    public function getTableName()
     {
-        return $this->controlCode;
+        return $this->tableName;
     }
 
     /**
-     * Set class
+     * Set approved
      *
-     * @param string $class
-     * @return LocationClass
+     * @param boolean $approved
+     * @return Transaction
      */
-    public function setClass($class)
+    public function setApproved($approved)
     {
-        $this->class = $class;
+        $this->approved = $approved;
 
         return $this;
     }
 
     /**
-     * Get class
+     * Get approved
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getClass()
+    public function getApproved()
     {
-        return $this->class;
+        return $this->approved;
     }
 
     /**
-     * Set description
+     * Set approvedAt
      *
-     * @param string $description
-     * @return LocationClass
+     * @param \DateTime $approvedAt
+     * @return Transaction
      */
-    public function setDescription($description)
+    public function setApprovedAt($approvedAt)
     {
-        $this->description = $description;
+        $this->approvedAt = $approvedAt;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get approvedAt
      *
-     * @return string 
+     * @return \DateTime 
      */
-    public function getDescription()
+    public function getApprovedAt()
     {
-        return $this->description;
+        return $this->approvedAt;
     }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
-     * @return LocationClass
+     * @return Transaction
      */
     public function setSortOrder($sortOrder)
     {
@@ -176,7 +188,7 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
      * Set active
      *
      * @param boolean $active
-     * @return LocationClass
+     * @return Transaction
      */
     public function setActive($active)
     {
@@ -199,7 +211,7 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return LocationClass
+     * @return Transaction
      */
     public function setCreateDate($createDate)
     {
@@ -222,7 +234,7 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
      * Set lastModifiedDate
      *
      * @param \DateTime $lastModifiedDate
-     * @return LocationClass
+     * @return Transaction
      */
     public function setLastModifiedDate($lastModifiedDate)
     {
@@ -245,7 +257,7 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
      * Set inactiveDate
      *
      * @param \DateTime $inactiveDate
-     * @return LocationClass
+     * @return Transaction
      */
     public function setInactiveDate($inactiveDate)
     {
@@ -265,37 +277,107 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     }
 
     /**
-     * Add locations
+     * Set ar
      *
-     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
-     * @return LocationClass
+     * @param \Morus\AcceticBundle\Model\ArInterface $ar
+     * @return Transaction
      */
-    public function addLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
+    public function setAr(\Morus\AcceticBundle\Model\ArInterface $ar = null)
     {
-        $this->locations[] = $locations;
+        $this->ar = $ar;
 
         return $this;
     }
 
     /**
-     * Remove locations
+     * Get ar
      *
-     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
+     * @return \Morus\AcceticBundle\Model\ArInterface 
      */
-    public function removeLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
+    public function getAr()
     {
-        $this->locations->removeElement($locations);
+        return $this->ar;
     }
 
     /**
-     * Get locations
+     * Set ap
+     *
+     * @param \Morus\AcceticBundle\Model\ApInterface $ap
+     * @return Transaction
+     */
+    public function setAp(\Morus\AcceticBundle\Model\ApInterface $ap = null)
+    {
+        $this->ap = $ap;
+
+        return $this;
+    }
+
+    /**
+     * Get ap
+     *
+     * @return \Morus\AcceticBundle\Model\ApInterface 
+     */
+    public function getAp()
+    {
+        return $this->ap;
+    }
+
+    /**
+     * Add invoices
+     *
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
+     * @return Transaction
+     */
+    public function addInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
+    {
+        $this->invoices[] = $invoices;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoices
+     *
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
+     */
+    public function removeInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
+    {
+        $this->invoices->removeElement($invoices);
+    }
+
+    /**
+     * Get invoices
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getLocations()
+    public function getInvoices()
     {
-        return $this->locations;
+        return $this->invoices;
     }
+
+    /**
+     * Set unit
+     *
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
+     * @return Transaction
+     */
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+    
     /**
      * @ORM\PrePersist
      */

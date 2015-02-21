@@ -74,7 +74,22 @@ Morus\AcceticBundle\Entity\Unit:
             targetEntity: Location
             mappedBy: unit
             orphanRemoval: true
-            cascade: ["persist"]   
+            cascade: ["persist"]
+        transactions:
+            targetEntity: Transaction
+            mappedBy: unit
+            orphanRemoval: true
+            cascade: ["persist"]
+        ars:
+            targetEntity: Ar
+            mappedBy: unit
+            orphanRemoval: true
+            cascade: ["persist"]
+        aps:
+            targetEntity: Ap
+            mappedBy: unit
+            orphanRemoval: true
+            cascade: ["persist"]
     manyToMany:
         unitClasses:
             targetEntity: UnitClass

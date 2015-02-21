@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UnitType extends AbstractType
+class InvoiceType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,21 +15,21 @@ class UnitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
-            ->add('persons', 'collection', array(
-                'type' => 'accetic_person',
-                'allow_add'    => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
+            ->add('parts', 'entity', array(
+                'class' => 'MorusAcceticBundle:Parts',
+                'property' => 'itemcode'
             ))
-            ->add('locations', 'collection', array(
-                'type' => 'accetic_location'
+            ->add('description', 'text')
+            ->add('qty', 'number', array(
+                'precision' => 2,
             ))
-            ->add('contacts', 'collection', array(
-                'type' => 'accetic_contact'
-            ));
-        
+            ->add('sellprice', 'number', array(
+                'precision' => 2
+            ))
+            ->add('discount', 'number', array(
+                'precision' => 2
+            ))
+        ;
     }
     
     /**
@@ -38,7 +38,7 @@ class UnitType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Morus\AcceticBundle\Entity\Unit'
+            'data_class' => 'Morus\AcceticBundle\Entity\Invoice'
         ));
     }
 
@@ -47,6 +47,6 @@ class UnitType extends AbstractType
      */
     public function getName()
     {
-        return 'accetic_unit';
+        return 'accetic_invoice';
     }
 }

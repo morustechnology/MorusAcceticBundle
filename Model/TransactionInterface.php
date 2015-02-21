@@ -2,10 +2,12 @@
 
 namespace Morus\AcceticBundle\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Person
+ * Transaction
  */
-interface PersonInterface
+interface TransactionInterface
 {
     /**
      * Get id
@@ -15,100 +17,55 @@ interface PersonInterface
     public function getId();
 
     /**
-     * Set isPrimary
+     * Set tableName
      *
-     * @param boolean $isPrimary
-     * @return PersonInterface
+     * @param string $tableName
+     * @return TransactionInterface
      */
-    public function setIsPrimary($isPrimary);
+    public function setTableName($tableName);
 
     /**
-     * Get isPrimary
+     * Get tableName
+     *
+     * @return string 
+     */
+    public function getTableName();
+
+    /**
+     * Set approved
+     *
+     * @param boolean $approved
+     * @return TransactionInterface
+     */
+    public function setApproved($approved);
+
+    /**
+     * Get approved
      *
      * @return boolean 
      */
-    public function getIsPrimary();
+    public function getApproved();
 
     /**
-     * Set firstName
+     * Set approvedAt
      *
-     * @param string $firstName
-     * @return PersonInterface
+     * @param \DateTime $approvedAt
+     * @return TransactionInterface
      */
-    public function setFirstName($firstName);
+    public function setApprovedAt($approvedAt);
 
     /**
-     * Get firstName
-     *
-     * @return string 
-     */
-    public function getFirstName();
-
-    /**
-     * Set middleName
-     *
-     * @param string $middleName
-     * @return PersonInterface
-     */
-    public function setMiddleName($middleName);
-
-    /**
-     * Get middleName
-     *
-     * @return string 
-     */
-    public function getMiddleName();
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return PersonInterface
-     */
-    public function setLastName($lastName);
-
-    /**
-     * Get lastName
-     *
-     * @return string 
-     */
-    public function getLastName();
-
-    /**
-     * Set birthdate
-     *
-     * @param \DateTime $birthdate
-     * @return PersonInterface
-     */
-    public function setBirthdate($birthdate);
-
-    /**
-     * Get birthdate
+     * Get approvedAt
      *
      * @return \DateTime 
      */
-    public function getBirthdate();
-
-    /**
-     * Set personalId
-     *
-     * @param string $personalId
-     * @return PersonInterface
-     */
-    public function setPersonalId($personalId);
-
-    /**
-     * Get personalId
-     *
-     * @return string 
-     */
-    public function getPersonalId();
+    public function getApprovedAt();
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
-     * @return PersonInterface
+     * @return TransactionInterface
      */
     public function setSortOrder($sortOrder);
 
@@ -123,7 +80,7 @@ interface PersonInterface
      * Set active
      *
      * @param boolean $active
-     * @return PersonInterface
+     * @return TransactionInterface
      */
     public function setActive($active);
 
@@ -138,7 +95,7 @@ interface PersonInterface
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return PersonInterface
+     * @return TransactionInterface
      */
     public function setCreateDate($createDate);
 
@@ -153,7 +110,7 @@ interface PersonInterface
      * Set lastModifiedDate
      *
      * @param \DateTime $lastModifiedDate
-     * @return PersonInterface
+     * @return TransactionInterface
      */
     public function setLastModifiedDate($lastModifiedDate);
 
@@ -168,7 +125,7 @@ interface PersonInterface
      * Set inactiveDate
      *
      * @param \DateTime $inactiveDate
-     * @return PersonInterface
+     * @return TransactionInterface
      */
     public function setInactiveDate($inactiveDate);
 
@@ -180,32 +137,62 @@ interface PersonInterface
     public function getInactiveDate();
 
     /**
-     * Add contacts
+     * Set ar
      *
-     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
-     * @return PersonInterface
+     * @param \Morus\AcceticBundle\Model\ArInterface $ar
+     * @return TransactionInterface
      */
-    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts);
+    public function setAr(\Morus\AcceticBundle\Model\ArInterface $ar = null);
 
     /**
-     * Remove contacts
+     * Get ar
      *
-     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
+     * @return \Morus\AcceticBundle\Model\ArInterface 
      */
-    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts);
+    public function getAr();
 
     /**
-     * Get contacts
+     * Set ap
+     *
+     * @param \Morus\AcceticBundle\Model\ApInterface $ap
+     * @return TransactionInterface
+     */
+    public function setAp(\Morus\AcceticBundle\Model\ApInterface $ap = null);
+
+    /**
+     * Get ap
+     *
+     * @return \Morus\AcceticBundle\Model\ApInterface 
+     */
+    public function getAp();
+
+    /**
+     * Add invoices
+     *
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
+     * @return TransactionInterface
+     */
+    public function addInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices);
+
+    /**
+     * Remove invoices
+     *
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
+     */
+    public function removeInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices);
+    
+    /**
+     * Get invoices
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getContacts();
+    public function getInvoices();
 
     /**
      * Set unit
      *
      * @param \Morus\AcceticBundle\Model\UnitInterface $unit
-     * @return PersonInterface
+     * @return TransactionInterface
      */
     public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null);
 

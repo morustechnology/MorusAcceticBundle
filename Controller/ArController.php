@@ -26,7 +26,7 @@ class ArController extends Controller
 
         $entities = $em->getRepository('MorusAcceticBundle:Ar')->findAll();
 
-        return $this->render('MorusAcceticBundle:Transaction:Ar/index.html.twig', array(
+        return $this->render('MorusAcceticBundle:Ar:index.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -50,7 +50,7 @@ class ArController extends Controller
             return $this->redirect($this->generateUrl('morus_accetic_ar_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('MorusAcceticBundle:Transaction:Ar/new.html.twig', array(
+        return $this->render('MorusAcceticBundle:Ar:new.html.twig', array(
             'entity' => $entity,
             
             'form'   => $form->createView(),
@@ -112,7 +112,7 @@ class ArController extends Controller
         
         
         $form   = $this->createCreateArForm($transaction);
-        return $this->render('MorusAcceticBundle:Transaction:Ar/new.html.twig', array(
+        return $this->render('MorusAcceticBundle:Ar:new.html.twig', array(
             'transaction' => $transaction,
             'form'   => $form->createView(),
         ));
@@ -134,7 +134,7 @@ class ArController extends Controller
 
         $deleteForm = $this->createDeleteArForm($id);
 
-        return $this->render('MorusAcceticBundle:Transaction:Ar/show.html.twig', array(
+        return $this->render('MorusAcceticBundle:Ar:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -157,7 +157,7 @@ class ArController extends Controller
         $editForm = $this->createEditArForm($entity);
         $deleteForm = $this->createDeleteArForm($id);
 
-        return $this->render('MorusAcceticBundle:Transaction:Ar/edit.html.twig', array(
+        return $this->render('MorusAcceticBundle:Ar:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -206,7 +206,7 @@ class ArController extends Controller
             return $this->redirect($this->generateUrl('morus_accetic_ar_edit', array('id' => $id)));
         }
 
-        return $this->render('MorusAcceticBundle:Transaction:Ar/edit.html.twig', array(
+        return $this->render('MorusAcceticBundle:Ar:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

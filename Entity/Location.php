@@ -85,12 +85,12 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      */
     private $unit;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\LocationClass
+     * @var \Morus\AcceticBundle\Model\LocationClassInterface
      */
     private $locationClass;
 
@@ -440,10 +440,10 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Location
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -453,7 +453,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {
@@ -463,10 +463,10 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Set locationClass
      *
-     * @param \Morus\AcceticBundle\Entity\LocationClass $locationClass
+     * @param \Morus\AcceticBundle\Model\LocationClassInterface $locationClass
      * @return Location
      */
-    public function setLocationClass(\Morus\AcceticBundle\Entity\LocationClass $locationClass = null)
+    public function setLocationClass(\Morus\AcceticBundle\Model\LocationClassInterface $locationClass = null)
     {
         $this->locationClass = $locationClass;
 
@@ -476,7 +476,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Get locationClass
      *
-     * @return \Morus\AcceticBundle\Entity\LocationClass 
+     * @return \Morus\AcceticBundle\Model\LocationClassInterface
      */
     public function getLocationClass()
     {

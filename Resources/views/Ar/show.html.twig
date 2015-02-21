@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block body_title -%}
+    Transaction
+{% endblock %}
+
+{% block body -%}
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Tablename</th>
+                <td>{{ entity.tableName }}</td>
+            </tr>
+            <tr>
+                <th>Approved</th>
+                <td>{{ entity.approved }}</td>
+            </tr>
+            <tr>
+                <th>Approvedat</th>
+                <td>{{ entity.approvedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Sortorder</th>
+                <td>{{ entity.sortOrder }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ entity.active }}</td>
+            </tr>
+            <tr>
+                <th>Createdate</th>
+                <td>{{ entity.createDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Lastmodifieddate</th>
+                <td>{{ entity.lastModifiedDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Inactivedate</th>
+                <td>{{ entity.inactiveDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('morus_accetic_ar') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('morus_accetic_ar_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -267,10 +267,10 @@ class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      * @return ContactClass
      */
-    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -280,9 +280,9 @@ class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts->removeElement($contacts);
     }

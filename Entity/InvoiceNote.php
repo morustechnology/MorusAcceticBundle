@@ -5,9 +5,9 @@ namespace Morus\AcceticBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Contact
+ * InvoiceNote
  */
-class Contact implements \Morus\AcceticBundle\Model\ContactInterface
+class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
 {
     /**
      * @var integer
@@ -15,9 +15,19 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     private $id;
 
     /**
+     * @var integer
+     */
+    private $noteClass;
+
+    /**
      * @var string
      */
-    private $description;
+    private $note;
+
+    /**
+     * @var string
+     */
+    private $subject;
 
     /**
      * @var integer
@@ -45,29 +55,11 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
+     * @var \Morus\AcceticBundle\Model\InvoiceInterface
      */
-    private $unit;
+    private $invoice;
 
-    /**
-     * @var \Morus\AcceticBundle\Model\PersonInterface
-     */
-    private $person;
 
-    /**
-     * @var \Morus\AcceticBundle\Model\ContactClassInterface
-     */
-    private $contactClass;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
-    }
-    
     /**
      * Get id
      *
@@ -79,33 +71,79 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     }
 
     /**
-     * Set description
+     * Set noteClass
      *
-     * @param string $description
-     * @return Contact
+     * @param integer $noteClass
+     * @return InvoiceNote
      */
-    public function setDescription($description)
+    public function setNoteClass($noteClass)
     {
-        $this->description = $description;
+        $this->noteClass = $noteClass;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get noteClass
+     *
+     * @return integer 
+     */
+    public function getNoteClass()
+    {
+        return $this->noteClass;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return InvoiceNote
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
      *
      * @return string 
      */
-    public function getDescription()
+    public function getNote()
     {
-        return $this->description;
+        return $this->note;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return InvoiceNote
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
-     * @return Contact
+     * @return InvoiceNote
      */
     public function setSortOrder($sortOrder)
     {
@@ -128,7 +166,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set active
      *
      * @param boolean $active
-     * @return Contact
+     * @return InvoiceNote
      */
     public function setActive($active)
     {
@@ -151,7 +189,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return Contact
+     * @return InvoiceNote
      */
     public function setCreateDate($createDate)
     {
@@ -174,7 +212,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set lastModifiedDate
      *
      * @param \DateTime $lastModifiedDate
-     * @return Contact
+     * @return InvoiceNote
      */
     public function setLastModifiedDate($lastModifiedDate)
     {
@@ -197,7 +235,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set inactiveDate
      *
      * @param \DateTime $inactiveDate
-     * @return Contact
+     * @return InvoiceNote
      */
     public function setInactiveDate($inactiveDate)
     {
@@ -217,72 +255,26 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     }
 
     /**
-     * Set unit
+     * Set invoice
      *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
-     * @return Contact
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoice
+     * @return InvoiceNote
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function setInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoice = null)
     {
-        $this->unit = $unit;
+        $this->invoice = $invoice;
 
         return $this;
     }
 
     /**
-     * Get unit
+     * Get invoice
      *
-     * @return \Morus\AcceticBundle\Model\UnitInterface
+     * @return \Morus\AcceticBundle\Model\InvoiceInterface 
      */
-    public function getUnit()
+    public function getInvoice()
     {
-        return $this->unit;
-    }
-
-    /**
-     * Set person
-     *
-     * @param \Morus\AcceticBundle\Model\PersonInterface $person
-     * @return Contact
-     */
-    public function setPerson(\Morus\AcceticBundle\Model\PersonInterface $person = null)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return \Morus\AcceticBundle\Model\PersonInterface 
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * Set contactClass
-     *
-     * @param \Morus\AcceticBundle\Model\ContactClassInterface $contactClass
-     * @return Contact
-     */
-    public function setContactClass(\Morus\AcceticBundle\Model\ContactClassInterface $contactClass = null)
-    {
-        $this->contactClass = $contactClass;
-
-        return $this;
-    }
-
-    /**
-     * Get contactClass
-     *
-     * @return \Morus\AcceticBundle\Model\ContactClassInterface 
-     */
-    public function getContactClass()
-    {
-        return $this->contactClass;
+        return $this->invoice;
     }
     /**
      * @ORM\PrePersist

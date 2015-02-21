@@ -208,11 +208,11 @@ Morus\AcceticBundle\Entity\Parts:
             type: datetime
             nullable: true
             column: inactive_date
-#    oneToMany:
-#        invoices:
-#            targetEntity: Invoice
-#            mappedBy: parts
-#            orphanRemoval: true
+    oneToMany:
+        invoices:
+            targetEntity: Invoice
+            mappedBy: parts
+            orphanRemoval: true
 #    manyToOne:
 #        returnsAccno:
 #            targetEntity: Account

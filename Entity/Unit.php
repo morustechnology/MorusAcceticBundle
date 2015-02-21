@@ -70,6 +70,21 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     private $unitClasses;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $transactions;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $ars;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $aps;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -257,10 +272,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      * @return Unit
      */
-    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -270,9 +285,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -290,10 +305,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add persons
      *
-     * @param \Morus\AcceticBundle\Entity\Person $persons
+     * @param \Morus\AcceticBundle\Model\PersonInterface $persons
      * @return Unit
      */
-    public function addPerson(\Morus\AcceticBundle\Entity\Person $persons)
+    public function addPerson(\Morus\AcceticBundle\Model\PersonInterface $persons)
     {
         $this->persons[] = $persons;
 
@@ -303,9 +318,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove persons
      *
-     * @param \Morus\AcceticBundle\Entity\Person $persons
+     * @param \Morus\AcceticBundle\Model\PersonInterface $persons
      */
-    public function removePerson(\Morus\AcceticBundle\Entity\Person $persons)
+    public function removePerson(\Morus\AcceticBundle\Model\PersonInterface $persons)
     {
         $this->persons->removeElement($persons);
     }
@@ -323,10 +338,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add locations
      *
-     * @param \Morus\AcceticBundle\Entity\Location $locations
+     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
      * @return Unit
      */
-    public function addLocation(\Morus\AcceticBundle\Entity\Location $locations)
+    public function addLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
     {
         $this->locations[] = $locations;
 
@@ -336,9 +351,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove locations
      *
-     * @param \Morus\AcceticBundle\Entity\Location $locations
+     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
      */
-    public function removeLocation(\Morus\AcceticBundle\Entity\Location $locations)
+    public function removeLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
     {
         $this->locations->removeElement($locations);
     }
@@ -356,10 +371,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add unitClasses
      *
-     * @param \Morus\AcceticBundle\Entity\UnitClass $unitClasses
+     * @param \Morus\AcceticBundle\Model\UnitClassInterface $unitClasses
      * @return Unit
      */
-    public function addUnitClass(\Morus\AcceticBundle\Entity\UnitClass $unitClasses)
+    public function addUnitClass(\Morus\AcceticBundle\Model\UnitClassInterface $unitClasses)
     {
         $this->unitClasses[] = $unitClasses;
 
@@ -369,9 +384,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove unitClasses
      *
-     * @param \Morus\AcceticBundle\Entity\UnitClass $unitClasses
+     * @param \Morus\AcceticBundle\Model\UnitClassInterface $unitClasses
      */
-    public function removeUnitClass(\Morus\AcceticBundle\Entity\UnitClass $unitClasses)
+    public function removeUnitClass(\Morus\AcceticBundle\Model\UnitClassInterface $unitClasses)
     {
         $this->unitClasses->removeElement($unitClasses);
     }
@@ -385,6 +400,106 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     {
         return $this->unitClasses;
     }
+    
+    /**
+     * Add transactions
+     *
+     * @param \Morus\AcceticBundle\Entity\Transaction $transactions
+     * @return Unit
+     */
+    public function addTransaction(\Morus\AcceticBundle\Entity\Transaction $transactions)
+    {
+        $this->transactions[] = $transactions;
+
+        return $this;
+    }
+
+    /**
+     * Remove transactions
+     *
+     * @param \Morus\AcceticBundle\Entity\Transaction $transactions
+     */
+    public function removeTransaction(\Morus\AcceticBundle\Entity\Transaction $transactions)
+    {
+        $this->transactions->removeElement($transactions);
+    }
+
+    /**
+     * Get transactions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTransactions()
+    {
+        return $this->transactions;
+    }
+
+    /**
+     * Add ars
+     *
+     * @param \Morus\AcceticBundle\Entity\Ar $ars
+     * @return Unit
+     */
+    public function addAr(\Morus\AcceticBundle\Entity\Ar $ars)
+    {
+        $this->ars[] = $ars;
+
+        return $this;
+    }
+
+    /**
+     * Remove ars
+     *
+     * @param \Morus\AcceticBundle\Entity\Ar $ars
+     */
+    public function removeAr(\Morus\AcceticBundle\Entity\Ar $ars)
+    {
+        $this->ars->removeElement($ars);
+    }
+
+    /**
+     * Get ars
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArs()
+    {
+        return $this->ars;
+    }
+
+    /**
+     * Add aps
+     *
+     * @param \Morus\AcceticBundle\Entity\Ap $aps
+     * @return Unit
+     */
+    public function addAp(\Morus\AcceticBundle\Entity\Ap $aps)
+    {
+        $this->aps[] = $aps;
+
+        return $this;
+    }
+
+    /**
+     * Remove aps
+     *
+     * @param \Morus\AcceticBundle\Entity\Ap $aps
+     */
+    public function removeAp(\Morus\AcceticBundle\Entity\Ap $aps)
+    {
+        $this->aps->removeElement($aps);
+    }
+
+    /**
+     * Get aps
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAps()
+    {
+        return $this->aps;
+    }
+    
     /**
      * @ORM\PrePersist
      */

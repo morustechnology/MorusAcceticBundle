@@ -1,0 +1,254 @@
+Morus\AcceticBundle\Entity\Ar:
+    type: entity
+    table: accetic_ar
+    indexes:
+#        IDX_unit_credit_account_id:
+#            columns:
+#                - unit_credit_account_id
+#        IDX_person_id:
+#            columns:
+#                - person_id
+        IDX_unit_id:
+            columns:
+                - unit_id
+    uniqueConstraints:
+        ar_invnumber_key:
+            columns:
+                - invnumber
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        invnumber:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ' Text identifier for the invoice.  Must be unique.'
+        transdate:
+            type: date
+            nullable: true
+            comment: ''
+            default: now
+        taxincluded:
+            type: boolean
+            nullable: true
+            comment: ''
+        amount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: ' This stores the total amount (including taxes) for the transaction.'
+        netAmount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: ' Total amount excluding taxes for the transaction.'
+            colunn: net_amount
+        paid:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: ''
+        datepaid:
+            type: date
+            nullable: true
+            comment: ''
+        duedate:
+            type: date
+            nullable: true
+            comment: ''
+        invoice:
+            type: boolean
+            nullable: true
+            comment: " True if the transaction tracks goods/services purchase using the invoice\ntable.  False otherwise."
+            default: false
+        shippingpoint:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        terms:
+            type: smallint
+            nullable: true
+            unsigned: false
+            comment: ''
+            default: '0'
+        reference:
+            type: string
+            nullable: true
+            length: 200
+            fixed: false
+        notes:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: 'These notes are displayed on the invoice when printed or emailed'
+        curr:
+            type: string
+            nullable: true
+            length: null
+            fixed: true
+            comment: ' 3 letters to identify the currency.'
+        ordnumber:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ' Order Number'
+        till:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+        quonumber:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: 'Quotation Number'
+        intnotes:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: "These notes are not displayed when the invoice is printed or emailed and\nmay be updated without reposting hte invocie."
+        shipvia:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        languageCode:
+            type: string
+            nullable: true
+            length: 6
+            fixed: false
+            comment: ''
+            column: language_code
+        ponumber:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: 'Purchase Order Number'
+        onHold:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: false
+            column: on_hold
+        reverse:
+            type: boolean
+            nullable: true
+            comment: 'If true numbers are displayed after multiplying by -1'
+            default: false
+        approved:
+            type: boolean
+            nullable: true
+            comment: 'Only show in financial reports if true.'
+            default: true
+        forceClosed:
+            type: boolean
+            nullable: true
+            comment: " Not exposed to the UI, but can be set to prevent an invoice from showing up\nfor payment or in outstanding reports."
+            column: force_closed
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        isReturn:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: false
+            column: is_return
+        crdate:
+            type: date
+            nullable: true
+            comment: ''
+        printed:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: false
+        emailed:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: false
+        sortOrder:
+            type: integer
+            nullable: true
+            column: sort_order
+            options:
+                unsigned: true
+                default: 0
+        active:
+            type: boolean
+            options:
+                default: 1
+        createDate:
+            type: datetime
+            column: create_date
+        lastModifiedDate:
+            type: datetime
+            nullable: true
+            column: last_modified_date
+        inactiveDate:
+            type: datetime
+            nullable: true
+            column: inactive_date
+    manyToOne:
+        unit:
+            targetEntity: Unit
+            cascade: ["persist"]
+            mappedBy: ars
+            joinColumns:
+                unit_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+#        unitCreditAccount:
+#            targetEntity: UnitCreditAccount
+#            cascade: ["persist"]
+#            mappedBy: null
+#            inversedBy: null
+#            joinColumns:
+#                unit_credit_account_id:
+#                    referencedColumnName: id
+#            orphanRemoval: false
+#        person:
+#            targetEntity: UnitEmployee
+#            cascade: ["persist"]
+#            inversedBy: ars
+#            joinColumns:
+#                person_id:
+#                    referencedColumnName: unit_id
+#            orphanRemoval: false
+        
+    oneToOne:
+        transaction:
+            targetEntity: Transaction
+            cascade: ["persist"]
+            inversedBy: ar
+            joinColumns:
+                transaction_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks:
+        prePersist: [ onPrePersist ]
+        postPersist: [ onPostPersist ]

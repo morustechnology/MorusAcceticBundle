@@ -168,7 +168,12 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * @var \DateTime
      */
     private $inactiveDate;
-
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $invoices;
+    
     /**
      * Constructor
      */
@@ -900,6 +905,40 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     {
         return $this->inactiveDate;
     }
+    
+    /**
+     * Add invoices
+     *
+     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
+     * @return Parts
+     */
+    public function addInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
+    {
+        $this->invoices[] = $invoices;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoices
+     *
+     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
+     */
+    public function removeInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
+    {
+        $this->invoices->removeElement($invoices);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
+    }
+    
     /**
      * @ORM\PrePersist
      */

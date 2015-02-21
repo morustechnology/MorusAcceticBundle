@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body_title -%}
+    Transaction list
+{% endblock %}
+
+{% block body -%}
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>{{ ('ar.number' |trans)}}</th>
+                <th>{{ ('ar.reference' |trans)}}</th>
+                <th>{{ ('ar.to' |trans)}}</th>
+                <th>{{ ('ar.date' |trans)}}</th>
+                <th>{{ ('ar.due_date' |trans)}}</th>
+                <th>{{ ('ar.paid' |trans)}}</th>
+                <th>{{ ('ar.due' |trans)}}</th>
+                <th>{{ ('ar.status' |trans)}}</th>
+                <th>{{ ('ar.sent' |trans)}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('morus_accetic_ar_show', { 'id': entity.id }) }}">{{ entity.invnumber }}</a></td>
+                <td>{{ entity.unit.name }}</td>
+                <td>{% if entity.transdate %}{{ entity.transdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('morus_accetic_ar_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('morus_accetic_ar_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('morus_accetic_ar_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

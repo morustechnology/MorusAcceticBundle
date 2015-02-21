@@ -1,0 +1,187 @@
+{% form_theme form 'MorusAcceticBundle:Ar:layout.html.twig' %}
+
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {% javascripts '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type='text/javascript'> 
+        var $collectionHolder;
+
+        // setup an "add a invoice" link
+        var $addInvoiceLink = $('<a href="#" class="add_invoice_link">Add New Line</a>');
+        var $newLinkLi = $('<div></div>').append($addInvoiceLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of invoices
+            $collectionHolder = $('div.transaction-invoices');
+            
+            $collectionHolder.find('div').each(function() {
+                addInvoiceFormDeleteLink($(this));
+            });
+    
+            // add the "add a invoice" anchor and li to the invoices ul
+            $collectionHolder.append($newLinkLi);
+            
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addInvoiceLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new invoice form (see next code block)
+                addInvoiceForm($collectionHolder, $newLinkLi);
+            });
+            
+            //_____________________//
+            $('input[id$=_sellprice]').on('change', function(e) {
+                calAmount(this.id.replace('ar_transaction_invoices_', '').replace('_sellprice',''));
+            });
+            
+            $('input[id$=_qty]').on('change', function(e) {
+               calAmount(this.id.replace('ar_transaction_invoices_', '').replace('_qty',''));
+            });
+            
+            $('input[id$=_discount]').on('change', function(e) {
+                calAmount(this.id.replace('ar_transaction_invoices_', '').replace('_discount',''));
+            });
+            
+        });
+        
+        function calAmount(ctlIndex){
+
+            var sellprice = document.getElementById('ar_transaction_invoices_' + ctlIndex + '_sellprice').value;
+            var qty = document.getElementById('ar_transaction_invoices_' + ctlIndex + '_qty').value;
+            var discount = document.getElementById('ar_transaction_invoices_' + ctlIndex + '_discount').value;
+            
+            var amt = sellprice * qty * discount;
+            document.getElementById(ctlIndex + '_invoiceAmount').innerHTML = amt;
+            
+            //var containerDiv = $('div.transaction-invoices div');
+            //var newContainerDiv = $(containerDiv);
+            //var innerDivs = newContainerDiv.getElementsByTagName("DIV");
+            //alert(newContainerDiv.length);
+            
+            //for (i = 0; i < newContainerDiv.length; ++i) {
+                //e = newContainerDiv[i];
+                // var inputField = e.getElementById('input[id$=_discount]');
+                //alert(e.id);
+            //}
+            
+            var invAmtLabel = $('label[id$=_invoiceAmount]');
+            var total = 0;
+            for (i = 0; i < invAmtLabel.length; ++i) {
+                var invAmtHtml = invAmtLabel[i].innerHTML;
+                invAmtHtml = (invAmtHtml.trim) ? invAmtHtml.trim() : invAmtHtml.replace(/^\s+/,'');
+                if (invAmtHtml) {
+                    total += parseFloat(invAmtHtml);
+                }
+            }
+            document.getElementById('transaction-subtotal').innerHTML = total;
+
+        }
+       
+        function addInvoiceForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            //Convert data to jQuery Element
+            var newJForm = $( newForm );
+            addInvoiceFormDeleteLink(newJForm);
+
+            
+            // Display the form in the page in an li, before the "Add a invoice" link li
+            //var $newFormLi = $('<div></div>').append(newForm);
+            $newLinkLi.before(newJForm);
+
+        }
+        
+        function addInvoiceFormDeleteLink($invoiceFormLi) {
+            var $removeFormA = $('<a href="#">X</a>');
+            $invoiceFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the invoice form
+                $invoiceFormLi.remove();
+            });
+        }
+    </script>
+{% endblock javascripts %}
+
+{% block stylesheets %}
+
+{% endblock %}
+        
+{% block body_title -%}
+    {{ 'ar.new_invoice'|trans }}
+{% endblock %}
+
+{% block body -%}
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ 'ar.customer'|trans }} {{ form_widget(form.ar.unit) }} {{ form_errors(form.ar.unit) }}
+        {{ 'ar.invnumber'|trans }} {{ form_widget(form.ar.invnumber) }} {{ form_errors(form.ar.invnumber) }}
+        {{ 'ar.transdate'|trans }} {{ form_widget(form.ar.transdate) }} {{ form_errors(form.ar.transdate) }}
+        {{ 'ar.duedate'|trans }} {{ form_widget(form.ar.duedate) }} {{ form_errors(form.ar.duedate) }}
+        {{ 'ar.reference'|trans }} {{ form_widget(form.ar.reference) }} {{ form_errors(form.ar.reference) }}
+        <hr/>
+        <div class="transaction-invoices" data-prototype="{{ form_widget(form.invoices.vars.prototype)|e }}" >
+            <table>
+                <thead>
+                    <tr>
+                        {{ 'ar.invoice.part'|trans }}
+                    </tr>
+                    <tr>
+                        {{ 'ar.invoice.description'|trans }}
+                    </tr>
+                    <tr>
+                        {{ 'ar.invoice.qty'|trans }}
+                    </tr>
+                    <tr>
+                        {{ 'ar.invoice.sellprice'|trans }}
+                    </tr>
+                    <tr>
+                        {{ 'ar.invoice.discount'|trans }}
+                    </tr>
+                    <tr>
+                        {{ 'ar.invoice.amount'|trans }}
+                    </tr>
+                </thead>
+            </table>
+                    
+            {{ form_widget(form.invoices) }}
+        </div>
+            <div>{{ 'ar.subtotal'|trans }} <label id='transaction-subtotal'></label></div>
+        <div>{{ 'ar.total'|trans }} <label id='transaction-total'></label></div>
+        {{ form_widget(form.submit) }}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    
+</div>
+
+    
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('morus_accetic_ar') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
