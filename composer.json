@@ -2,7 +2,7 @@
     "name": "morustech/morus-accetic-bundle",
     "type" : "symfony-bundle",
     "description" : "Morus Accetic Bundle",
-    "keywords" : [ "Morus Accetic Bundle" ],
+    "keywords": [ "Morus Accetic Bundle" ],
     "homepage": "https://github.com/morustechnology/MorusAcceticBundle",
     "license" : [ "MIT" ],
     "authors" : [{
