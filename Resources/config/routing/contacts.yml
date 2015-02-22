@@ -1,6 +1,10 @@
+morus_accetic_contacts:
+    path:     /
+    defaults: { _controller: "MorusAcceticBundle:Contacts:index"}
+
 morus_accetic_contacts_list:
     path:     /list/{ecc}
-    defaults: { _controller: "MorusAcceticBundle:Contacts:index", ecc: "All" }
+    defaults: { _controller: "MorusAcceticBundle:Contacts:list", ecc: "All" }
 
 morus_accetic_contacts_show:
     path:     /{id}/show

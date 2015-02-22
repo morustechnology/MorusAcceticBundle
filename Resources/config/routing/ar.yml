@@ -4,29 +4,29 @@ morus_accetic_ar:
 
 morus_accetic_ar_show:
     path:     /{id}/show
-    defaults: { _controller: "MorusAcceticBundle:Ar:showAr" }
+    defaults: { _controller: "MorusAcceticBundle:Ar:show" }
 
 morus_accetic_ar_new:
     path:     /new
-    defaults: { _controller: "MorusAcceticBundle:Ar:newAr" }
+    defaults: { _controller: "MorusAcceticBundle:Ar:new" }
 
 morus_accetic_ar_create:
     path:     /create
-    defaults: { _controller: "MorusAcceticBundle:Ar:createAr" }
+    defaults: { _controller: "MorusAcceticBundle:Ar:create" }
     requirements: { _method: post }
 
 morus_accetic_ar_edit:
     path:     /{id}/edit
-    defaults: { _controller: "MorusAcceticBundle:Ar:editAr" }
+    defaults: { _controller: "MorusAcceticBundle:Ar:edit" }
 
 morus_accetic_ar_update:
     path:     /{id}/update
-    defaults: { _controller: "MorusAcceticBundle:Ar:updateAr" }
+    defaults: { _controller: "MorusAcceticBundle:Ar:update" }
     requirements: { _method: post|put }
 
 morus_accetic_ar_delete:
     path:     /{id}/delete
-    defaults: { _controller: "MorusAcceticBundle:Ar:deleteAr" }
+    defaults: { _controller: "MorusAcceticBundle:Ar:delete" }
     requirements: { _method: post|delete }
     
 morus_accetic_ar_data:

@@ -31,6 +31,10 @@ contact:
     physical_address: Physical Address
     contact_information: Contact Information
     others: Others
+    bills_due: Bills Due
+    overdue_bills: Overdue Bills
+    sales_invoices_due: Sales Invoices Due
+    overdue_sales_invoices: Overdue Sales Invoices
     btn:
         save: Save
         delete: Delete
@@ -61,10 +65,6 @@ ar:
     cancel: Cancel
     subtotal: Subtotal
     total: Total
-    bills_due: Bills Due
-    overdue_bills: Overdue Bills
-    sales_invoices_due: Sales Invoices Due
-    overdue_sales_invoices: Overdue Sales Invoices
     invoice:
         part: Item
         description: Description

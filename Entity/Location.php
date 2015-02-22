@@ -105,6 +105,22 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
         $this->setActive(true);
     }
     
+    /*
+     * Dummy Function - Set Location Class Control Code
+     */
+    public function setLocationClassControlCode()
+    {
+
+    }
+
+    /*
+     * Get Location Class Control Code
+     */
+    public function getLocationClassControlCode()
+    {
+        return $this->locationClass->getControlCode();
+    }
+    
     /**
      * Get id
      *

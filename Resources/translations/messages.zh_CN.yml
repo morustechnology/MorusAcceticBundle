@@ -31,6 +31,10 @@ contact:
     physical_address: 联络地址
     contact_information: 通讯录资料
     others: 其他
+    bills_due: 到期票据
+    overdue_bills: 过期票据
+    sales_invoices_due: 到期发票
+    overdue_sales_invoices: 过期发票
     btn:
         save: 保存
         delete: 删除
@@ -61,10 +65,6 @@ ar:
     cancel: 取消
     subtotal: 小计
     total: 总数
-    bills_due: 到期票据
-    overdue_bills: 过期票据
-    sales_invoices_due: 到期发票
-    overdue_sales_invoices: 过期发票
     invoice:
         part: 产品编号
         description: 描述

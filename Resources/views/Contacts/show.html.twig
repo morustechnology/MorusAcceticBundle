@@ -1,5 +1,26 @@
 {% extends '::base.html.twig' %}
 
+{% set ct_del_lk_id = 'acc_ct_del_lk' %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js' %}
+        <script type="text/ecmascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
+    <script type='text/javascript'>
+        jQuery(document).ready(function() {
+            // Replace Delete Form Submit button
+            $('#{{ ct_del_lk_id }}').on('click', function(event){
+                event.preventDefault();
+                $('#{{ delete_form.vars.attr.id }}').find(':submit').click(); 
+            });
+        });
+    </script>
+{% endblock javascripts %}
+
 {% block body_title -%}
     {{ 'contact.contact_person'|trans }}
 {% endblock %}
@@ -48,15 +69,16 @@
 
     <ul class="record_actions page-control">
         <li>
-            <a class="simple-btn" href="{{ path('morus_accetic_contacts_list') }}">
-                {{ 'contact.btn.back'|trans }}
+            <a class="simple-btn" href="{{ path('morus_accetic_contacts') }}">
+                {{ 'btn.back'|trans }}
             </a>
         </li>
         <li>
             <a class="simple-btn" href="{{ path('morus_accetic_contacts_edit', { 'id': entity.id }) }}">
-                {{ 'contact.btn.edit'|trans }}
+                {{ 'btn.edit'|trans }}
             </a>
         </li>
+        <li><a class="simple-btn" id="{{ ct_del_lk_id }}" href="#">{{ 'btn.delete'|trans }}</a> </li>
         <li>{{ form(delete_form) }}</li>
     </ul>
 {% endblock %}

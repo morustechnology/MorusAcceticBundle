@@ -2,6 +2,8 @@
 
 namespace Morus\AcceticBundle\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * ContactInterface
  */

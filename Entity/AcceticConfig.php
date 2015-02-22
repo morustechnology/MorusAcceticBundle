@@ -5,14 +5,29 @@ namespace Morus\AcceticBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Contact
+ * AcceticConfig
  */
-class Contact implements \Morus\AcceticBundle\Model\ContactInterface
+class AcceticConfig
 {
     /**
      * @var integer
      */
     private $id;
+
+    /**
+     * @var string
+     */
+    private $controlCode;
+
+    /**
+     * @var string
+     */
+    private $value;
+
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * @var string
@@ -44,46 +59,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      */
     private $inactiveDate;
 
-    /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
-     */
-    private $unit;
 
-    /**
-     * @var \Morus\AcceticBundle\Model\PersonInterface
-     */
-    private $person;
-
-    /**
-     * @var \Morus\AcceticBundle\Model\ContactClassInterface
-     */
-    private $contactClass;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
-    }
-    
-    /*
-     * Dummy Function - Set Contact Class Control Code
-     */
-    public function setContactClassControlCode()
-    {
-
-    }
-
-    /*
-     * Get Contact Class Control Code
-     */
-    public function getContactClassControlCode()
-    {
-        return $this->contactClass->getControlCode();
-    }
-    
     /**
      * Get id
      *
@@ -95,10 +71,79 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     }
 
     /**
+     * Set controlCode
+     *
+     * @param string $controlCode
+     * @return AcceticConfig
+     */
+    public function setControlCode($controlCode)
+    {
+        $this->controlCode = $controlCode;
+
+        return $this;
+    }
+
+    /**
+     * Get controlCode
+     *
+     * @return string 
+     */
+    public function getControlCode()
+    {
+        return $this->controlCode;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     * @return AcceticConfig
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string 
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return AcceticConfig
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set description
      *
      * @param string $description
-     * @return Contact
+     * @return AcceticConfig
      */
     public function setDescription($description)
     {
@@ -121,7 +166,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set sortOrder
      *
      * @param integer $sortOrder
-     * @return Contact
+     * @return AcceticConfig
      */
     public function setSortOrder($sortOrder)
     {
@@ -144,7 +189,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set active
      *
      * @param boolean $active
-     * @return Contact
+     * @return AcceticConfig
      */
     public function setActive($active)
     {
@@ -167,7 +212,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return Contact
+     * @return AcceticConfig
      */
     public function setCreateDate($createDate)
     {
@@ -190,7 +235,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set lastModifiedDate
      *
      * @param \DateTime $lastModifiedDate
-     * @return Contact
+     * @return AcceticConfig
      */
     public function setLastModifiedDate($lastModifiedDate)
     {
@@ -213,7 +258,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * Set inactiveDate
      *
      * @param \DateTime $inactiveDate
-     * @return Contact
+     * @return AcceticConfig
      */
     public function setInactiveDate($inactiveDate)
     {
@@ -231,76 +276,6 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     {
         return $this->inactiveDate;
     }
-
-    /**
-     * Set unit
-     *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
-     * @return Contact
-     */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
-    {
-        $this->unit = $unit;
-
-        return $this;
-    }
-
-    /**
-     * Get unit
-     *
-     * @return \Morus\AcceticBundle\Model\UnitInterface
-     */
-    public function getUnit()
-    {
-        return $this->unit;
-    }
-
-    /**
-     * Set person
-     *
-     * @param \Morus\AcceticBundle\Model\PersonInterface $person
-     * @return Contact
-     */
-    public function setPerson(\Morus\AcceticBundle\Model\PersonInterface $person = null)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return \Morus\AcceticBundle\Model\PersonInterface 
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * Set contactClass
-     *
-     * @param \Morus\AcceticBundle\Model\ContactClassInterface $contactClass
-     * @return Contact
-     */
-    public function setContactClass(\Morus\AcceticBundle\Model\ContactClassInterface $contactClass = null)
-    {
-        $this->contactClass = $contactClass;
-
-        return $this;
-    }
-
-    /**
-     * Get contactClass
-     *
-     * @return \Morus\AcceticBundle\Model\ContactClassInterface 
-     */
-    public function getContactClass()
-    {
-        return $this->contactClass;
-    }
-    
     /**
      * @ORM\PrePersist
      */

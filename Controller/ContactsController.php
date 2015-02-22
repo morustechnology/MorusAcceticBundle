@@ -19,23 +19,36 @@ use Morus\AcceticBundle\Entity\Person;
 class ContactsController extends Controller
 {
     /**
-     * Lists all Unit entities.
+     * Contacts Main Page.
      *
      */
-    public function indexAction($ecc)
+    public function indexAction(Request $request)
+    {
+        $entities = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findAllList();
+
+        return $this->render('MorusAcceticBundle:Contacts:index.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
+    
+    /**
+     * Lists Unit entities.
+     *
+     */
+    public function listAction($ecc)
     {
         $controlCode = strtoupper($ecc);
         
         if ($controlCode == 'ALL') {
-            $entities = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findAllList();
+            $contacts = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findAllList();
         } else {
-            $entities = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findListByControlCode($ecc);
+            $contacts = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findListByControlCode($ecc);
         }
         
 //        $indexTwig = $this->container->getParameter( 'morus_accetic.contacts.template.index' );
 
-        return $this->render('MorusAcceticBundle:Contacts:index.html.twig', array(
-            'entities' => $entities,
+        return $this->render('MorusAcceticBundle:Contacts:list.html.twig', array(
+            'contacts' => $contacts,
         ));
     }
     
@@ -349,14 +362,10 @@ class ContactsController extends Controller
      */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder()
+        return $this->createFormBuilder(null, array('attr' => array( 'id' => 'ct_del_form', 'style' => 'display:none')))
             ->setAction($this->generateUrl('morus_accetic_contacts_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
-                'label' => $this->get('translator')->trans('contact.btn.delete'),
-                'attr' => array('class' => 'simple-btn')                
-                ))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('btn.delete')))
+            ->getForm();
     }
 }

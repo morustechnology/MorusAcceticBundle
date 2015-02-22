@@ -15,8 +15,8 @@ class ArTransactionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ar', 'ar')
-            ->add('invoices', 'invoices', array(
+            ->add('ar', 'accetic_ar')
+            ->add('invoices', 'accetic_invoices', array(
                 'type' => 'accetic_invoice',
                 'allow_add'    => true,
                 'allow_delete' => true,

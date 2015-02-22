@@ -217,7 +217,7 @@ Morus\AcceticBundle\Entity\Ar:
         unit:
             targetEntity: Unit
             cascade: ["persist"]
-            mappedBy: ars
+            inversedBy: ars
             joinColumns:
                 unit_id:
                     referencedColumnName: id

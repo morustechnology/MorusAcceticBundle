@@ -3,9 +3,9 @@ Morus\AcceticBundle\Entity\Person:
     type: entity
     table: accetic_person
     indexes:
-        IDX_salutation_id:
-            columns:
-                - salutation_id
+#        IDX_salutation_id:
+#            columns:
+#                - salutation_id
     uniqueConstraints:
         person_id_key:
             columns:
