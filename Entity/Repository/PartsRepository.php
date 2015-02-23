@@ -26,4 +26,22 @@ class PartsRepository extends EntityRepository
             return null;
         }
     }
+    
+    public function findOneByItemname($itemname)
+    {
+        $query = $this->getEntityManager()
+                ->createQuery(
+                        'SELECT pe '
+                        . 'FROM MorusFasBundle:PartsExt pe '
+                        . 'JOIN pe.parts p '
+                        . 'WHERE p.itemname = :itemname '
+                        )
+                ->setParameter('itemname', $itemname)
+                ;
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }
