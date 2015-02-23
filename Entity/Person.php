@@ -6,76 +6,113 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Person
+ *
+ * @ORM\Table(name="accetic_person", uniqueConstraints={@ORM\UniqueConstraint(name="person_id_key", columns={"id"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class Person implements \Morus\AcceticBundle\Model\PersonInterface
+class Person
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="isPrimary", type="boolean")
      */
     private $isPrimary;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=200, nullable=true)
      */
     private $firstName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="middle_name", type="string", length=200, nullable=true)
      */
     private $middleName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=200, nullable=true)
      */
     private $lastName;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
     private $birthdate;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="personal_id", type="text", nullable=true)
      */
     private $personalId;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Contact", mappedBy="person", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $contacts;
 
     /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
+     * @var \Morus\AcceticBundle\Entity\Unit
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="persons", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
+     * })
      */
     private $unit;
 
@@ -85,9 +122,24 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     public function __construct()
     {
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
-        
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
     }
 
     /**
@@ -356,10 +408,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
+     * @param \Morus\AcceticBundle\Entity\Contact $contacts
      * @return Person
      */
-    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
+    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -369,9 +421,9 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
+     * @param \Morus\AcceticBundle\Entity\Contact $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
+    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -389,10 +441,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
+     * @param \Morus\AcceticBundle\Entity\Unit $unit
      * @return Person
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
     {
         $this->unit = $unit;
 
@@ -402,25 +454,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Model\UnitInterface 
+     * @return \Morus\AcceticBundle\Entity\Unit 
      */
     public function getUnit()
     {
         return $this->unit;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

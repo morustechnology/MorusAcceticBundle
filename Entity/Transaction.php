@@ -6,71 +6,106 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Transaction
+ *
+ * @ORM\Table(name="accetic_transaction")
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
+class Transaction
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="table_name", type="text", nullable=true)
      */
     private $tableName;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="approved", type="boolean", nullable=true)
      */
     private $approved;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="approved_at", type="datetime", nullable=true)
      */
     private $approvedAt;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
      * @var \Morus\AcceticBundle\Entity\Ar
+     *
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Ar", mappedBy="transaction")
      */
     private $ar;
 
     /**
      * @var \Morus\AcceticBundle\Entity\Ap
+     *
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Ap", mappedBy="transaction")
      */
     private $ap;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Invoice", mappedBy="transaction", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $invoices;
 
     /**
      * @var \Morus\AcceticBundle\Entity\Unit
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="transactions", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
+     * })
      */
     private $unit;
 
@@ -80,6 +115,24 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     public function __construct()
     {
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
     }
 
     /**
@@ -279,10 +332,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Set ar
      *
-     * @param \Morus\AcceticBundle\Model\ArInterface $ar
+     * @param \Morus\AcceticBundle\Entity\Ar $ar
      * @return Transaction
      */
-    public function setAr(\Morus\AcceticBundle\Model\ArInterface $ar = null)
+    public function setAr(\Morus\AcceticBundle\Entity\Ar $ar = null)
     {
         $this->ar = $ar;
 
@@ -292,7 +345,7 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Get ar
      *
-     * @return \Morus\AcceticBundle\Model\ArInterface 
+     * @return \Morus\AcceticBundle\Entity\Ar 
      */
     public function getAr()
     {
@@ -302,10 +355,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Set ap
      *
-     * @param \Morus\AcceticBundle\Model\ApInterface $ap
+     * @param \Morus\AcceticBundle\Entity\Ap $ap
      * @return Transaction
      */
-    public function setAp(\Morus\AcceticBundle\Model\ApInterface $ap = null)
+    public function setAp(\Morus\AcceticBundle\Entity\Ap $ap = null)
     {
         $this->ap = $ap;
 
@@ -315,7 +368,7 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Get ap
      *
-     * @return \Morus\AcceticBundle\Model\ApInterface 
+     * @return \Morus\AcceticBundle\Entity\Ap 
      */
     public function getAp()
     {
@@ -325,10 +378,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Add invoices
      *
-     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
+     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
      * @return Transaction
      */
-    public function addInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
+    public function addInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
     {
         $this->invoices[] = $invoices;
 
@@ -338,9 +391,9 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Remove invoices
      *
-     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
+     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
      */
-    public function removeInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
+    public function removeInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
     {
         $this->invoices->removeElement($invoices);
     }
@@ -358,10 +411,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
+     * @param \Morus\AcceticBundle\Entity\Unit $unit
      * @return Transaction
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
     {
         $this->unit = $unit;
 
@@ -371,26 +424,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Model\UnitInterface 
+     * @return \Morus\AcceticBundle\Entity\Unit 
      */
     public function getUnit()
     {
         return $this->unit;
-    }
-    
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

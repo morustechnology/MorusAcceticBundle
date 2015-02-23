@@ -6,56 +6,82 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ContactClass
+ *
+ * @ORM\Table(name="accetic_contact_class", uniqueConstraints={@ORM\UniqueConstraint(name="contact_class_id_key", columns={"id", "control_code"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
+class ContactClass
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="control_code", type="string", length=50, nullable=false)
      */
     private $controlCode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="class", type="text", nullable=false)
      */
     private $class;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Contact", mappedBy="contactClass")
      */
     private $contacts;
 
@@ -65,9 +91,24 @@ class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
     public function __construct()
     {
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
-        
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
     }
 
     /**
@@ -267,10 +308,10 @@ class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
+     * @param \Morus\AcceticBundle\Entity\Contact $contacts
      * @return ContactClass
      */
-    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
+    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -280,9 +321,9 @@ class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
+     * @param \Morus\AcceticBundle\Entity\Contact $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
+    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -295,20 +336,5 @@ class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
     public function getContacts()
     {
         return $this->contacts;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

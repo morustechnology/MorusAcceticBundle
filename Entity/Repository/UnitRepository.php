@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class UnitRepository extends EntityRepository
 {
-    
     public function findListByControlCode($controlCode)
     {
         $query = $this->getEntityManager()

@@ -6,121 +6,165 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Location
+ *
+ * @ORM\Table(name="accetic_location")
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class Location implements \Morus\AcceticBundle\Model\LocationInterface
+class Location
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="address", type="text", nullable=true)
      */
     private $address;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="line_one", type="text", nullable=true)
      */
     private $lineOne;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="line_two", type="text", nullable=true)
      */
     private $lineTwo;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="line_three", type="text", nullable=true)
      */
     private $lineThree;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=500, nullable=true)
      */
     private $city;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=500, nullable=true)
      */
     private $state;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="zip_code", type="string", length=80, nullable=true)
      */
     private $zipCode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=500, nullable=true)
      */
     private $country;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="attention", type="string", length=800, nullable=true)
      */
     private $attention;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
+     * @var \Morus\AcceticBundle\Entity\Unit
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="locations", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
+     * })
      */
     private $unit;
 
     /**
-     * @var \Morus\AcceticBundle\Model\LocationClassInterface
+     * @var \Morus\AcceticBundle\Entity\LocationClass
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\LocationClass", inversedBy="locations", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="location_class_id", referencedColumnName="id")
+     * })
      */
     private $locationClass;
-
+    
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->locations = new \Doctrine\Common\Collections\ArrayCollection();
-        
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
     }
     
-    /*
-     * Dummy Function - Set Location Class Control Code
+    /**
+     * @ORM\PrePersist
      */
-    public function setLocationClassControlCode()
+    public function onPrePersist()
     {
-
+        // Add your code here
     }
 
-    /*
-     * Get Location Class Control Code
+    /**
+     * @ORM\PostPersist
      */
-    public function getLocationClassControlCode()
+    public function onPostPersist()
     {
-        return $this->locationClass->getControlCode();
+        // Add your code here
     }
-    
+
     /**
      * Get id
      *
@@ -456,10 +500,10 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
+     * @param \Morus\AcceticBundle\Entity\Unit $unit
      * @return Location
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
     {
         $this->unit = $unit;
 
@@ -469,7 +513,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Model\UnitInterface 
+     * @return \Morus\AcceticBundle\Entity\Unit 
      */
     public function getUnit()
     {
@@ -479,10 +523,10 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Set locationClass
      *
-     * @param \Morus\AcceticBundle\Model\LocationClassInterface $locationClass
+     * @param \Morus\AcceticBundle\Entity\LocationClass $locationClass
      * @return Location
      */
-    public function setLocationClass(\Morus\AcceticBundle\Model\LocationClassInterface $locationClass = null)
+    public function setLocationClass(\Morus\AcceticBundle\Entity\LocationClass $locationClass = null)
     {
         $this->locationClass = $locationClass;
 
@@ -492,25 +536,26 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Get locationClass
      *
-     * @return \Morus\AcceticBundle\Model\LocationClassInterface
+     * @return \Morus\AcceticBundle\Entity\LocationClass 
      */
     public function getLocationClass()
     {
         return $this->locationClass;
     }
-    /**
-     * @ORM\PrePersist
+    
+    /*
+     * Dummy Function - Set Location Class Control Code
      */
-    public function onPrePersist()
+    public function setLocationClassControlCode()
     {
-        // Add your code here
+
     }
 
-    /**
-     * @ORM\PostPersist
+    /*
+     * Get Location Class Control Code
      */
-    public function onPostPersist()
+    public function getLocationClassControlCode()
     {
-        // Add your code here
+        return $this->locationClass->getControlCode();
     }
 }

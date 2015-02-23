@@ -6,59 +6,112 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * InvoiceNote
+ *
+ * @ORM\Table(name="accetic_invoice_note", indexes={@ORM\Index(name="IDX_entity_id", columns={"entity_id"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
+class InvoiceNote
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="note_class", type="integer", nullable=false)
      */
     private $noteClass;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="note", type="text", nullable=false)
      */
     private $note;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="subject", type="text", nullable=true)
      */
     private $subject;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Model\InvoiceInterface
+     * @var \Morus\AcceticBundle\Entity\Invoice
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Invoice", inversedBy="invoiceNotes", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
+     * })
      */
     private $invoice;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
+    }
 
     /**
      * Get id
@@ -257,10 +310,10 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
     /**
      * Set invoice
      *
-     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoice
+     * @param \Morus\AcceticBundle\Entity\Invoice $invoice
      * @return InvoiceNote
      */
-    public function setInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoice = null)
+    public function setInvoice(\Morus\AcceticBundle\Entity\Invoice $invoice = null)
     {
         $this->invoice = $invoice;
 
@@ -270,25 +323,10 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
     /**
      * Get invoice
      *
-     * @return \Morus\AcceticBundle\Model\InvoiceInterface 
+     * @return \Morus\AcceticBundle\Entity\Invoice 
      */
     public function getInvoice()
     {
         return $this->invoice;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

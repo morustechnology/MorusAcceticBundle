@@ -6,56 +6,91 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Contact
+ *
+ * @ORM\Table(name="accetic_contact", indexes={@ORM\Index(name="IDX_contact_class_id", columns={"contact_class_id"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class Contact implements \Morus\AcceticBundle\Model\ContactInterface
+class Contact
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
+     * @var \Morus\AcceticBundle\Entity\Unit
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="contacts", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
+     * })
      */
     private $unit;
 
     /**
-     * @var \Morus\AcceticBundle\Model\PersonInterface
+     * @var \Morus\AcceticBundle\Entity\Person
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Person", inversedBy="contacts", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     * })
      */
     private $person;
 
     /**
-     * @var \Morus\AcceticBundle\Model\ContactClassInterface
+     * @var \Morus\AcceticBundle\Entity\ContactClass
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\ContactClass", inversedBy="contacts", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contact_class_id", referencedColumnName="id")
+     * })
      */
     private $contactClass;
 
@@ -64,26 +99,26 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      */
     public function __construct()
     {
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
     }
     
-    /*
-     * Dummy Function - Set Contact Class Control Code
+    /**
+     * @ORM\PrePersist
      */
-    public function setContactClassControlCode()
+    public function onPrePersist()
     {
-
+        // Add your code here
     }
 
-    /*
-     * Get Contact Class Control Code
+    /**
+     * @ORM\PostPersist
      */
-    public function getContactClassControlCode()
+    public function onPostPersist()
     {
-        return $this->contactClass->getControlCode();
+        // Add your code here
     }
-    
+
     /**
      * Get id
      *
@@ -235,10 +270,10 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
+     * @param \Morus\AcceticBundle\Entity\Unit $unit
      * @return Contact
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
     {
         $this->unit = $unit;
 
@@ -248,7 +283,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Model\UnitInterface
+     * @return \Morus\AcceticBundle\Entity\Unit 
      */
     public function getUnit()
     {
@@ -258,10 +293,10 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Set person
      *
-     * @param \Morus\AcceticBundle\Model\PersonInterface $person
+     * @param \Morus\AcceticBundle\Entity\Person $person
      * @return Contact
      */
-    public function setPerson(\Morus\AcceticBundle\Model\PersonInterface $person = null)
+    public function setPerson(\Morus\AcceticBundle\Entity\Person $person = null)
     {
         $this->person = $person;
 
@@ -271,7 +306,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Get person
      *
-     * @return \Morus\AcceticBundle\Model\PersonInterface 
+     * @return \Morus\AcceticBundle\Entity\Person 
      */
     public function getPerson()
     {
@@ -281,10 +316,10 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Set contactClass
      *
-     * @param \Morus\AcceticBundle\Model\ContactClassInterface $contactClass
+     * @param \Morus\AcceticBundle\Entity\ContactClass $contactClass
      * @return Contact
      */
-    public function setContactClass(\Morus\AcceticBundle\Model\ContactClassInterface $contactClass = null)
+    public function setContactClass(\Morus\AcceticBundle\Entity\ContactClass $contactClass = null)
     {
         $this->contactClass = $contactClass;
 
@@ -294,26 +329,26 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Get contactClass
      *
-     * @return \Morus\AcceticBundle\Model\ContactClassInterface 
+     * @return \Morus\AcceticBundle\Entity\ContactClass 
      */
     public function getContactClass()
     {
         return $this->contactClass;
     }
     
-    /**
-     * @ORM\PrePersist
+    /*
+     * Dummy Function - Set Contact Class Control Code
      */
-    public function onPrePersist()
+    public function setContactClassControlCode()
     {
-        // Add your code here
+
     }
 
-    /**
-     * @ORM\PostPersist
+    /*
+     * Get Contact Class Control Code
      */
-    public function onPostPersist()
+    public function getContactClassControlCode()
     {
-        // Add your code here
+        return $this->contactClass->getControlCode();
     }
 }

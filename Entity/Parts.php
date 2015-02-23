@@ -6,183 +6,272 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Parts
+ *
+ * @ORM\Table(name="accetic_parts", uniqueConstraints={@ORM\UniqueConstraint(name="parts_itemcode_index_u", columns={"itemcode"})})
+ * @ORM\MappedSuperClass(repositoryClass="Morus\AcceticBundle\Entity\Repository\PartsRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Parts implements \Morus\AcceticBundle\Model\PartsInterface
+class Parts
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="itemcode", type="string", length=100, nullable=false)
      */
     private $itemcode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="itemname", type="string", length=200, nullable=false)
      */
     private $itemname;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=100, nullable=true)
      */
     private $unit;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="forsale", type="boolean", nullable=true)
      */
     private $forsale;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="listprice", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $listprice;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="sellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $sellprice;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="sale_description", type="text", nullable=true)
      */
     private $saleDescription;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="forpurchase", type="boolean", nullable=true)
      */
     private $forpurchase;
 
     /**
-     * @var float
+     * @var string
+     *
+     * @ORM\Column(name="lastcost", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $lastcost;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="purchase_description", type="text", nullable=true)
      */
     private $purchaseDescription;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="priceupdate", type="date", nullable=true)
      */
     private $priceupdate;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="weight", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $weight;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="onhand", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $onhand;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="makemodel", type="boolean", nullable=true)
      */
     private $makemodel;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="assembly", type="boolean", nullable=true)
      */
     private $assembly;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="alternate", type="boolean", nullable=true)
      */
     private $alternate;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="rop", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $rop;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="bin", type="text", nullable=true)
      */
     private $bin;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="obsolete", type="boolean", nullable=true)
      */
     private $obsolete;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="bom", type="boolean", nullable=true)
      */
     private $bom;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="image", type="text", nullable=true)
      */
     private $image;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="drawing", type="text", nullable=true)
      */
     private $drawing;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="microfiche", type="text", nullable=true)
      */
     private $microfiche;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="partsgroup_id", type="integer", nullable=true)
      */
     private $partsgroupId;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="avgcost", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $avgcost;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Invoice", mappedBy="parts", orphanRemoval=true)
      */
     private $invoices;
-    
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
     }
-    
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
+    }
+
     /**
      * Get id
      *
@@ -380,7 +469,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * Set lastcost
      *
-     * @param float $lastcost
+     * @param string $lastcost
      * @return Parts
      */
     public function setLastcost($lastcost)
@@ -393,7 +482,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * Get lastcost
      *
-     * @return float 
+     * @return string 
      */
     public function getLastcost()
     {
@@ -905,7 +994,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     {
         return $this->inactiveDate;
     }
-    
+
     /**
      * Add invoices
      *
@@ -937,21 +1026,5 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     public function getInvoices()
     {
         return $this->invoices;
-    }
-    
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

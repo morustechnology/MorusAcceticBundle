@@ -6,116 +6,172 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Invoice
+ *
+ * @ORM\Table(name="accetic_invoice", indexes={@ORM\Index(name="invoice_trans_id_key", columns={"transaction_id"}), @ORM\Index(name="IDX_parts_id", columns={"parts_id"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
+class Invoice
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="qty", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $qty;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="allocated", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $allocated;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="sellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $sellprice;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="precision", type="integer", nullable=true)
      */
     private $precision;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="fxsellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $fxsellprice;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="discount", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $discount;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="assemblyitem", type="boolean", nullable=true)
      */
     private $assemblyitem;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="unit", type="string", nullable=true)
      */
     private $unit;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="deliverydate", type="date", nullable=true)
      */
     private $deliverydate;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="serialnumber", type="text", nullable=true)
      */
     private $serialnumber;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="vendor_sku", type="text", nullable=true)
      */
     private $vendorSku;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\InvoiceNote", mappedBy="invoice", orphanRemoval=true)
      */
     private $invoiceNotes;
 
     /**
-     * @var \Morus\AcceticBundle\Model\PartsInterface
+     * @var \Morus\AcceticBundle\Entity\Parts
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Parts", inversedBy="invoices", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parts_id", referencedColumnName="id")
+     * })
      */
     private $parts;
 
     /**
-     * @var \Morus\AcceticBundle\Model\TransactionInterface
+     * @var \Morus\AcceticBundle\Entity\Transaction
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Transaction", inversedBy="invoices", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
+     * })
      */
     private $transaction;
 
@@ -125,6 +181,24 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     public function __construct()
     {
         $this->invoiceNotes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
     }
 
     /**
@@ -554,10 +628,10 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     /**
      * Add invoiceNotes
      *
-     * @param \Morus\AcceticBundle\Model\InvoiceNoteInterface $invoiceNotes
+     * @param \Morus\AcceticBundle\Entity\InvoiceNote $invoiceNotes
      * @return Invoice
      */
-    public function addInvoiceNote(\Morus\AcceticBundle\Model\InvoiceNoteInterface $invoiceNotes)
+    public function addInvoiceNote(\Morus\AcceticBundle\Entity\InvoiceNote $invoiceNotes)
     {
         $this->invoiceNotes[] = $invoiceNotes;
 
@@ -567,9 +641,9 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     /**
      * Remove invoiceNotes
      *
-     * @param \Morus\AcceticBundle\Model\InvoiceNoteInterface $invoiceNotes
+     * @param \Morus\AcceticBundle\Entity\InvoiceNote $invoiceNotes
      */
-    public function removeInvoiceNote(\Morus\AcceticBundle\Model\InvoiceNoteInterface $invoiceNotes)
+    public function removeInvoiceNote(\Morus\AcceticBundle\Entity\InvoiceNote $invoiceNotes)
     {
         $this->invoiceNotes->removeElement($invoiceNotes);
     }
@@ -587,10 +661,10 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     /**
      * Set parts
      *
-     * @param \Morus\AcceticBundle\Model\PartsInterface $parts
+     * @param \Morus\AcceticBundle\Entity\Parts $parts
      * @return Invoice
      */
-    public function setParts(\Morus\AcceticBundle\Model\PartsInterface $parts = null)
+    public function setParts(\Morus\AcceticBundle\Entity\Parts $parts = null)
     {
         $this->parts = $parts;
 
@@ -600,7 +674,7 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     /**
      * Get parts
      *
-     * @return \Morus\AcceticBundle\Model\PartsInterface 
+     * @return \Morus\AcceticBundle\Entity\Parts 
      */
     public function getParts()
     {
@@ -610,10 +684,10 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     /**
      * Set transaction
      *
-     * @param \Morus\AcceticBundle\Model\TransactionInterface $transaction
+     * @param \Morus\AcceticBundle\Entity\Transaction $transaction
      * @return Invoice
      */
-    public function setTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transaction = null)
+    public function setTransaction(\Morus\AcceticBundle\Entity\Transaction $transaction = null)
     {
         $this->transaction = $transaction;
 
@@ -623,25 +697,10 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     /**
      * Get transaction
      *
-     * @return \Morus\AcceticBundle\Model\TransactionInterface 
+     * @return \Morus\AcceticBundle\Entity\Transaction 
      */
     public function getTransaction()
     {
         return $this->transaction;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

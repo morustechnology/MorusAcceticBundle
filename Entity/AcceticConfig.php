@@ -6,59 +6,109 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * AcceticConfig
+ *
+ * @ORM\Table(name="accetic_config")
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
 class AcceticConfig
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="controlCode", type="string", length=50, nullable=false)
      */
     private $controlCode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="value", type="text", nullable=false)
      */
     private $value;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
+    }
 
     /**
      * Get id
@@ -275,20 +325,5 @@ class AcceticConfig
     public function getInactiveDate()
     {
         return $this->inactiveDate;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

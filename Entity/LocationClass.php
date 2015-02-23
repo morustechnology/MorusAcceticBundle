@@ -6,56 +6,82 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * LocationClass
+ *
+ * @ORM\Table(name="accetic_location_class", uniqueConstraints={@ORM\UniqueConstraint(name="location_class_id_key", columns={"id", "control_code"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
+class LocationClass
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="control_code", type="string", length=50, nullable=false)
      */
     private $controlCode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="class", type="text", nullable=false)
      */
     private $class;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Location", mappedBy="locationClass", cascade={"persist"})
      */
     private $locations;
 
@@ -65,9 +91,24 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     public function __construct()
     {
         $this->locations = new \Doctrine\Common\Collections\ArrayCollection();
-        
-        $this->setCreateDate(new \DateTime("now"));
-        $this->setActive(true);
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
     }
 
     /**
@@ -267,10 +308,10 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     /**
      * Add locations
      *
-     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
+     * @param \Morus\AcceticBundle\Entity\Location $locations
      * @return LocationClass
      */
-    public function addLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
+    public function addLocation(\Morus\AcceticBundle\Entity\Location $locations)
     {
         $this->locations[] = $locations;
 
@@ -280,9 +321,9 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     /**
      * Remove locations
      *
-     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
+     * @param \Morus\AcceticBundle\Entity\Location $locations
      */
-    public function removeLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
+    public function removeLocation(\Morus\AcceticBundle\Entity\Location $locations)
     {
         $this->locations->removeElement($locations);
     }
@@ -295,20 +336,5 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     public function getLocations()
     {
         return $this->locations;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }

@@ -6,199 +6,311 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Ar
+ *
+ * @ORM\Table(name="accetic_ar", uniqueConstraints={@ORM\UniqueConstraint(name="ar_invnumber_key", columns={"invnumber"})}, indexes={@ORM\Index(name="IDX_unit_id", columns={"unit_id"})})
+ * @ORM\MappedSuperClass
+ * @ORM\HasLifecycleCallbacks
  */
-class Ar implements \Morus\AcceticBundle\Model\ArInterface
+class Ar
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="invnumber", type="string", length=100, nullable=true)
      */
     private $invnumber;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="transdate", type="date", nullable=true)
      */
     private $transdate;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="taxincluded", type="boolean", nullable=true)
      */
     private $taxincluded;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="amount", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $amount;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="netAmount", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $netAmount;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="paid", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $paid;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="datepaid", type="date", nullable=true)
      */
     private $datepaid;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="duedate", type="date", nullable=true)
      */
     private $duedate;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="invoice", type="boolean", nullable=true)
      */
     private $invoice;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="shippingpoint", type="text", nullable=true)
      */
     private $shippingpoint;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="terms", type="smallint", nullable=true)
      */
     private $terms;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=200, nullable=true)
      */
     private $reference;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="curr", type="string", nullable=true)
      */
     private $curr;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="ordnumber", type="text", nullable=true)
      */
     private $ordnumber;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="till", type="string", length=20, nullable=true)
      */
     private $till;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="quonumber", type="text", nullable=true)
      */
     private $quonumber;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="intnotes", type="text", nullable=true)
      */
     private $intnotes;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="shipvia", type="text", nullable=true)
      */
     private $shipvia;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="language_code", type="string", length=6, nullable=true)
      */
     private $languageCode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="ponumber", type="text", nullable=true)
      */
     private $ponumber;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="on_hold", type="boolean", nullable=true)
      */
     private $onHold;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="reverse", type="boolean", nullable=true)
      */
     private $reverse;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="approved", type="boolean", nullable=true)
      */
     private $approved;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="force_closed", type="boolean", nullable=true)
      */
     private $forceClosed;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="is_return", type="boolean", nullable=true)
      */
     private $isReturn;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="crdate", type="date", nullable=true)
      */
     private $crdate;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="printed", type="boolean", nullable=true)
      */
     private $printed;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="emailed", type="boolean", nullable=true)
      */
     private $emailed;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 
     /**
      * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
      */
     private $createDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
     private $lastModifiedDate;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Model\TransactionInterface
+     * @var \Morus\AcceticBundle\Entity\Transaction
+     *
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Transaction", inversedBy="ar", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id", unique=true)
+     * })
      */
     private $transaction;
 
     /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
+     * @var \Morus\AcceticBundle\Entity\Unit
+     *
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="ars", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
+     * })
      */
     private $unit;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createDate = new \DateTime("now");
+        $this->active = true;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function onPostPersist()
+    {
+        // Add your code here
+    }
 
     /**
      * Get id
@@ -1018,10 +1130,10 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Set transaction
      *
-     * @param \Morus\AcceticBundle\Model\TransactionInterface $transaction
+     * @param \Morus\AcceticBundle\Entity\Transaction $transaction
      * @return Ar
      */
-    public function setTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transaction = null)
+    public function setTransaction(\Morus\AcceticBundle\Entity\Transaction $transaction = null)
     {
         $this->transaction = $transaction;
 
@@ -1031,7 +1143,7 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Get transaction
      *
-     * @return \Morus\AcceticBundle\Model\TransactionInterface 
+     * @return \Morus\AcceticBundle\Entity\Transaction 
      */
     public function getTransaction()
     {
@@ -1041,10 +1153,10 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
+     * @param \Morus\AcceticBundle\Entity\Unit $unit
      * @return Ar
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
     {
         $this->unit = $unit;
 
@@ -1054,25 +1166,10 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Model\UnitInterface 
+     * @return \Morus\AcceticBundle\Entity\Unit 
      */
     public function getUnit()
     {
         return $this->unit;
-    }
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 }
