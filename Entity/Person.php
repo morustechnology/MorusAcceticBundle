@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Person
  *
  * @ORM\Table(name="accetic_person", uniqueConstraints={@ORM\UniqueConstraint(name="person_id_key", columns={"id"})})
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Person implements \Morus\AcceticBundle\Model\PersonInterface
@@ -102,14 +102,14 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Contact", mappedBy="person", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ContactInterface", mappedBy="person", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $contacts;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="persons", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="persons", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
@@ -408,10 +408,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      * @return Person
      */
-    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -421,9 +421,9 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -441,10 +441,10 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Person
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -454,7 +454,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {

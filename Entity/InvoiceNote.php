@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * InvoiceNote
  *
  * @ORM\Table(name="accetic_invoice_note", indexes={@ORM\Index(name="IDX_entity_id", columns={"entity_id"})})
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
@@ -79,9 +79,9 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Invoice
+     * @var \Morus\AcceticBundle\Model\InvoiceInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Invoice", inversedBy="invoiceNotes", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", inversedBy="invoiceNotes", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
      * })
@@ -310,10 +310,10 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
     /**
      * Set invoice
      *
-     * @param \Morus\AcceticBundle\Entity\Invoice $invoice
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoice
      * @return InvoiceNote
      */
-    public function setInvoice(\Morus\AcceticBundle\Entity\Invoice $invoice = null)
+    public function setInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoice = null)
     {
         $this->invoice = $invoice;
 
@@ -323,7 +323,7 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
     /**
      * Get invoice
      *
-     * @return \Morus\AcceticBundle\Entity\Invoice 
+     * @return \Morus\AcceticBundle\Model\InvoiceInterface 
      */
     public function getInvoice()
     {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Parts
  *
  * @ORM\Table(name="accetic_parts", uniqueConstraints={@ORM\UniqueConstraint(name="parts_itemcode_index_u", columns={"itemcode"})})
- * @ORM\MappedSuperClass(repositoryClass="Morus\AcceticBundle\Entity\Repository\PartsRepository")
+ ** @ORM\Entity(repositoryClass="Morus\AcceticBundle\Entity\Repository\PartsRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Parts implements \Morus\AcceticBundle\Model\PartsInterface
@@ -242,7 +242,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Invoice", mappedBy="parts", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="parts", orphanRemoval=true)
      */
     private $invoices;
 
@@ -998,10 +998,10 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * Add invoices
      *
-     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
      * @return Parts
      */
-    public function addInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
+    public function addInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
     {
         $this->invoices[] = $invoices;
 
@@ -1011,9 +1011,9 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * Remove invoices
      *
-     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
      */
-    public function removeInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
+    public function removeInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
     {
         $this->invoices->removeElement($invoices);
     }

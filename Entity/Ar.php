@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ar
  *
  * @ORM\Table(name="accetic_ar", uniqueConstraints={@ORM\UniqueConstraint(name="ar_invnumber_key", columns={"invnumber"})}, indexes={@ORM\Index(name="IDX_unit_id", columns={"unit_id"})})
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Ar implements \Morus\AcceticBundle\Model\ArInterface
@@ -268,9 +268,9 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Transaction
+     * @var \Morus\AcceticBundle\Model\TransactionInterface
      *
-     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Transaction", inversedBy="ar", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\TransactionInterface", inversedBy="ar", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id", unique=true)
      * })
@@ -278,9 +278,9 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     private $transaction;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="ars", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="ars", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
@@ -1130,10 +1130,10 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Set transaction
      *
-     * @param \Morus\AcceticBundle\Entity\Transaction $transaction
+     * @param \Morus\AcceticBundle\Model\TransactionInterface $transaction
      * @return Ar
      */
-    public function setTransaction(\Morus\AcceticBundle\Entity\Transaction $transaction = null)
+    public function setTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transaction = null)
     {
         $this->transaction = $transaction;
 
@@ -1143,7 +1143,7 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Get transaction
      *
-     * @return \Morus\AcceticBundle\Entity\Transaction 
+     * @return \Morus\AcceticBundle\Model\TransactionInterface 
      */
     public function getTransaction()
     {
@@ -1153,10 +1153,10 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Ar
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -1166,7 +1166,7 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {

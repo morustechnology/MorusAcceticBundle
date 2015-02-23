@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Transaction
  *
  * @ORM\Table(name="accetic_transaction")
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
@@ -79,30 +79,30 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Ar
+     * @var \Morus\AcceticBundle\Model\ArInterface
      *
-     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Ar", mappedBy="transaction")
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="transaction")
      */
     private $ar;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Ap
+     * @var \Morus\AcceticBundle\Model\ApInterface
      *
-     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Ap", mappedBy="transaction")
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ApInterface", mappedBy="transaction")
      */
     private $ap;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Invoice", mappedBy="transaction", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="transaction", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $invoices;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="transactions", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="transactions", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
      * })
@@ -332,10 +332,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Set ar
      *
-     * @param \Morus\AcceticBundle\Entity\Ar $ar
+     * @param \Morus\AcceticBundle\Model\ArInterface $ar
      * @return Transaction
      */
-    public function setAr(\Morus\AcceticBundle\Entity\Ar $ar = null)
+    public function setAr(\Morus\AcceticBundle\Model\ArInterface $ar = null)
     {
         $this->ar = $ar;
 
@@ -345,7 +345,7 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Get ar
      *
-     * @return \Morus\AcceticBundle\Entity\Ar 
+     * @return \Morus\AcceticBundle\Model\ArInterface 
      */
     public function getAr()
     {
@@ -355,10 +355,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Set ap
      *
-     * @param \Morus\AcceticBundle\Entity\Ap $ap
+     * @param \Morus\AcceticBundle\Model\ApInterface $ap
      * @return Transaction
      */
-    public function setAp(\Morus\AcceticBundle\Entity\Ap $ap = null)
+    public function setAp(\Morus\AcceticBundle\Model\ApInterface $ap = null)
     {
         $this->ap = $ap;
 
@@ -368,7 +368,7 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Get ap
      *
-     * @return \Morus\AcceticBundle\Entity\Ap 
+     * @return \Morus\AcceticBundle\Model\ApInterface 
      */
     public function getAp()
     {
@@ -378,10 +378,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Add invoices
      *
-     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
      * @return Transaction
      */
-    public function addInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
+    public function addInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
     {
         $this->invoices[] = $invoices;
 
@@ -391,9 +391,9 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Remove invoices
      *
-     * @param \Morus\AcceticBundle\Entity\Invoice $invoices
+     * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
      */
-    public function removeInvoice(\Morus\AcceticBundle\Entity\Invoice $invoices)
+    public function removeInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
     {
         $this->invoices->removeElement($invoices);
     }
@@ -411,10 +411,10 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Transaction
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -424,7 +424,7 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {

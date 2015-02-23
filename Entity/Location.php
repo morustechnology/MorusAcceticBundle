@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Location
  *
  * @ORM\Table(name="accetic_location")
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Location implements \Morus\AcceticBundle\Model\LocationInterface
@@ -121,9 +121,9 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="locations", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="locations", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
@@ -131,9 +131,9 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     private $unit;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\LocationClass
+     * @var \Morus\AcceticBundle\Model\LocationClassInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\LocationClass", inversedBy="locations", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\LocationClassInterface", inversedBy="locations", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="location_class_id", referencedColumnName="id")
      * })
@@ -500,10 +500,10 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Location
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -513,7 +513,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {
@@ -523,10 +523,10 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Set locationClass
      *
-     * @param \Morus\AcceticBundle\Entity\LocationClass $locationClass
+     * @param \Morus\AcceticBundle\Model\LocationClassInterface $locationClass
      * @return Location
      */
-    public function setLocationClass(\Morus\AcceticBundle\Entity\LocationClass $locationClass = null)
+    public function setLocationClass(\Morus\AcceticBundle\Model\LocationClassInterface $locationClass = null)
     {
         $this->locationClass = $locationClass;
 
@@ -536,7 +536,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
     /**
      * Get locationClass
      *
-     * @return \Morus\AcceticBundle\Entity\LocationClass 
+     * @return \Morus\AcceticBundle\Model\LocationClassInterface 
      */
     public function getLocationClass()
     {

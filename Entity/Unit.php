@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Unit
  *
  * @ORM\Table(name="accetic_unit", uniqueConstraints={@ORM\UniqueConstraint(name="unit_id_key", columns={"id"}), @ORM\UniqueConstraint(name="unit_account_number_key", columns={"account_number"})}, indexes={@ORM\Index(name="IDX_account_number", columns={"account_number"})})
- * @ORM\MappedSuperClass(repositoryClass="Morus\AcceticBundle\Entity\Repository\UnitRepository")
+ ** @ORM\Entity(repositoryClass="Morus\AcceticBundle\Entity\Repository\UnitRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Unit implements \Morus\AcceticBundle\Model\UnitInterface
@@ -74,49 +74,49 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Contact", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ContactInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $contacts;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Person", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\PersonInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $persons;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Location", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\LocationInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $locations;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Transaction", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\TransactionInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $transactions;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Ar", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $ars;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Ap", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ApInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $aps;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Morus\AcceticBundle\Entity\UnitClass", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Morus\AcceticBundle\Model\UnitClassInterface", cascade={"persist"})
      * @ORM\JoinTable(name="accetic_units_to_unit_classes",
      *   joinColumns={
      *     @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
@@ -334,10 +334,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      * @return Unit
      */
-    public function addContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function addContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts[] = $contacts;
 
@@ -347,9 +347,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove contacts
      *
-     * @param \Morus\AcceticBundle\Entity\Contact $contacts
+     * @param \Morus\AcceticBundle\Model\ContactInterface $contacts
      */
-    public function removeContact(\Morus\AcceticBundle\Entity\Contact $contacts)
+    public function removeContact(\Morus\AcceticBundle\Model\ContactInterface $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -367,10 +367,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add persons
      *
-     * @param \Morus\AcceticBundle\Entity\Person $persons
+     * @param \Morus\AcceticBundle\Model\PersonInterface $persons
      * @return Unit
      */
-    public function addPerson(\Morus\AcceticBundle\Entity\Person $persons)
+    public function addPerson(\Morus\AcceticBundle\Model\PersonInterface $persons)
     {
         $this->persons[] = $persons;
 
@@ -380,9 +380,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove persons
      *
-     * @param \Morus\AcceticBundle\Entity\Person $persons
+     * @param \Morus\AcceticBundle\Model\PersonInterface $persons
      */
-    public function removePerson(\Morus\AcceticBundle\Entity\Person $persons)
+    public function removePerson(\Morus\AcceticBundle\Model\PersonInterface $persons)
     {
         $this->persons->removeElement($persons);
     }
@@ -400,10 +400,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add locations
      *
-     * @param \Morus\AcceticBundle\Entity\Location $locations
+     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
      * @return Unit
      */
-    public function addLocation(\Morus\AcceticBundle\Entity\Location $locations)
+    public function addLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
     {
         $this->locations[] = $locations;
 
@@ -413,9 +413,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove locations
      *
-     * @param \Morus\AcceticBundle\Entity\Location $locations
+     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
      */
-    public function removeLocation(\Morus\AcceticBundle\Entity\Location $locations)
+    public function removeLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
     {
         $this->locations->removeElement($locations);
     }
@@ -433,10 +433,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add transactions
      *
-     * @param \Morus\AcceticBundle\Entity\Transaction $transactions
+     * @param \Morus\AcceticBundle\Model\TransactionInterface $transactions
      * @return Unit
      */
-    public function addTransaction(\Morus\AcceticBundle\Entity\Transaction $transactions)
+    public function addTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transactions)
     {
         $this->transactions[] = $transactions;
 
@@ -446,9 +446,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove transactions
      *
-     * @param \Morus\AcceticBundle\Entity\Transaction $transactions
+     * @param \Morus\AcceticBundle\Model\TransactionInterface $transactions
      */
-    public function removeTransaction(\Morus\AcceticBundle\Entity\Transaction $transactions)
+    public function removeTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transactions)
     {
         $this->transactions->removeElement($transactions);
     }
@@ -466,10 +466,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add ars
      *
-     * @param \Morus\AcceticBundle\Entity\Ar $ars
+     * @param \Morus\AcceticBundle\Model\ArInterface $ars
      * @return Unit
      */
-    public function addAr(\Morus\AcceticBundle\Entity\Ar $ars)
+    public function addAr(\Morus\AcceticBundle\Model\ArInterface $ars)
     {
         $this->ars[] = $ars;
 
@@ -479,9 +479,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove ars
      *
-     * @param \Morus\AcceticBundle\Entity\Ar $ars
+     * @param \Morus\AcceticBundle\Model\ArInterface $ars
      */
-    public function removeAr(\Morus\AcceticBundle\Entity\Ar $ars)
+    public function removeAr(\Morus\AcceticBundle\Model\ArInterface $ars)
     {
         $this->ars->removeElement($ars);
     }
@@ -499,10 +499,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add aps
      *
-     * @param \Morus\AcceticBundle\Entity\Ap $aps
+     * @param \Morus\AcceticBundle\Model\ApInterface $aps
      * @return Unit
      */
-    public function addAp(\Morus\AcceticBundle\Entity\Ap $aps)
+    public function addAp(\Morus\AcceticBundle\Model\ApInterface $aps)
     {
         $this->aps[] = $aps;
 
@@ -512,9 +512,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove aps
      *
-     * @param \Morus\AcceticBundle\Entity\Ap $aps
+     * @param \Morus\AcceticBundle\Model\ApInterface $aps
      */
-    public function removeAp(\Morus\AcceticBundle\Entity\Ap $aps)
+    public function removeAp(\Morus\AcceticBundle\Model\ApInterface $aps)
     {
         $this->aps->removeElement($aps);
     }
@@ -532,10 +532,10 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Add unitClasses
      *
-     * @param \Morus\AcceticBundle\Entity\UnitClass $unitClasses
+     * @param \Morus\AcceticBundle\Model\UnitClassInterface $unitClasses
      * @return Unit
      */
-    public function addUnitClass(\Morus\AcceticBundle\Entity\UnitClass $unitClasses)
+    public function addUnitClass(\Morus\AcceticBundle\Model\UnitClassInterface $unitClasses)
     {
         $this->unitClasses[] = $unitClasses;
 
@@ -545,9 +545,9 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * Remove unitClasses
      *
-     * @param \Morus\AcceticBundle\Entity\UnitClass $unitClasses
+     * @param \Morus\AcceticBundle\Model\UnitClassInterface $unitClasses
      */
-    public function removeUnitClass(\Morus\AcceticBundle\Entity\UnitClass $unitClasses)
+    public function removeUnitClass(\Morus\AcceticBundle\Model\UnitClassInterface $unitClasses)
     {
         $this->unitClasses->removeElement($unitClasses);
     }

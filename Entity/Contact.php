@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Contact
  *
  * @ORM\Table(name="accetic_contact", indexes={@ORM\Index(name="IDX_contact_class_id", columns={"contact_class_id"})})
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Contact implements \Morus\AcceticBundle\Model\ContactInterface
@@ -65,9 +65,9 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     private $inactiveDate;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="contacts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="contacts", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
@@ -75,9 +75,9 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     private $unit;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Person
+     * @var \Morus\AcceticBundle\Model\PersonInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Person", inversedBy="contacts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\PersonInterface", inversedBy="contacts", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      * })
@@ -85,9 +85,9 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     private $person;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\ContactClass
+     * @var \Morus\AcceticBundle\Model\ContactClassInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\ContactClass", inversedBy="contacts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\ContactClassInterface", inversedBy="contacts", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="contact_class_id", referencedColumnName="id")
      * })
@@ -270,10 +270,10 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Contact
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -283,7 +283,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {
@@ -293,10 +293,10 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Set person
      *
-     * @param \Morus\AcceticBundle\Entity\Person $person
+     * @param \Morus\AcceticBundle\Model\PersonInterface $person
      * @return Contact
      */
-    public function setPerson(\Morus\AcceticBundle\Entity\Person $person = null)
+    public function setPerson(\Morus\AcceticBundle\Model\PersonInterface $person = null)
     {
         $this->person = $person;
 
@@ -306,7 +306,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Get person
      *
-     * @return \Morus\AcceticBundle\Entity\Person 
+     * @return \Morus\AcceticBundle\Model\PersonInterface 
      */
     public function getPerson()
     {
@@ -316,10 +316,10 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Set contactClass
      *
-     * @param \Morus\AcceticBundle\Entity\ContactClass $contactClass
+     * @param \Morus\AcceticBundle\Model\ContactClassInterface $contactClass
      * @return Contact
      */
-    public function setContactClass(\Morus\AcceticBundle\Entity\ContactClass $contactClass = null)
+    public function setContactClass(\Morus\AcceticBundle\Model\ContactClassInterface $contactClass = null)
     {
         $this->contactClass = $contactClass;
 
@@ -329,7 +329,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
     /**
      * Get contactClass
      *
-     * @return \Morus\AcceticBundle\Entity\ContactClass 
+     * @return \Morus\AcceticBundle\Model\ContactClassInterface 
      */
     public function getContactClass()
     {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * LocationClass
  *
  * @ORM\Table(name="accetic_location_class", uniqueConstraints={@ORM\UniqueConstraint(name="location_class_id_key", columns={"id", "control_code"})})
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
@@ -81,7 +81,7 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Entity\Location", mappedBy="locationClass", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\LocationInterface", mappedBy="locationClass", cascade={"persist"})
      */
     private $locations;
 
@@ -308,10 +308,10 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     /**
      * Add locations
      *
-     * @param \Morus\AcceticBundle\Entity\Location $locations
+     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
      * @return LocationClass
      */
-    public function addLocation(\Morus\AcceticBundle\Entity\Location $locations)
+    public function addLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
     {
         $this->locations[] = $locations;
 
@@ -321,9 +321,9 @@ class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface
     /**
      * Remove locations
      *
-     * @param \Morus\AcceticBundle\Entity\Location $locations
+     * @param \Morus\AcceticBundle\Model\LocationInterface $locations
      */
-    public function removeLocation(\Morus\AcceticBundle\Entity\Location $locations)
+    public function removeLocation(\Morus\AcceticBundle\Model\LocationInterface $locations)
     {
         $this->locations->removeElement($locations);
     }

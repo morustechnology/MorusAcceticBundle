@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ap
  *
  * @ORM\Table(name="accetic_ap", indexes={@ORM\Index(name="IDX_unit_id", columns={"unit_id"})})
- * @ORM\MappedSuperClass
+ ** @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Ap implements \Morus\AcceticBundle\Model\ApInterface
@@ -210,11 +210,46 @@ class Ap implements \Morus\AcceticBundle\Model\ApInterface
      * @ORM\Column(name="is_return", type="boolean", nullable=true)
      */
     private $isReturn;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
+     */
+    private $sortOrder;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Transaction
+     * @var boolean
      *
-     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Entity\Transaction", inversedBy="ap", cascade={"persist"})
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime")
+     */
+    private $createDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
+     */
+    private $lastModifiedDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
+     */
+    private $inactiveDate;
+    
+    /**
+     * @var \Morus\AcceticBundle\Model\TransactionInterface
+     *
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\TransactionInterface", inversedBy="ap", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id", unique=true)
      * })
@@ -222,9 +257,9 @@ class Ap implements \Morus\AcceticBundle\Model\ApInterface
     private $transaction;
 
     /**
-     * @var \Morus\AcceticBundle\Entity\Unit
+     * @var \Morus\AcceticBundle\Model\UnitInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Entity\Unit", inversedBy="aps", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="aps", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
@@ -886,14 +921,129 @@ class Ap implements \Morus\AcceticBundle\Model\ApInterface
     {
         return $this->isReturn;
     }
+    
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     * @return Ar
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
 
+        return $this;
+    }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer 
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Ar
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set createDate
+     *
+     * @param \DateTime $createDate
+     * @return Ar
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
+    /**
+     * Set lastModifiedDate
+     *
+     * @param \DateTime $lastModifiedDate
+     * @return Ar
+     */
+    public function setLastModifiedDate($lastModifiedDate)
+    {
+        $this->lastModifiedDate = $lastModifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModifiedDate
+     *
+     * @return \DateTime 
+     */
+    public function getLastModifiedDate()
+    {
+        return $this->lastModifiedDate;
+    }
+
+    /**
+     * Set inactiveDate
+     *
+     * @param \DateTime $inactiveDate
+     * @return Ar
+     */
+    public function setInactiveDate($inactiveDate)
+    {
+        $this->inactiveDate = $inactiveDate;
+
+        return $this;
+    }
+
+    /**
+     * Get inactiveDate
+     *
+     * @return \DateTime 
+     */
+    public function getInactiveDate()
+    {
+        return $this->inactiveDate;
+    }
+    
     /**
      * Set transaction
      *
-     * @param \Morus\AcceticBundle\Entity\Transaction $transaction
+     * @param \Morus\AcceticBundle\Model\TransactionInterface $transaction
      * @return Ap
      */
-    public function setTransaction(\Morus\AcceticBundle\Entity\Transaction $transaction = null)
+    public function setTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transaction = null)
     {
         $this->transaction = $transaction;
 
@@ -903,7 +1053,7 @@ class Ap implements \Morus\AcceticBundle\Model\ApInterface
     /**
      * Get transaction
      *
-     * @return \Morus\AcceticBundle\Entity\Transaction 
+     * @return \Morus\AcceticBundle\Model\TransactionInterface 
      */
     public function getTransaction()
     {
@@ -913,10 +1063,10 @@ class Ap implements \Morus\AcceticBundle\Model\ApInterface
     /**
      * Set unit
      *
-     * @param \Morus\AcceticBundle\Entity\Unit $unit
+     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
      * @return Ap
      */
-    public function setUnit(\Morus\AcceticBundle\Entity\Unit $unit = null)
+    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
     {
         $this->unit = $unit;
 
@@ -926,7 +1076,7 @@ class Ap implements \Morus\AcceticBundle\Model\ApInterface
     /**
      * Get unit
      *
-     * @return \Morus\AcceticBundle\Entity\Unit 
+     * @return \Morus\AcceticBundle\Model\UnitInterface 
      */
     public function getUnit()
     {
