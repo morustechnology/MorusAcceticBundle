@@ -1,6 +1,6 @@
 #   This table stores contact information for entities
 Morus\AcceticBundle\Entity\Contact:
-    type: entity
+    type: mappedSuperclass
     table: accetic_contact
     indexes:
         IDX_contact_class_id:

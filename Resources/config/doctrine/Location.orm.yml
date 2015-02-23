@@ -1,6 +1,6 @@
 #   This table stores addresses, such as shipto and bill to addresses.
 Morus\AcceticBundle\Entity\Location:
-    type: entity
+    type: mappedSuperclass
     table: accetic_location
     id:
         id:

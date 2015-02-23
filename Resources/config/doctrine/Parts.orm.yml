@@ -5,7 +5,7 @@
 #   * If inventory_accno_id is null but the other two are not, then a service.
 #   * Otherwise, a labor/overhead entry.
 Morus\AcceticBundle\Entity\Parts:
-    type: entity
+    type: mappedSuperclass
     table: accetic_parts
     repositoryClass: Morus\AcceticBundle\Entity\Repository\PartsRepository
 #    indexes:

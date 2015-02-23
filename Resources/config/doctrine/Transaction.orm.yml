@@ -3,7 +3,7 @@
 #   also is used to provide discretionary locking of financial transactions across 
 #   database connections, for example in batch payment workflows.
 Morus\AcceticBundle\Entity\Transaction:
-    type: entity
+    type: mappedSuperclass
     table: accetic_transaction
     indexes:
 #        transaction_locked_by_i:

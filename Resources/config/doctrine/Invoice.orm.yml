@@ -1,6 +1,6 @@
 #Line items of invoices with goods/services attached.
 Morus\AcceticBundle\Entity\Invoice:
-    type: entity
+    type: mappedSuperclass
     table: accetic_invoice
     indexes:
         invoice_trans_id_key:

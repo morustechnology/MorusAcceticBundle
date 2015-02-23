@@ -1,7 +1,7 @@
 #   Stores type of contact information attached to companies and persons.
 #   Please coordinate with others before adding new types.
 Morus\AcceticBundle\Entity\ContactClass:
-    type: entity
+    type: mappedSuperclass
     table: accetic_contact_class
     uniqueConstraints:
         contact_class_id_key:

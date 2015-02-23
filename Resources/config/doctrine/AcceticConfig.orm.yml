@@ -1,5 +1,5 @@
 Morus\AcceticBundle\Entity\AcceticConfig:
-    type: entity
+    type: mappedSuperclass
     table: accetic_config
     id:
         id:

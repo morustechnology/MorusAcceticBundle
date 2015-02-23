@@ -1,6 +1,6 @@
 #   Individuals seeking to add new location classes should coordinate with others.
 Morus\AcceticBundle\Entity\LocationClass:
-    type: entity
+    type: mappedSuperclass
     table: accetic_location_class
     uniqueConstraints:
         location_class_id_key:

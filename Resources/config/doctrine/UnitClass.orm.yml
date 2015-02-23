@@ -1,6 +1,6 @@
 #   Defines the class type such as vendor, customer, contact, employee
 Morus\AcceticBundle\Entity\UnitClass:
-    type: entity
+    type: mappedSuperclass
     table: accetic_unit_class
     id:
         id:

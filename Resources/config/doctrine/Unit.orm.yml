@@ -1,6 +1,6 @@
 #   The primary unit table to map to all contacts
 Morus\AcceticBundle\Entity\Unit:
-    type: entity
+    type: mappedSuperclass
     table: accetic_unit
     repositoryClass: Morus\AcceticBundle\Entity\Repository\UnitRepository
     indexes:

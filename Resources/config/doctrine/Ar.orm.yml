@@ -1,5 +1,5 @@
 Morus\AcceticBundle\Entity\Ar:
-    type: entity
+    type: mappedSuperclass
     table: accetic_ar
     indexes:
 #        IDX_unit_credit_account_id:
