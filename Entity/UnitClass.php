@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class UnitClass
+class UnitClass implements \Morus\AcceticBundle\Model\UnitClassInterface
 {
     /**
      * @var integer

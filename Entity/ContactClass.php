@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class ContactClass
+class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface
 {
     /**
      * @var integer

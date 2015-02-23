@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass(repositoryClass="Morus\AcceticBundle\Entity\Repository\PartsRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Parts
+class Parts implements \Morus\AcceticBundle\Model\PartsInterface
 {
     /**
      * @var integer

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class AcceticConfig
+class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
 {
     /**
      * @var integer

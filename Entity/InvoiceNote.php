@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class InvoiceNote
+class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
 {
     /**
      * @var integer

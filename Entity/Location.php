@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class Location
+class Location implements \Morus\AcceticBundle\Model\LocationInterface
 {
     /**
      * @var integer

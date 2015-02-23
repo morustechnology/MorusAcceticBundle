@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class Transaction
+class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
 {
     /**
      * @var integer

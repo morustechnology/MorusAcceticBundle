@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
-class Ap
+class Ap implements \Morus\AcceticBundle\Model\ApInterface
 {
     /**
      * @var integer
