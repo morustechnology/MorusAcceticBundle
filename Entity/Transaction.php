@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Transaction
  *
  * @ORM\Table(name="accetic_transaction")
- ** @ORM\Entity
+ * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
 class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
@@ -83,21 +83,21 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
      *
      * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="transaction")
      */
-    private $ar;
+    protected $ar;
 
     /**
      * @var \Morus\AcceticBundle\Model\ApInterface
      *
      * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ApInterface", mappedBy="transaction")
      */
-    private $ap;
+    protected $ap;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="transaction", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $invoices;
+    protected $invoices;
 
     /**
      * @var \Morus\AcceticBundle\Model\UnitInterface
@@ -107,7 +107,7 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
      *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
      * })
      */
-    private $unit;
+    protected $unit;
 
     /**
      * Constructor

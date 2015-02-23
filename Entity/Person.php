@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Person
  *
  * @ORM\Table(name="accetic_person", uniqueConstraints={@ORM\UniqueConstraint(name="person_id_key", columns={"id"})})
- ** @ORM\Entity
+ * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
 class Person implements \Morus\AcceticBundle\Model\PersonInterface
@@ -104,7 +104,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ContactInterface", mappedBy="person", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $contacts;
+    protected $contacts;
 
     /**
      * @var \Morus\AcceticBundle\Model\UnitInterface
@@ -114,7 +114,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
      */
-    private $unit;
+    protected $unit;
 
     /**
      * Constructor

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Parts
  *
  * @ORM\Table(name="accetic_parts", uniqueConstraints={@ORM\UniqueConstraint(name="parts_itemcode_index_u", columns={"itemcode"})})
- ** @ORM\Entity(repositoryClass="Morus\AcceticBundle\Entity\Repository\PartsRepository")
+ * @ORM\MappedSuperClass(repositoryClass="Morus\AcceticBundle\Entity\Repository\PartsRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Parts implements \Morus\AcceticBundle\Model\PartsInterface
@@ -244,7 +244,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="parts", orphanRemoval=true)
      */
-    private $invoices;
+    protected $invoices;
 
     /**
      * Constructor

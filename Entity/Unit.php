@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Unit
  *
  * @ORM\Table(name="accetic_unit", uniqueConstraints={@ORM\UniqueConstraint(name="unit_id_key", columns={"id"}), @ORM\UniqueConstraint(name="unit_account_number_key", columns={"account_number"})}, indexes={@ORM\Index(name="IDX_account_number", columns={"account_number"})})
- ** @ORM\Entity(repositoryClass="Morus\AcceticBundle\Entity\Repository\UnitRepository")
+ * @ORM\MappedSuperClass(repositoryClass="Morus\AcceticBundle\Entity\Repository\UnitRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Unit implements \Morus\AcceticBundle\Model\UnitInterface
@@ -76,42 +76,42 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ContactInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $contacts;
+    protected $contacts;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\PersonInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $persons;
+    protected $persons;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\LocationInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $locations;
+    protected $locations;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\TransactionInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $transactions;
+    protected $transactions;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $ars;
+    protected $ars;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ApInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $aps;
+    protected $aps;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -126,7 +126,7 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
      *   }
      * )
      */
-    private $unitClasses;
+    protected $unitClasses;
 
     /**
      * Constructor

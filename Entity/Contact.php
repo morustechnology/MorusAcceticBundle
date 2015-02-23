@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Contact
  *
  * @ORM\Table(name="accetic_contact", indexes={@ORM\Index(name="IDX_contact_class_id", columns={"contact_class_id"})})
- ** @ORM\Entity
+ * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
 class Contact implements \Morus\AcceticBundle\Model\ContactInterface
@@ -72,7 +72,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
      */
-    private $unit;
+    protected $unit;
 
     /**
      * @var \Morus\AcceticBundle\Model\PersonInterface
@@ -82,7 +82,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      *   @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      * })
      */
-    private $person;
+    protected $person;
 
     /**
      * @var \Morus\AcceticBundle\Model\ContactClassInterface
@@ -92,7 +92,7 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      *   @ORM\JoinColumn(name="contact_class_id", referencedColumnName="id")
      * })
      */
-    private $contactClass;
+    protected $contactClass;
 
     /**
      * Constructor

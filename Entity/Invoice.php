@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Invoice
  *
  * @ORM\Table(name="accetic_invoice", indexes={@ORM\Index(name="invoice_trans_id_key", columns={"transaction_id"}), @ORM\Index(name="IDX_parts_id", columns={"parts_id"})})
- ** @ORM\Entity
+ * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
 class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
@@ -153,7 +153,7 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
      *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceNoteInterface", mappedBy="invoice", orphanRemoval=true)
      */
-    private $invoiceNotes;
+    protected $invoiceNotes;
 
     /**
      * @var \Morus\AcceticBundle\Model\PartsInterface
@@ -163,7 +163,7 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
      *   @ORM\JoinColumn(name="parts_id", referencedColumnName="id")
      * })
      */
-    private $parts;
+    protected $parts;
 
     /**
      * @var \Morus\AcceticBundle\Model\TransactionInterface
@@ -173,7 +173,7 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
      *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
      * })
      */
-    private $transaction;
+    protected $transaction;
 
     /**
      * Constructor

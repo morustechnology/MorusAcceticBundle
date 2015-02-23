@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Location
  *
  * @ORM\Table(name="accetic_location")
- ** @ORM\Entity
+ * @ORM\MappedSuperClass
  * @ORM\HasLifecycleCallbacks
  */
 class Location implements \Morus\AcceticBundle\Model\LocationInterface
@@ -128,7 +128,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
      *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
      * })
      */
-    private $unit;
+    protected $unit;
 
     /**
      * @var \Morus\AcceticBundle\Model\LocationClassInterface
@@ -138,7 +138,7 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
      *   @ORM\JoinColumn(name="location_class_id", referencedColumnName="id")
      * })
      */
-    private $locationClass;
+    protected $locationClass;
     
     /**
      * Constructor
