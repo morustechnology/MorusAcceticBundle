@@ -14,6 +14,7 @@ class UnitRepository extends EntityRepository
 {
     public function findListByControlCode($controlCode)
     {
+
         $query = $this->getEntityManager()
                 ->createQuery(
                         'SELECT e.id, e.name, '

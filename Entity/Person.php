@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Person
  *
  * @ORM\Table(name="accetic_person", uniqueConstraints={@ORM\UniqueConstraint(name="person_id_key", columns={"id"})})
- * @ORM\MappedSuperClass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Person implements \Morus\AcceticBundle\Model\PersonInterface

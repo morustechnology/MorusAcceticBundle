@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * LocationClass
  *
  * @ORM\Table(name="accetic_location_class", uniqueConstraints={@ORM\UniqueConstraint(name="location_class_id_key", columns={"id", "control_code"})})
- * @ORM\MappedSuperClass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class LocationClass implements \Morus\AcceticBundle\Model\LocationClassInterface

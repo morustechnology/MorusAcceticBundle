@@ -1,14 +1,14 @@
-INSERT INTO `accetic_config`(`controlCode`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_PREFIX', 'INV-', 'Invoice Prefix', 0, 1, now());
-INSERT INTO `accetic_config`(`controlCode`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_NEXT_NUM', '00001', 'Invoice Next Number', 0, 1, now());
+INSERT INTO `accetic_config`(`control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_PREFIX', 'INV-', 'Invoice Prefix', 0, 1, now());
+INSERT INTO `accetic_config`(`control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_NEXT_NUM', '00001', 'Invoice Next Number', 0, 1, now());
 
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('COMPANY', 'Company', 0, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('EDUCATION', 'Education', 1, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('ASSOCIATION', 'Association', 2, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('SOCIETY', 'Club or Society', 3, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('PARTNERSHIP', 'Partnership', 4, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('PERSON', 'Person', 5, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('SOLE', 'Sole Trader', 6, 1, now());
-INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('TRUST', 'Trust', 7, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('COMPANY', 'Company', 0, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('EDUCATION', 'Education', 1, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('ASSOCIATION', 'Association', 2, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('SOCIETY', 'Club or Society', 3, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('PARTNERSHIP', 'Partnership', 4, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('PERSON', 'Person', 5, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('SOLE', 'Sole Trader', 6, 1, now());
+# INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('TRUST', 'Trust', 7, 1, now());
 
 INSERT INTO `accetic_location_class`(`control_code`, `class`,`sort_order`, `active`, `create_date`) VALUES ('POSTAL', 'Postal Address', 0, 1, now());
 INSERT INTO `accetic_location_class`(`control_code`, `class`,`sort_order`, `active`, `create_date`) VALUES ('PHYSICAL', 'Physical Address', 1, 1, now());

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Transaction
  *
  * @ORM\Table(name="accetic_transaction")
- * @ORM\MappedSuperClass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface

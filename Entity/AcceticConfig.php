@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AcceticConfig
  *
  * @ORM\Table(name="accetic_config")
- * @ORM\MappedSuperClass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
@@ -25,7 +25,7 @@ class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="controlCode", type="string", length=50, nullable=false)
+     * @ORM\Column(name="control_code", type="string", length=50, nullable=false)
      */
     private $controlCode;
 

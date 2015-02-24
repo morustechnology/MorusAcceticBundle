@@ -24,11 +24,8 @@ class ContactsController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $entities = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findAllList();
 
-        return $this->render('MorusAcceticBundle:Contacts:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render('MorusAcceticBundle:Contacts:index.html.twig');
     }
     
     /**
@@ -38,15 +35,17 @@ class ContactsController extends Controller
     public function listAction($ecc)
     {
         $controlCode = strtoupper($ecc);
+
+        $em = $this->getDoctrine()->getManager();
         
         if ($controlCode == 'ALL') {
-            $contacts = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findAllList();
+            $contacts = $em
+                ->getRepository('MorusAcceticBundle:Unit')->findAllList();
         } else {
-            $contacts = $this->getDoctrine()->getRepository('MorusAcceticBundle:Unit')->findListByControlCode($ecc);
+            $contacts = $em
+                ->getRepository('MorusAcceticBundle:Unit')->findListByControlCode($controlCode);
         }
         
-//        $indexTwig = $this->container->getParameter( 'morus_accetic.contacts.template.index' );
-
         return $this->render('MorusAcceticBundle:Contacts:list.html.twig', array(
             'contacts' => $contacts,
         ));
