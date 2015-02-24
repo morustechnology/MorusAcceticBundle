@@ -17,6 +17,7 @@ class PartsListType extends AbstractType
         $builder
             ->add('id', 'entity', array(
                 'class' => 'MorusAcceticBundle:Parts',
+                'property' => 'itemname',
                 'expanded' => true,
                 'multiple' => true
             ));

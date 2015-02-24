@@ -32,7 +32,7 @@ class ContactsController extends Controller
      * Lists Unit entities.
      *
      */
-    public function listAction($ecc)
+    public function listAjaxAction($ecc)
     {
         $controlCode = strtoupper($ecc);
 
@@ -52,14 +52,30 @@ class ContactsController extends Controller
     }
     
     /**
+     * Displays a form to create a new Entity unit.
+     *
+     */
+    public function newAction($ecc)
+    {        
+        
+        $entity = $this->createUnit($ecc);
+        $form = $this->genCreateForm($entity, $ecc);
+
+        return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+    
+    /**
      * Creates a new Unit entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $ecc)
     {
-        $entity = $this->createUnit();
+        $entity = $this->createUnit($ecc);
         
-        $form = $this->createCreateForm($entity);
+        $form = $this->genCreateForm($entity, $ecc);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -67,7 +83,7 @@ class ContactsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('morus_accetic_contacts_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('morus_accetic_contacts'));
         }
 
         return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
@@ -83,10 +99,10 @@ class ContactsController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Unit $unit)
+    private function genCreateForm(Unit $unit, $ecc = null)
     {
         $form = $this->createForm('accetic_unit', $unit, array(
-            'action' => $this->generateUrl('morus_accetic_contacts_create'),
+            'action' => $this->generateUrl('morus_accetic_contacts_create', array('ecc' => $ecc)),
             'method' => 'POST',
         ));
         
@@ -98,8 +114,9 @@ class ContactsController extends Controller
         return $form;
     }
 
-    private function createUnit($type = null)
+    private function createUnit($ecc = null)
     {
+        $controlCode = strtoupper($ecc);
         $unit = new Unit();
         $person = new Person();
         $email = new Contact();
@@ -117,10 +134,10 @@ class ContactsController extends Controller
         $person->setIsPrimary(true);
         
         // Add Contact Type
-        if ($type) {
+        if ($ecc) {
            $unitClass = $this->getDoctrine()
                 ->getRepository('MorusAcceticBundle:UnitClass')
-                ->findOneByControlCode($type);
+                ->findOneByControlCode($ecc);
            if ($unitClass) {
                $unit->addUnitClass($unitClass);
            }
@@ -187,53 +204,7 @@ class ContactsController extends Controller
         
         return $unit;
     }
-    
-    /**
-     * Displays a form to create a new Entity unit.
-     *
-     */
-    public function newAction()
-    {        
-        
-        $entity = $this->createUnit();
-        $form = $this->createCreateForm($entity);
 
-        return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-    
-    /**
-     * Displays a form to create a new Supplier Entity unit .
-     *
-     */
-    public function newSupplierAction()
-    {        
-        $entity = $this->createUnit('SUPPLIER');
-        $form = $this->createCreateForm($entity);
-
-        return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-    
-    /**
-     * Displays a form to create a new Employee Entity unit .
-     *
-     */
-    public function newEmployeeAction()
-    {        
-        $entity = $this->createUnit('EMPLOYEE');
-        $form = $this->createCreateForm($entity);
-
-        return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-    
     /**
      * Finds and displays a Entity unit.
      *
@@ -248,7 +219,7 @@ class ContactsController extends Controller
             throw $this->createNotFoundException('Unable to find Entity unit.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->genDeleteForm($id);
 
         return $this->render('MorusAcceticBundle:Contacts:show.html.twig', array(
             'entity'      => $entity,
@@ -270,8 +241,8 @@ class ContactsController extends Controller
             throw $this->createNotFoundException('Unable to find Entity unit.');
         }
 
-        $editForm = $this->createEditForm($unit);
-        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->genEditForm($unit);
+        $deleteForm = $this->genDeleteForm($id);
 
         return $this->render('MorusAcceticBundle:Contacts:edit.html.twig', array(
             'unit'      => $unit,
@@ -287,7 +258,7 @@ class ContactsController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Unit $unit)
+    private function genEditForm(Unit $unit)
     {
         $form = $this->createForm('accetic_unit', $unit, array(
             'action' => $this->generateUrl('morus_accetic_contacts_update', array('id' => $unit->getId())),
@@ -312,14 +283,14 @@ class ContactsController extends Controller
             throw $this->createNotFoundException('Unable to find Entity unit.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($unit);
+        $deleteForm = $this->genDeleteForm($id);
+        $editForm = $this->genEditForm($unit);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('morus_accetic_contacts_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('morus_accetic_contacts'));
         }
 
         return $this->render('MorusAcceticBundle:Contacts:edit.html.twig', array(
@@ -334,7 +305,7 @@ class ContactsController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->genDeleteForm($id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -359,7 +330,7 @@ class ContactsController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function genDeleteForm($id)
     {
         return $this->createFormBuilder(null, array('attr' => array( 'id' => 'ct_del_form', 'style' => 'display:none')))
             ->setAction($this->generateUrl('morus_accetic_contacts_delete', array('id' => $id)))

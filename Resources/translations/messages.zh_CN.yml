@@ -35,19 +35,10 @@ contact:
     overdue_bills: 过期票据
     sales_invoices_due: 到期发票
     overdue_sales_invoices: 过期发票
-    btn:
-        save: 保存
-        delete: 删除
-        edit: 修改
-        back: 返回列表
-        add_contact: 通讯录
-        add_supplier: 供应商
-        add_employee: 雇员
-        add_another_person: 添加联络人
-        add_person: 新增联络人
         
 ar:
     number: 编号
+    reference: 备注
     to: 给
     date: 日期
     due_date: 到期日
@@ -59,7 +50,6 @@ ar:
     invnumber: 发票编号
     transdate: 日期
     duedate: 到期日
-    reference: 备注
     save: 保存
     approve: 通过批核
     cancel: 取消
@@ -102,3 +92,10 @@ btn:
     cancel: 取消
     delete: 删除
     back: 返回
+    add_new_line: 添加新行
+    new_invoice: 新增发票
+    add_contact: 通讯录
+    add_supplier: 供应商
+    add_employee: 雇员
+    add_another_person: 添加联络人
+    add_person: 新增联络人

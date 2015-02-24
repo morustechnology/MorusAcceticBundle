@@ -40,27 +40,27 @@
 {% block body -%}
     <ul class="page-control">
         <li>
-            <a class="loading-btn" href="{{ path('morus_accetic_contacts_new') }}">
+            <a class="loading-btn" href="{{ path('morus_accetic_contacts_new', {'ecc': 'all'}) }}">
                 {% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}
                 <em class="icons add icon" style="background:url('{{ asset_url }}') no-repeat;background-position:0 -50px;" ></em>
                 {% endimage %}
-                {{ 'contact.btn.add_contact'|trans }}
+                {{ 'btn.add_contact'|trans }}
             </a>
         </li>
         <li>
-            <a class="loading-btn" href="{{ path('morus_accetic_contacts_new_supplier') }}">
+            <a class="loading-btn" href="{{ path('morus_accetic_contacts_new', {'ecc': 'supplier'}) }}">
                 {% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}
                 <em class="icons add icon" style="background:url('{{ asset_url }}') no-repeat;background-position:0 -50px;" ></em>
                 {% endimage %}
-                {{ 'contact.btn.add_supplier'|trans }}
+                {{ 'btn.add_supplier'|trans }}
             </a>
         </li>
         <li>
-            <a class="loading-btn" href="{{ path('morus_accetic_contacts_new_employee') }}">
+            <a class="loading-btn" href="{{ path('morus_accetic_contacts_new', {'ecc': 'employee'}) }}">
                 {% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}
                 <em class="icons add icon" style="background:url('{{ asset_url }}') no-repeat;background-position:0 -50px;" ></em>
                 {% endimage %}
-                {{ 'contact.btn.add_employee'|trans }}
+                {{ 'btn.add_employee'|trans }}
             </a>
         </li>
     </ul>

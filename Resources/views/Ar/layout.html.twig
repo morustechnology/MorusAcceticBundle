@@ -1,13 +1,13 @@
-{% block invoices_widget %}
+{% block accetic_invoices_widget %}
     {% spaceless %}
         {% for invoice in form %}
             {{ form_widget(invoice) }}
         {% endfor %}
         {{ form_rest(form) }}
     {% endspaceless %}
-{% endblock invoices_widget %}
+{% endblock accetic_invoices_widget %}
 
-{% block invoice_widget %}
+{% block accetic_invoice_widget %}
     {% spaceless %}
         <div id="transaction-invoice">
             <table>
@@ -35,4 +35,4 @@
             {{ form_rest(form) }}
         </div>
     {% endspaceless %}
-{% endblock invoice_widget %}
+{% endblock accetic_invoice_widget %}

@@ -35,19 +35,11 @@ contact:
     overdue_bills: 過期票據
     sales_invoices_due: 到期發票
     overdue_sales_invoices: 過期發票
-    btn:
-        save: 儲存
-        delete: 刪除
-        edit: 修改
-        back: 返回列表
-        add_contact: 通訊錄
-        add_supplier: 供應商
-        add_employee: 僱員
-        add_another_person: 添加聯絡人
-        add_person: 新增聯絡人
+        
               
 ar:
     number: 編號
+    reference: 備註
     to: 給
     date: 日期
     due_date: 到期日
@@ -59,7 +51,6 @@ ar:
     invnumber: 發票編號
     transdate: 日期
     duedate: 到期日
-    reference: 備註
     save: 儲存
     approve: 通過批核
     cancel: 取消
@@ -102,4 +93,11 @@ btn:
     cancel: 取消
     delete: 刪除
     back: 返回
+    add_new_line: 開新行
+    new_invoice: 新增發票
+    add_contact: 通訊錄
+    add_supplier: 供應商
+    add_employee: 僱員
+    add_another_person: 添加聯絡人
+    add_person: 新增聯絡人
         

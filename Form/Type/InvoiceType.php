@@ -17,17 +17,23 @@ class InvoiceType extends AbstractType
         $builder
             ->add('parts', 'entity', array(
                 'class' => 'MorusAcceticBundle:Parts',
-                'property' => 'itemcode'
+                'property' => 'itemcode',
+                'required' => false
             ))
-            ->add('description', 'text')
+            ->add('description', 'text', array(
+                'required' => false
+            ))
             ->add('qty', 'number', array(
                 'precision' => 2,
+                'required' => false
             ))
             ->add('sellprice', 'number', array(
-                'precision' => 2
+                'precision' => 2,
+                'required' => false
             ))
             ->add('discount', 'number', array(
-                'precision' => 2
+                'precision' => 2,
+                'required' => false
             ))
         ;
     }

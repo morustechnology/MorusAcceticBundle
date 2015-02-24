@@ -1,16 +1,19 @@
 {% form_theme form 'MorusAcceticBundle:Ar:layout.html.twig' %}
 
+{% set inv_save_lk_id = 'acc_inv_save_lk' %}
+
 {% extends '::base.html.twig' %}
 
 {% block javascripts %}
     {% javascripts '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    
     <script type='text/javascript'> 
         var $collectionHolder;
 
         // setup an "add a invoice" link
-        var $addInvoiceLink = $('<a href="#" class="add_invoice_link">Add New Line</a>');
+        var $addInvoiceLink = $('<a href="#" class="add_invoice_link">{{ 'btn.add_new_line'|trans }}</a>');
         var $newLinkLi = $('<div></div>').append($addInvoiceLink);
 
         jQuery(document).ready(function() {
@@ -47,6 +50,13 @@
             
             $('input[id$=_discount]').on('change', function(e) {
                 calAmount(this.id.replace('ar_transaction_invoices_', '').replace('_discount',''));
+            });
+            
+            // Replace Delete Form Submit button
+            $('#{{ inv_save_lk_id }}').on('click', function(event){
+                event.preventDefault();
+                alert({{ form.vars.attr.id }});
+                $('#{{ form.vars.attr.id }}').find(':submit').click(); 
             });
             
         });
@@ -135,7 +145,7 @@
 {% block body -%}
     {{ form_start(form) }}
         {{ form_errors(form) }}
-        {{ 'ar.customer'|trans }} {{ form_widget(form.ar.unit) }} {{ form_errors(form.ar.unit) }}
+        {{ 'ar.to'|trans }} {{ form_widget(form.ar.unit) }} {{ form_errors(form.ar.unit) }}
         {{ 'ar.invnumber'|trans }} {{ form_widget(form.ar.invnumber) }} {{ form_errors(form.ar.invnumber) }}
         {{ 'ar.transdate'|trans }} {{ form_widget(form.ar.transdate) }} {{ form_errors(form.ar.transdate) }}
         {{ 'ar.duedate'|trans }} {{ form_widget(form.ar.duedate) }} {{ form_errors(form.ar.duedate) }}
@@ -167,7 +177,7 @@
                     
             {{ form_widget(form.invoices) }}
         </div>
-            <div>{{ 'ar.subtotal'|trans }} <label id='transaction-subtotal'></label></div>
+        <div>{{ 'ar.subtotal'|trans }} <label id='transaction-subtotal'></label></div>
         <div>{{ 'ar.total'|trans }} <label id='transaction-total'></label></div>
         {{ form_widget(form.submit) }}
         {{ form_rest(form) }}
@@ -178,8 +188,13 @@
     
     <ul class="record_actions">
         <li>
+            <a id="{{ inv_save_lk_id }}" href="#">
+                {{ 'btn.save'|trans }}
+            </a>
+        </li>
+        <li>
             <a href="{{ path('morus_accetic_ar') }}">
-                Back to the list
+                {{ 'btn.cancel'|trans }}
             </a>
         </li>
     </ul>

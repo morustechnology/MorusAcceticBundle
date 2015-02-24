@@ -32,7 +32,9 @@ class ArType extends AbstractType
                 'attr' => array('class' => 'date'),
                 'required' => false,
             ))
-            ->add('reference', 'text')
+            ->add('reference', 'text', array(
+                'required' => false,
+            ))
             
         ;
     }

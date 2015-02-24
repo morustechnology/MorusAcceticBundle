@@ -67,11 +67,15 @@ class ArController extends Controller
     private function createCreateArForm(Transaction $entity)
     {
         $form = $this->createForm('accetic_ar_transaction', $entity, array(
+            'attr' => array( 'id' => 'inv_new_form'),
             'action' => $this->generateUrl('morus_accetic_ar_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => $this->get('translator')->trans('ar.save')));
+        $form->add('submit', 'submit', array(
+                'label' => $this->get('translator')->trans('btn.save'),
+                'attr' => array('style' => 'display:none')
+            ));
         
         return $form;
     }

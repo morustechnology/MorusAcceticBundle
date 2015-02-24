@@ -5,6 +5,17 @@
 {% endblock %}
 
 {% block body -%}
+    <ul class="page-control">
+        <li>
+            <a class="loading-btn" href="{{ path('morus_accetic_ar_new') }}">
+                {% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}
+                <em class="icons add icon" style="background:url('{{ asset_url }}') no-repeat;background-position:0 -50px;" ></em>
+                {% endimage %}
+                {{ 'btn.new_invoice'|trans }}
+            </a>
+        </li>
+    </ul>
+            
     <table class="records_list">
         <thead>
             <tr>
@@ -45,12 +56,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('morus_accetic_ar_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}

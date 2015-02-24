@@ -35,16 +35,6 @@ contact:
     overdue_bills: Overdue Bills
     sales_invoices_due: Sales Invoices Due
     overdue_sales_invoices: Overdue Sales Invoices
-    btn:
-        save: Save
-        delete: Delete
-        edit: Edit
-        back: Back to the list
-        add_contact: Add Contact
-        add_supplier: Add Supplier
-        add_employee: Add Employee
-        add_another_person: Add another person
-        add_person: Add Contact
         
 ar:
     number: Number
@@ -102,4 +92,11 @@ btn:
     cancel: Cancel
     delete: Delete
     back: Back
+    add_new_line: Add New Line
+    new_invoice: New Invoice
+    add_contact: Add Contact
+    add_supplier: Add Supplier
+    add_employee: Add Employee
+    add_another_person: Add another person
+    add_person: Add Contact
         
