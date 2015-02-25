@@ -9,30 +9,14 @@
 
 {% block accetic_invoice_widget %}
     {% spaceless %}
-        <div id="transaction-invoice">
-            <table>
-                <tr>
-                    <td>
-                        {{ form_widget(form.parts)}}
-                    </td>
-                    <td>
-                        {{ form_widget(form.description)}}
-                    </td>
-                    <td>
-                        {{ form_widget(form.qty) }}
-                    </td>
-                    <td>
-                        {{ form_widget(form.sellprice)}}
-                    </td>
-                    <td>
-                        {{ form_widget(form.discount)}}
-                    </td>
-                    <td>
-                        <label id='{{ form.vars.name }}_invoiceAmount'></label>
-                    </td>
-                </tr>
-            </table>
-            {{ form_rest(form) }}
-        </div>
+        <tr id="{{ form.vars.id }}" class="test">
+            <td>{{ form_widget(form.parts)}}</td>
+            <td>{{ form_widget(form.description)}}</td>
+            <td>{{ form_widget(form.qty) }}</td>
+            <td>{{ form_widget(form.sellprice)}}</td>
+            <td>{{ form_widget(form.discount)}}</td>
+            <td><label id="{{ form.vars.id }}_amount"></label></td>
+            <td></td>
+        </tr>
     {% endspaceless %}
 {% endblock accetic_invoice_widget %}
