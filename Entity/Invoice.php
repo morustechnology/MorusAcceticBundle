@@ -51,13 +51,6 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     private $sellprice;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="precision", type="integer", nullable=true)
-     */
-    private $precision;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="fxsellprice", type="decimal", precision=10, scale=2, nullable=true)
@@ -301,29 +294,6 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     public function getSellprice()
     {
         return $this->sellprice;
-    }
-
-    /**
-     * Set precision
-     *
-     * @param integer $precision
-     * @return Invoice
-     */
-    public function setPrecision($precision)
-    {
-        $this->precision = $precision;
-
-        return $this;
-    }
-
-    /**
-     * Get precision
-     *
-     * @return integer 
-     */
-    public function getPrecision()
-    {
-        return $this->precision;
     }
 
     /**

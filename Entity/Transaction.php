@@ -81,14 +81,14 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     /**
      * @var \Morus\AcceticBundle\Model\ArInterface
      *
-     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="transaction")
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="transaction", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $ar;
 
     /**
      * @var \Morus\AcceticBundle\Model\ApInterface
      *
-     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ApInterface", mappedBy="transaction")
+     * @ORM\OneToOne(targetEntity="Morus\AcceticBundle\Model\ApInterface", mappedBy="transaction", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $ap;
 
