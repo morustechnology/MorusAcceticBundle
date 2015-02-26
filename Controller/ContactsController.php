@@ -86,14 +86,122 @@ class ContactsController extends Controller
      */
     public function createAction(Request $request, $ecc)
     {
-        $entity = $this->createUnit($ecc);
         
-        $form = $this->genCreateForm($entity, $ecc);
+        
+        //$entity = $this->createUnit($ecc);
+        
+        
+        
+        
+        $bundle = $this->container->getParameter('morus_accetic.bundle');
+        $controlCode = strtoupper($ecc);
+        
+        $unit = new Unit();
+        $person = new Person();
+        $email = new Contact();
+        $postalLocation = new Location();
+        $physicalLocation = new Location();
+        $telephoneContact = new Contact();
+        $faxContact = new Contact();
+        $mobileContact = new Contact();
+        $directContact = new Contact();
+        $websiteContact = new Contact();
+        
+        $unit->setActive(true);
+        $unit->setCreateDate(new \DateTime("now"));
+        
+        $person->setIsPrimary(true);
+        
+        // Add Contact Type
+        if ($ecc) {
+           $unitClass = $this->getDoctrine()
+                ->getRepository($bundle.':UnitClass')
+                ->findOneByControlCode($ecc);
+           if ($unitClass) {
+               $unit->addUnitClass($unitClass);
+           }
+        }
+        
+        //Add Default Contact Person
+        $contactClass = $this->getDoctrine()
+                ->getRepository($bundle.':ContactClass')
+                ->findOneByControlCode('EMAIL');
+        $email->setContactClass($contactClass);
+        
+        $email->setPerson($person);
+        $person->addContact($email);
+        $unit->addPerson($person);
+        $person->setUnit($unit);
+
+        // Create Default Postal Address
+        $postalLocationClass = $this->getDoctrine()
+                ->getRepository($bundle.':LocationClass')
+                ->findOneByControlCode('POSTAL');
+        $postalLocation->setLocationClass($postalLocationClass);
+        
+        $unit->addLocation($postalLocation);
+        $postalLocation->setUnit($unit);
+        
+        // Create Default Physical Address
+        $physicalLocationClass = $this->getDoctrine()
+                ->getRepository($bundle.':LocationClass')
+                ->findOneByControlCode('PHYSICAL');
+        $physicalLocation->setLocationClass($physicalLocationClass);
+        $unit->getLocations()->add($physicalLocation);
+        $physicalLocation->setUnit($unit);
+        
+        //  Add default contacts, e.g. telephone, fax, website
+        $telephoneContact->setContactClass($this->getDoctrine()
+                ->getRepository($bundle.':ContactClass')
+                ->findOneByControlCode('TELEPHONE'));
+        $unit->addContact($telephoneContact);
+        $telephoneContact->setUnit($unit);
+        
+        $faxContact->setContactClass($this->getDoctrine()
+                ->getRepository($bundle.':ContactClass')
+                ->findOneByControlCode('FAX'));
+        $unit->addContact($faxContact);
+        $faxContact->setUnit($unit);
+        
+        $mobileContact->setContactClass($this->getDoctrine()
+                ->getRepository($bundle.':ContactClass')
+                ->findOneByControlCode('MOBILE'));
+        $unit->addContact($mobileContact);
+        $mobileContact->setUnit($unit);
+        
+        $directContact->setContactClass($this->getDoctrine()
+                ->getRepository($bundle.':ContactClass')
+                ->findOneByControlCode('DIRECT'));
+        $unit->addContact($directContact);
+        $directContact->setUnit($unit);
+        
+        $websiteContact->setContactClass($this->getDoctrine()
+                ->getRepository($bundle.':ContactClass')
+                ->findOneByControlCode('WEBSITE'));
+        $unit->addContact($websiteContact);
+        $websiteContact->setUnit($unit);
+        
+        
+        
+        
+        
+        
+        $form = $this->genCreateForm($unit, $ecc);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist();
+            $em->persist($person);
+            $em->persist($email);
+            $em->persist($postalLocation);
+            $em->persist($physicalLocation);
+            $em->persist($telephoneContact);
+            $em->persist($faxContact);
+            $em->persist($mobileContact);
+            $em->persist($directContact);
+            $em->persist($websiteContact);
+            $em->persist($unit);
             $em->flush();
 
             return $this->redirect($this->generateUrl('morus_accetic_contacts'));
@@ -129,7 +237,9 @@ class ContactsController extends Controller
 
     private function createUnit($ecc = null)
     {
+        $bundle = $this->container->getParameter('morus_accetic.bundle');
         $controlCode = strtoupper($ecc);
+        
         $unit = new Unit();
         $person = new Person();
         $email = new Contact();
@@ -149,7 +259,7 @@ class ContactsController extends Controller
         // Add Contact Type
         if ($ecc) {
            $unitClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:UnitClass')
+                ->getRepository($bundle.':UnitClass')
                 ->findOneByControlCode($ecc);
            if ($unitClass) {
                $unit->addUnitClass($unitClass);
@@ -158,7 +268,7 @@ class ContactsController extends Controller
         
         //Add Default Contact Person
         $contactClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
+                ->getRepository($bundle.':ContactClass')
                 ->findOneByControlCode('EMAIL');
         $email->setContactClass($contactClass);
         
@@ -169,7 +279,7 @@ class ContactsController extends Controller
 
         // Create Default Postal Address
         $postalLocationClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:LocationClass')
+                ->getRepository($bundle.':LocationClass')
                 ->findOneByControlCode('POSTAL');
         $postalLocation->setLocationClass($postalLocationClass);
         
@@ -178,7 +288,7 @@ class ContactsController extends Controller
         
         // Create Default Physical Address
         $physicalLocationClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:LocationClass')
+                ->getRepository($bundle.':LocationClass')
                 ->findOneByControlCode('PHYSICAL');
         $physicalLocation->setLocationClass($physicalLocationClass);
         $unit->getLocations()->add($physicalLocation);
@@ -186,31 +296,31 @@ class ContactsController extends Controller
         
         //  Add default contacts, e.g. telephone, fax, website
         $telephoneContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
+                ->getRepository($bundle.':ContactClass')
                 ->findOneByControlCode('TELEPHONE'));
         $unit->addContact($telephoneContact);
         $telephoneContact->setUnit($unit);
         
         $faxContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
+                ->getRepository($bundle.':ContactClass')
                 ->findOneByControlCode('FAX'));
         $unit->addContact($faxContact);
         $faxContact->setUnit($unit);
         
         $mobileContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
+                ->getRepository($bundle.':ContactClass')
                 ->findOneByControlCode('MOBILE'));
         $unit->addContact($mobileContact);
         $mobileContact->setUnit($unit);
         
         $directContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
+                ->getRepository($bundle.':ContactClass')
                 ->findOneByControlCode('DIRECT'));
         $unit->addContact($directContact);
         $directContact->setUnit($unit);
         
         $websiteContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
+                ->getRepository($bundle.':ContactClass')
                 ->findOneByControlCode('WEBSITE'));
         $unit->addContact($websiteContact);
         $websiteContact->setUnit($unit);
