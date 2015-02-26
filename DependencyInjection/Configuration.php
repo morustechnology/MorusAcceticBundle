@@ -20,6 +20,15 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('morus_accetic');
 
+        $rootNode
+            ->children()
+                ->scalarNode('bundle')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                    ->defaultValue('MorusAcceticBundle')
+                ->end()
+            ->end()
+        ;
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

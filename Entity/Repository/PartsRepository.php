@@ -2,7 +2,7 @@
 
 namespace Morus\AcceticBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\MappedSuperclassRepository;
 
 /**
  * PartsRepository

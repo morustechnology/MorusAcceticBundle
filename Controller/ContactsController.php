@@ -34,6 +34,7 @@ class ContactsController extends Controller
      */
     public function listAjaxAction($ecc)
     {
+        $bundle = $this->container->getParameter('morus_accetic.bundle');
         $controlCode = strtoupper($ecc);
         $em = $this->getDoctrine()->getManager();
         
@@ -41,7 +42,7 @@ class ContactsController extends Controller
                 ->select('u.id, u.name')
                 ->addSelect('p.firstName, p.lastName')
                 ->addSelect('c.description')
-                ->from('MorusAcceticBundle:Unit', 'u')
+                ->from($bundle.':Unit', 'u')
                 
                 ->join('u.persons', 'p', 'WITH', 'p.isPrimary = 1')
                 ->join('p.contacts', 'c')
