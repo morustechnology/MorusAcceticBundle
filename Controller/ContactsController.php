@@ -35,16 +35,28 @@ class ContactsController extends Controller
     public function listAjaxAction($ecc)
     {
         $controlCode = strtoupper($ecc);
-
         $em = $this->getDoctrine()->getManager();
         
+        $qb = $em->createQueryBuilder()
+                ->select('u.id, u.name')
+                ->addSelect('p.firstName, p.lastName')
+                ->addSelect('c.description')
+                ->from('MorusAcceticBundle:Unit', 'u')
+                
+                ->join('u.persons', 'p', 'WITH', 'p.isPrimary = 1')
+                ->join('p.contacts', 'c')
+                ->where('u.active = 1')
+                ->orderBy('u.name', 'ASC');
+
         if ($controlCode == 'ALL') {
-            $contacts = $em
-                ->getRepository('MorusAcceticBundle:Unit')->findAllList();
+            $qb->leftJoin('u.unitClasses', 'uc');
         } else {
-            $contacts = $em
-                ->getRepository('MorusAcceticBundle:Unit')->findListByControlCode($controlCode);
+            $qb->join('u.unitClasses', 'uc', 'WITH', 'uc.controlCode = :ecc')
+            ->setParameter('ecc', $ecc);
+                    
         }
+        
+        $contacts = $qb->getQuery()->getResult();
         
         return $this->render('MorusAcceticBundle:Contacts:list.html.twig', array(
             'contacts' => $contacts,
