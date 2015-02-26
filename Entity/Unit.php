@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Unit
  *
  * @ORM\Table(name="accetic_unit", uniqueConstraints={@ORM\UniqueConstraint(name="unit_id_key", columns={"id"}), @ORM\UniqueConstraint(name="unit_account_number_key", columns={"account_number"})}, indexes={@ORM\Index(name="IDX_account_number", columns={"account_number"})})
- * @ORM\Entity(repositoryClass="Morus\AcceticBundle\Entity\Repository\UnitRepository")
+ * @ORM\MappedSuperclass(repositoryClass="Morus\AcceticBundle\Entity\Repository\UnitRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Unit implements \Morus\AcceticBundle\Model\UnitInterface

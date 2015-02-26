@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ap
  *
  * @ORM\Table(name="accetic_ap", indexes={@ORM\Index(name="IDX_unit_id", columns={"unit_id"})})
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
 class Ap implements \Morus\AcceticBundle\Model\ApInterface

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Contact
  *
  * @ORM\Table(name="accetic_contact", indexes={@ORM\Index(name="IDX_contact_class_id", columns={"contact_class_id"})})
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
 class Contact implements \Morus\AcceticBundle\Model\ContactInterface
