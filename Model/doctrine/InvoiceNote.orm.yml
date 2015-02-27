@@ -1,4 +1,4 @@
-Morus\AcceticBundle\Entity\InvoiceNote:
+Morus\AcceticBundle\Model\InvoiceNote:
     type: mappedSuperclass
     table: accetic_invoice_note
     indexes:

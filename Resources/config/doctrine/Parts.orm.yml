@@ -4,7 +4,7 @@
 #   * If inventory_accno_id, income_accno_id, and expense_accno_id are not null then a part.
 #   * If inventory_accno_id is null but the other two are not, then a service.
 #   * Otherwise, a labor/overhead entry.
-Morus\AcceticBundle\Model\Parts:
+Morus\AcceticBundle\Entity\Parts:
     type: mappedSuperclass
     table: accetic_parts
 #    indexes:

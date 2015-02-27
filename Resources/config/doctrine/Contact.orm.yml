@@ -1,30 +1,25 @@
-#   Defines the class type such as vendor, customer, contact, employee
-Morus\AcceticBundle\Model\UnitClass:
+#   This table stores contact information for entities
+Morus\AcceticBundle\Entity\Contact:
     type: mappedSuperclass
-    table: accetic_unit_class
+    table: accetic_contact
+    indexes:
+        IDX_contact_class_id:
+            columns:
+                - contact_class_id
     id:
         id:
             type: integer
             nullable: false
             unsigned: false
             comment: " The first 7 values are reserved and permanent.  Individuals who create new classes, however, should coordinate with others for ranges to use."
-            id: true
             generator:
                 strategy: AUTO
+        unit_id:
+            associationKey: true
+        contact_class_id:
+            associationKey: true
+        
     fields:
-        controlCode:
-            type: string
-            nullable: false
-            length: 50
-            fixed: false
-            comment: ''
-            column: control_code
-        class:
-            type: text
-            nullable: false
-            length: null
-            fixed: false
-            comment: ''
         description:
             type: text
             nullable: true
@@ -53,6 +48,31 @@ Morus\AcceticBundle\Model\UnitClass:
             type: datetime
             nullable: true
             column: inactive_date
+    manyToOne:
+        unit:
+            targetEntity: Unit
+            cascade: ["persist"]
+            inversedBy: contacts
+            joinColumns:
+                unit_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        person:
+            targetEntity: Person
+            cascade: ["persist"]
+            inversedBy: contacts
+            joinColumns:
+                person_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        contactClass:
+            targetEntity: ContactClass
+            cascade: ["persist"]
+            inversedBy: contacts
+            joinColumns:
+                contact_class_id:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: 
         prePersist: [ onPrePersist ]
         postPersist: [ onPostPersist ]

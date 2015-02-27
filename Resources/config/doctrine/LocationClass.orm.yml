@@ -1,14 +1,18 @@
-#   Defines the class type such as vendor, customer, contact, employee
-Morus\AcceticBundle\Model\UnitClass:
+#   Individuals seeking to add new location classes should coordinate with others.
+Morus\AcceticBundle\Entity\LocationClass:
     type: mappedSuperclass
-    table: accetic_unit_class
+    table: accetic_location_class
+    uniqueConstraints:
+        location_class_id_key:
+            columns:
+                - id
+                - control_code
     id:
         id:
             type: integer
             nullable: false
             unsigned: false
-            comment: " The first 7 values are reserved and permanent.  Individuals who create new classes, however, should coordinate with others for ranges to use."
-            id: true
+            comment: ''
             generator:
                 strategy: AUTO
     fields:
@@ -53,6 +57,12 @@ Morus\AcceticBundle\Model\UnitClass:
             type: datetime
             nullable: true
             column: inactive_date
+    oneToMany:
+        locations:
+            targetEntity: Location
+            mappedBy: locationClass
+            orphanRemoval: false
+            cascade: ["persist"]
     lifecycleCallbacks: 
         prePersist: [ onPrePersist ]
         postPersist: [ onPostPersist ]

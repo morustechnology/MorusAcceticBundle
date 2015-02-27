@@ -1,5 +1,5 @@
 #   Every person, must have an unit to derive a common or display name. The correct way to get class information on a person would be person.unit_id->unit_class_to_unit.unit_id.
-Morus\AcceticBundle\Entity\Person:
+Morus\AcceticBundle\Model\Person:
     type: mappedSuperclass
     table: accetic_person
     indexes:

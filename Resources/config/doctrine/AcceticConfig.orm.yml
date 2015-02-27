@@ -1,13 +1,9 @@
-#   Defines the class type such as vendor, customer, contact, employee
-Morus\AcceticBundle\Model\UnitClass:
+Morus\AcceticBundle\Entity\AcceticConfig:
     type: mappedSuperclass
-    table: accetic_unit_class
+    table: accetic_config
     id:
         id:
             type: integer
-            nullable: false
-            unsigned: false
-            comment: " The first 7 values are reserved and permanent.  Individuals who create new classes, however, should coordinate with others for ranges to use."
             id: true
             generator:
                 strategy: AUTO
@@ -15,22 +11,17 @@ Morus\AcceticBundle\Model\UnitClass:
         controlCode:
             type: string
             nullable: false
-            length: 50
-            fixed: false
-            comment: ''
-            column: control_code
-        class:
+            length: '50'
+        value:
             type: text
             nullable: false
-            length: null
-            fixed: false
-            comment: ''
+        name:
+            type: string
+            nullable: true
+            length: 255
         description:
             type: text
             nullable: true
-            length: null
-            fixed: false
-            comment: ''
         sortOrder:
             type: integer
             nullable: true
@@ -53,6 +44,6 @@ Morus\AcceticBundle\Model\UnitClass:
             type: datetime
             nullable: true
             column: inactive_date
-    lifecycleCallbacks: 
+    lifecycleCallbacks:
         prePersist: [ onPrePersist ]
         postPersist: [ onPostPersist ]

@@ -1,4 +1,4 @@
-Morus\AcceticBundle\Entity\Ar:
+Morus\AcceticBundle\Model\Ar:
     type: mappedSuperclass
     table: accetic_ar
     indexes:

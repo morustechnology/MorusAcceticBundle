@@ -2,7 +2,7 @@
 #   hand and acc_trans on the other, pending the refactoring of those tables.  It
 #   also is used to provide discretionary locking of financial transactions across 
 #   database connections, for example in batch payment workflows.
-Morus\AcceticBundle\Model\Transaction:
+Morus\AcceticBundle\Entity\Transaction:
     type: mappedSuperclass
     table: accetic_transaction
     indexes:

@@ -1,31 +1,33 @@
-#   Defines the class type such as vendor, customer, contact, employee
-Morus\AcceticBundle\Model\UnitClass:
+Morus\AcceticBundle\Entity\InvoiceNote:
     type: mappedSuperclass
-    table: accetic_unit_class
+    table: accetic_invoice_note
+    indexes:
+        IDX_entity_id:
+            columns:
+                - entity_id
     id:
         id:
             type: integer
             nullable: false
             unsigned: false
-            comment: " The first 7 values are reserved and permanent.  Individuals who create new classes, however, should coordinate with others for ranges to use."
+            comment: ''
             id: true
             generator:
                 strategy: AUTO
     fields:
-        controlCode:
-            type: string
+        noteClass:
+            type: integer
             nullable: false
-            length: 50
-            fixed: false
+            unsigned: false
             comment: ''
-            column: control_code
-        class:
+            column: note_class
+        note:
             type: text
             nullable: false
             length: null
             fixed: false
             comment: ''
-        description:
+        subject:
             type: text
             nullable: true
             length: null
@@ -53,6 +55,15 @@ Morus\AcceticBundle\Model\UnitClass:
             type: datetime
             nullable: true
             column: inactive_date
+    manyToOne:
+        invoice:
+            targetEntity: Invoice
+            cascade: ["persist"]
+            inversedBy: invoiceNotes
+            joinColumns:
+                entity_id:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: 
         prePersist: [ onPrePersist ]
         postPersist: [ onPostPersist ]

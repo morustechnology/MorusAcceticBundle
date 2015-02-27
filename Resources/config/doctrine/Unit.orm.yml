@@ -1,5 +1,5 @@
 #   The primary unit table to map to all contacts
-Morus\AcceticBundle\Model\Unit:
+Morus\AcceticBundle\Entity\Unit:
     type: mappedSuperclass
     table: accetic_unit
     indexes:

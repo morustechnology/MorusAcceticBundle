@@ -1,4 +1,4 @@
-Morus\AcceticBundle\Entity\AcceticConfig:
+Morus\AcceticBundle\Model\AcceticConfig:
     type: mappedSuperclass
     table: accetic_config
     id:
