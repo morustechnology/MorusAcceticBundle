@@ -20,12 +20,22 @@ class ArController extends Controller
      *
      */
     public function indexAction()
-    {
+    {        
+        $aem = $this->get('morus_accetic.entity_manager');
         
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('MorusAcceticBundle:Ar')->findAll();
-
+        $tranRepos = $aem->getArRepository();
+        
+//        $qb = $unitRepos->createQueryBuilder('u')
+//                ->select('u.id, u.name')
+//                ->addSelect('p.firstName, p.lastName')
+//                ->addSelect('c.description')                
+//                ->join('u.persons', 'p', 'WITH', 'p.isPrimary = 1')
+//                ->join('p.contacts', 'c')
+//                ->where('u.active = 1')
+//                ->orderBy('u.name', 'ASC');
+        
+        $entities = $aem->getArRepository()->findAll();
+        
         return $this->render('MorusAcceticBundle:Ar:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -36,10 +46,10 @@ class ArController extends Controller
      */
     public function createAction(Request $request)
     {
+        $aem = $this->get('morus_accetic.entity_manager');
+        $transaction = $aem->createArTransaction();
         
-        
-        $entity = new Transaction();
-        $form = $this->createCreateArForm($entity);
+        $form = $this->genCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -52,7 +62,6 @@ class ArController extends Controller
 
         return $this->render('MorusAcceticBundle:Ar:new.html.twig', array(
             'entity' => $entity,
-            
             'form'   => $form->createView(),
         ));
     }
@@ -64,7 +73,7 @@ class ArController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateArForm(Transaction $entity)
+    private function genCreateForm(Transaction $entity)
     {
         $form = $this->createForm('accetic_ar_transaction', $entity, array(
             'attr' => array( 'id' => 'inv_new_form'),
@@ -86,36 +95,10 @@ class ArController extends Controller
      */
     public function newAction()
     {     
-        $em = $this->getDoctrine()->getManager();
-        
-        $transaction = new Transaction();
-        $ar = new Ar();
-        $invoiceLine1 = new Invoice();
-        $invoiceLine2 = new Invoice();
-        $invoiceLine3 = new Invoice();
-        $invoiceLine4 = new Invoice();
-        
-        // Get statement process
-        $invPrefix = $em
-                ->getRepository('MorusAcceticBundle:AcceticConfig')
-                ->findOneByControlCode('INV_PREFIX');
-        $invNextNumber = $em
-                ->getRepository('MorusAcceticBundle:AcceticConfig')
-                ->findOneByControlCode('INV_NEXT_NUM');
-        
-        if ($invPrefix && $invNextNumber) {
-            $ar->setInvnumber($invPrefix->getValue() . $invNextNumber->getValue());
-        }
-        
-        $transaction->setAr($ar);
-        $transaction->addInvoice($invoiceLine1);
-        $transaction->addInvoice($invoiceLine2);
-        $transaction->addInvoice($invoiceLine3);
-        $transaction->addInvoice($invoiceLine4);
-        
-        
-        
-        $form   = $this->createCreateArForm($transaction);
+        $aem = $this->get('morus_accetic.entity_manager');
+        $transaction = $aem->createArTransaction();
+
+        $form   = $this->genCreateForm($transaction);
         return $this->render('MorusAcceticBundle:Ar:new.html.twig', array(
             'transaction' => $transaction,
             'form'   => $form->createView(),
@@ -128,15 +111,15 @@ class ArController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MorusAcceticBundle:Transaction')->find($id);
+        $aem = $this->get('morus_accetic.entity_manager');
+        
+        $entity = $aem->getTransactionRepository()->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Transaction entity.');
         }
 
-        $deleteForm = $this->createDeleteArForm($id);
+        $deleteForm = $this->genDeleteForm($id);
 
         return $this->render('MorusAcceticBundle:Ar:show.html.twig', array(
             'entity'      => $entity,
@@ -150,16 +133,16 @@ class ArController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MorusAcceticBundle:Transaction')->find($id);
+        $aem = $this->get('morus_accetic.entity_manager');
+        
+        $entity = $aem->getTransactionRepository()->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Transaction entity.');
         }
 
-        $editForm = $this->createEditArForm($entity);
-        $deleteForm = $this->createDeleteArForm($id);
+        $editForm = $this->genEditForm($entity);
+        $deleteForm = $this->genDeleteForm($id);
 
         return $this->render('MorusAcceticBundle:Ar:edit.html.twig', array(
             'entity'      => $entity,
@@ -175,7 +158,7 @@ class ArController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditArForm(Transaction $entity)
+    private function genEditForm(Transaction $entity)
     {
         $form = $this->createForm('accetic_ar_transaction', $entity, array(
             'action' => $this->generateUrl('morus_accetic_ar_update', array('id' => $entity->getId())),
@@ -192,16 +175,16 @@ class ArController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MorusAcceticBundle:Transaction')->find($id);
+        $aem = $this->get('morus_accetic.entity_manager');
+        
+        $entity = $aem->getTransactionRepository()->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Transaction entity.');
         }
 
-        $deleteForm = $this->createDeleteArForm($id);
-        $editForm = $this->createEditArForm($entity);
+        $deleteForm = $this->genDeleteForm($id);
+        $editForm = $this->genEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -222,12 +205,13 @@ class ArController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteArForm($id);
+        $form = $this->genDeleteForm($id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MorusAcceticBundle:Transaction')->find($id);
+            $aem = $this->get('morus_accetic.entity_manager');
+        
+            $entity = $aem->getTransactionRepository()->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Transaction entity.');
@@ -247,7 +231,7 @@ class ArController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteArForm($id)
+    private function genDeleteForm($id)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('morus_accetic_ar_delete', array('id' => $id)))
@@ -256,27 +240,4 @@ class ArController extends Controller
             ->getForm()
         ;
     }
-    
-//    public function dataAction()
-//    {
-//
-//        $rows = array();
-//        
-//        $invoices = $this->getDoctrine()
-//                ->getRepository('MorusAcceticBundle:Invoice')
-//                ->findAll();
-//        
-//        foreach ($invoices as $invoice) {
-//            $rows[] = array(
-////                'trans_id' => $invoice->getTransaction()->getId(),
-//                'id' => $invoice->getId(), 
-//                'description' => $invoice->getDescription(),
-//                'sellprice' => $invoice->getSellprice(),
-//                'qty' => $invoice->getQty(),
-//                'discount' => $invoice->getDiscount(),
-//                    );
-//        }
-//
-//        return new JsonResponse($rows);
-//    }
 }

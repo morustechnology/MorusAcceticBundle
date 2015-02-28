@@ -17,7 +17,6 @@ class EntityManager{
     protected $locationRepos, $locationClassRepos, $partsRepos, $personRepos, $transactionRepos, $unitRepos, $unitClassRepos;
     protected $acceticConfigClass, $arClass, $apClass, $contactClass, $contactClassClass, $invoiceClass, $invoiceClassClass;
     protected $locationClass, $locationClassClass, $partsClass, $personClass, $transactionClass, $unitClass, $unitClassClass;
-    protected $pRepos, $pClass, $cRepos, $cClass;
     
     
     public function __construct(ObjectManager $om, Container $container)
@@ -90,14 +89,6 @@ class EntityManager{
         $this->unitClass           = $unitMetadata->getName();
         $this->unitClassClass      = $unitClassMetadata->getName();
         
-        
-        $cMetadata = $om->getClassMetadata('Morus\FasBundle\Entity\C');
-        $this->cRepos = $om->getRepository('Morus\FasBundle\Entity\C');
-        $this->cClass = $cMetadata->getName();
-        
-        $pMetadata = $om->getClassMetadata('Morus\FasBundle\Entity\P');
-        $this->pRepos = $om->getRepository('Morus\FasBundle\Entity\P');
-        $this->pClass = $pMetadata->getName();
     }
     
     /**
@@ -189,29 +180,61 @@ class EntityManager{
         return $this->unitRepos;
     }
     
-    public function createP()
+    /**
+     * Returns an empty transaction instance with ar attached
+     *
+     * @return TransactionInterface
+     */
+    public function createArTransaction()
     {
-        $pc = $this->pClass;
-        $p = new $pc;
+        $tc = $this->transactionClass;
+        $arc = $this->arClass;
+        $ic = $this->invoiceClass;
         
-        return $p;
-    }
-    
-    public function getPRepository()
-    {
-        return $this->pRepos;
-    }
-    
-    public function createC()
-    {
-        $cc = $this->cClass;
-        $c = new $cc;
+        $transaction = new $tc;
+        $ar = new $arc;
+        $invoiceLine1 = new $ic;
+        $invoiceLine2 = new $ic;
+        $invoiceLine3 = new $ic;
+        $invoiceLine4 = new $ic;
         
-        return $c;
+        // Get statement process
+        
+        $invPrefix = $this->acceticConfigRepos->findOneByControlCode('INV_PREFIX');
+        $invNextNumber = $this->acceticConfigRepos->findOneByControlCode('INV_NEXT_NUM');
+        
+        if ($invPrefix && $invNextNumber) {
+            $ar->setInvnumber($invPrefix->getValue() . $invNextNumber->getValue());
+        }
+        
+        $transaction->setAr($ar);
+        $transaction->addInvoice($invoiceLine1);
+        $transaction->addInvoice($invoiceLine2);
+        $transaction->addInvoice($invoiceLine3);
+        $transaction->addInvoice($invoiceLine4);
+        
+        return $transaction;
     }
     
-    public function getCRepository()
+    /**
+     * Returns ar repository
+     *
+     * @return ArRepository
+     */
+    public function getArRepository()
     {
-        return $this->cRepos;
+        return $this->arRepos;
     }
+    
+    /**
+     * Returns transaction repository
+     *
+     * @return TransactionRepository
+     */
+    public function getTransactionRepository()
+    {
+        return $this->transactionRepos;
+    }
+    
+    
 }
