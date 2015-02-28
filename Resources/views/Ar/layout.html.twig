@@ -10,13 +10,13 @@
 {% block accetic_invoice_widget %}
     {% spaceless %}
         <tr id="{{ form.vars.id }}" class="test">
-            <td>{{ form_widget(form.parts)}}</td>
-            <td>{{ form_widget(form.description)}}</td>
-            <td>{{ form_widget(form.qty) }}</td>
-            <td>{{ form_widget(form.sellprice)}}</td>
-            <td>{{ form_widget(form.discount)}}</td>
-            <td><label id="{{ form.vars.id }}_amount"></label></td>
-            <td></td>
+            <td class="left non-textable">{{ form_widget(form.parts)}}</td>
+            <td class="left">{{ form_widget(form.description)}}</td>
+            <td class="right">{{ form_widget(form.qty) }}</td>
+            <td class="right">{{ form_widget(form.sellprice)}}</td>
+            <td class="right">{{ form_widget(form.discount)}}</td>
+            <td class="right non-textable"><label id="{{ form.vars.id }}_amount"></label></td>
+            <td class="center non-textable"></td>
         </tr>
     {% endspaceless %}
 {% endblock accetic_invoice_widget %}

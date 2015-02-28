@@ -59,6 +59,10 @@ table th.right, table td.right{
     text-align: right;
 }
 
+table th.center, table td.center{
+    text-align: center;
+}
+
 thead tr{
     border-bottom: 1px solid #000;
 }
@@ -163,6 +167,9 @@ a:hover{
     margin-right: 5px;
     list-style: none;
 }
+.page-control.right, .page-control.right li{
+    float: right;
+}
 .loading-btn{
     float: left;
     border: 1px solid #ddd;
@@ -179,6 +186,14 @@ a:hover{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );
 }
 em.add{
+    width: 13px;
+    height: 13px;
+    overflow: hidden;
+    margin-top: 3px;
+    margin-right: 5px;
+    float: left;
+}
+em.new-line{
     width: 13px;
     height: 13px;
     overflow: hidden;
@@ -222,10 +237,24 @@ em.add{
     background: #3fba3f;
     color: #fff;
 }
+.grey-btn{
+    border: 1px solid;
+    border-color: #888 #666 #666 #888;
+    border-radius: 3px;
+    padding: 4px 15px;
+    color: #f2f6ff;
+    background: #888;
+    font-size: 11px;
+    cursor: pointer;
+}
+.grey-btn:hover{
+    background: #999;
+    color: #fff;
+}
 
 /*Contact List (Table)*/
 #contact-list{
-    width: 940px;
+    width: 100%;
 }
 #contact-list a{
     color: #048fc2;
@@ -246,7 +275,7 @@ table.contact tr td{
 }
 table.contact tr th, table.contact tr td{
     height: 30px;
-    padding: 0 5px;
+    padding: 0 10px;
     vertical-align: middle;
 }
 table.contact tr:hover{
@@ -301,32 +330,32 @@ table.contact tr:hover{
     margin: 0;
 }
 
-/*Contact New (Div Box)*/
-#contact-new{
+/*Contact New & Edit (Div Box)*/
+#container-box{
     width: 940px;
     border: 1px solid #ccc;
-}
-#contact-new .field{
-    float: left;
-    width: 100%;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
-}
-#contact-new .inline{
-    float: left;
-    width: auto;
 }
 .section-header{
     border-bottom: 1px solid #c1c1c1;
     padding: 10px;
 }
-.section-header h3{
-    margin-bottom: 0;
-}
 .section-form{
     background: #e8f1ff;
     padding: 10px;
     width: 920px;
+}
+#container-box .field{
+    /*width: 100%;*/
+    float: left;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+#container-box .inline{
+    float: left;
+    width: auto;
+}
+.section-header h3{
+    margin-bottom: 0;
 }
 .section-form fieldset{
     border: 0;
@@ -351,6 +380,8 @@ table.contact tr:hover{
     padding-top: 15px;
 }
 
+
+
 /*Input Width ()*/
 input{
     border: 1px solid #7f9db9;
@@ -370,6 +401,10 @@ input{
     clear: both;
     margin-bottom: 10px;
 }
+.col-1-2, .col-1-2.last{
+    float: left;
+    width: 50%;
+}
 .col-1-3{
     float: left;
     width: 278px;
@@ -384,10 +419,10 @@ input{
     border: 0;
 }
 .col-1-3 fieldset label{
-    width: 90px;
-    padding: 2px 5px 0 0;
+    width: 80px;
+    padding: 0 5px 0 0;
     text-align: right;
-    line-height: 13px;
+    line-height: 21px;
 }
 .col-1-3 fieldset input, .col-1-3 fieldset textarea, .col-1-3 fieldset select{
     width: 183px;
@@ -404,4 +439,78 @@ input{
     padding: 0;
     text-align: left;
     width: 100%;
+}
+
+/*Account Receivable (Table)*/
+table.ar{
+    width: 920px;
+    margin-top: 15px;
+}
+table.ar thead th{
+    background: #f2f6ff;
+    border-bottom: 1px solid #b7c0c7;
+    white-space: nowrap;
+    font-weight: normal;
+    color: #048fc2;
+}
+table.ar tr th{
+    height: 30px;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+table.ar tr td{
+    padding: 0 8px;
+    vertical-align: middle;
+    background: #fff;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: 0;
+    border-bottom: 1px solid #ddd;  
+}
+table.ar tr td input{
+    width: 100%;
+    border: 0;
+    padding: 0;          
+}
+table.ar tr td select{
+    width: 100%;
+}
+table.ar tr:hover{
+    background: #e8f1ff;
+}
+table.ar th.short{
+    width: 50px;
+}
+table.ar th.long{
+    width: 400px;
+}
+table.ar tr td.non-textable{
+    background: #f3f8ff;
+}
+.table-control{
+    float: left;
+    width: 100%;
+    margin: 10px 0;
+}
+.table-calcaulation{
+    float: right;
+    text-align: right;
+    width: 350px;
+}
+.table-calcaulation .subtotal{
+    float: right;
+    text-align: right;
+    width: 100%;
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.table-calcaulation .total{
+    float: right;
+    text-align: right;
+    width: 100%;
+    border-bottom: 4px double #000;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    
 }

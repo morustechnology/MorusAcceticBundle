@@ -8,10 +8,16 @@
 {% set inv_tr_id = 'acc_inv_tr' %}
 {% set inv_obj_pfx = 'accetic_ar_transaction_invoices_' %}
 
+{% block stylesheets %}
+    {% stylesheets '@MorusAcceticBundle/Resources/public/css/jquery-ui.min.css' filter='cssrewrite' %}
+        <link type="text/css" rel="stylesheet" media="screen" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
 
 {% block javascripts %}
     {% javascripts 
         '@MorusAcceticBundle/Resources/public/js/jquery-1.9.1.min.js' 
+        '@MorusAcceticBundle/Resources/public/js/jquery-ui.min.js' 
         '@MorusAcceticBundle/Resources/public/js/jquery.inputmask.js'
         '@MorusAcceticBundle/Resources/public/js/jquery.inputmask.numeric.extensions.js'
     %}
@@ -22,8 +28,8 @@
         var $invTbl;
 
         // setup an "add a invoice" link
-        var $addInvLnk = $('<a id="{{ inv_add_lk_id }}" href="#" class="add_invoice_link">{{ 'btn.add_new_line'|trans }}</a>');
-        var $newLnk = $('<div></div>').append($addInvLnk);
+        var $addInvLnk = $('<a id="{{ inv_add_lk_id }}" href="#" class="add_invoice_link loading-btn">{% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}<em class="icons add icon" style="background:url({{ asset_url }}) no-repeat; background-position: -120px -50px;""></em>{% endimage %}{{ 'btn.add_new_line'|trans }}</a>');
+        var $newLnk = $('<div class="table-control"></div>').append($addInvLnk);
         
         jQuery(document).ready(function() {
 
@@ -168,62 +174,96 @@
         }
        
         
-        
+        $(function(){
+            $(".date").datepicker({
+                showOn: "button",
+                //buttonImage: "{% image '@MorusAcceticBundle/Resources/public/images/calendar_star.png' %}{{ asset_url }}{% endimage %}",
+                //buttonText: "Select date",
+                //buttonImageOnly: true
+                
+            });
+            $( ".date" ).datepicker("setDate", new Date()).datepicker();
+        });
         
     </script>
 {% endblock javascripts %}
-
-{% block stylesheets %}
-
-{% endblock %}
         
 {% block body_title -%}
     {{ 'ar.new_invoice'|trans }}
 {% endblock %}
 
 {% block body -%}
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ 'ar.to'|trans }} {{ form_widget(form.ar.unit) }} {{ form_errors(form.ar.unit) }}
-        {{ 'ar.invnumber'|trans }} {{ form_widget(form.ar.invnumber) }} {{ form_errors(form.ar.invnumber) }}
-        {{ 'ar.transdate'|trans }} {{ form_widget(form.ar.transdate) }} {{ form_errors(form.ar.transdate) }}
-        {{ 'ar.duedate'|trans }} {{ form_widget(form.ar.duedate) }} {{ form_errors(form.ar.duedate) }}
-        {{ 'ar.reference'|trans }} {{ form_widget(form.ar.reference) }} {{ form_errors(form.ar.reference) }}
-        <hr/>
-            <table id="{{ inv_tbl_id }}">
+    
+    <div id="container-box">
+        <div class="section-form inset form">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            
+            <fieldset>
+                <div class="field inline">
+                    <label>{{ 'ar.to'|trans }}</label>{{ form_widget(form.ar.unit) }} {{ form_errors(form.ar.unit) }}
+                </div>
+                <div class="field inline">
+                    <label>{{ 'ar.invnumber'|trans }}</label>{{ form_widget(form.ar.invnumber) }} {{ form_errors(form.ar.invnumber) }}
+                </div>
+                <div class="field inline">
+                    <label>{{ 'ar.transdate'|trans }}</label>{{ form_widget(form.ar.transdate) }} {{ form_errors(form.ar.transdate) }}
+                </div>
+                <div class="field inline">
+                    <label>{{ 'ar.duedate'|trans }}</label>{{ form_widget(form.ar.duedate) }} {{ form_errors(form.ar.duedate) }}
+                </div>
+                <div class="field inline long">
+                    <label>{{ 'ar.reference'|trans }}</label>{{ form_widget(form.ar.reference) }} {{ form_errors(form.ar.reference) }}
+                </div>
+            </fieldset>
+            
+            <table id="{{ inv_tbl_id }}" class="ar">
                 <thead>
-                    <th>{{ 'ar.invoice.part'|trans }}</th>
-                    <th>{{ 'ar.invoice.description'|trans }}</th>
-                    <th>{{ 'ar.invoice.qty'|trans }}</th>
-                    <th>{{ 'ar.invoice.sellprice'|trans }}</th>
-                    <th>{{ 'ar.invoice.discount'|trans }}</th>
-                    <th>{{ 'ar.invoice.amount'|trans }}</th>
-                    <th></th>
+                    <th class="short left">{{ 'ar.invoice.part'|trans }}</th>
+                    <th class="long left">{{ 'ar.invoice.description'|trans }}</th>
+                    <th class="short right">{{ 'ar.invoice.qty'|trans }}</th>
+                    <th class="short right">{{ 'ar.invoice.sellprice'|trans }}</th>
+                    <th class="short right">{{ 'ar.invoice.discount'|trans }}</th>
+                    <th class="short right">{{ 'ar.invoice.amount'|trans }}</th>
+                    <th class="short"></th>
                 </thead>
                 <tbody data-prototype="{{ form_widget(form.invoices.vars.prototype)|e }}">
                     {{ form_widget(form.invoices) }}
                 </tbody>
             </table>
-        <div>{{ 'ar.subtotal'|trans }}<label id='transaction-subtotal'></label></div>
-        <div>{{ 'ar.total'|trans }} <label id='transaction-total'></label></div>
-        {{ form_widget(form.submit) }}
-        {{ form_rest(form) }}
-    {{ form_end(form) }}
+                 
+                
+            <div class="table-calcaulation">
+                <div class="subtotal">
+                    <div class="col-1-2">{{ 'ar.subtotal'|trans }}</div>
+                    <div class="col-1-2 last"><label id='transaction-subtotal'></label></div>
+                </div>
+                <div class="total">
+                    <div class="col-1-2">{{ 'ar.total'|trans }}</div>
+                    <div class="col-1-2 last"><label id='transaction-total'></label></div>
+                </div>
+            </div>
+            
+            {{ form_widget(form.submit) }}
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+            
+            <div style="clear:both;"></div>
+                
+            <ul class="record_actions page-control right">
+                <li><a class="grey-btn" href="{{ path('morus_accetic_ar') }}">{{ 'btn.cancel'|trans }}</a></li>
+                <li><a class="green-btn" id="{{ inv_save_lk_id }}" href="#">{{ 'btn.save'|trans }}</a></li>
+            </ul>
+                    
+            <div style="clear:both;"></div>
+                    
+        </div>
+            
+    </div>
     
-</div>
+    
 
     
-    <ul class="record_actions">
-        <li>
-            <a id="{{ inv_save_lk_id }}" href="#">
-                {{ 'btn.save'|trans }}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('morus_accetic_ar') }}">
-                {{ 'btn.cancel'|trans }}
-            </a>
-        </li>
-    </ul>
+    
 {% endblock %}
 

@@ -66,40 +66,72 @@
 {% endmacro %}
 
 {% block body_title -%}
-    {{ 'contact.add_contact'|trans }}
+    {{ 'contact.edit_contact'|trans }}
 {% endblock %}
 
 {% block body %}
-    {{ form_start(edit_form) }}
-        {{ form_errors(edit_form) }}
-        {{ 'contact.display_name'|trans }} {{ form_widget(edit_form.name) }} {{ form_errors(edit_form.name) }}
-        <hr/>
-
-        <div id="entity_persons" data-prototype-persons="{{ _self.persons_prototype(edit_form.persons, 'Remove Person')|escape }}">
-            {% for person in edit_form.persons %}
-                {% if loop.index == 1 %}
-                    {{ 'contact.primary_person'|trans }}
-                {% endif %}
-                <div id="entity_person_contacts" data-prototype-contacts="{{ _self.contacts_prototype(person.contacts, 'Remove Email')|escape }}">
-                {{ form_widget(person) }}
-                {% for contact in person.contacts %}
-                    {{ form_widget(contact) }}
-                {% endfor %}
-                </div>
-            {% endfor %}
-        </div>
-
-        {# <a href="#" class="btn-add" data-target="entity_persons" contact-data-target="entity_person_contacts" >{{ 'contact.add_another_person'|trans }}</a> #}
-        <hr/>
-        {% for location in edit_form.locations %}
-            {{ form_widget(location) }}
-        {% endfor %}
+    <div id="container-box" class="contact-edit">
         
-        {% for contact in edit_form.contacts %}
-            {{ form_widget(contact) }}
-        {% endfor %}
+        <div class="section-header">
+            <h3>{{ 'contact.contact_information'|trans }}</h3>
+        </div>
+    
+        <div class="section-form inset form">
 
-        {{ form_rest(edit_form) }}
-    {{ form_end(edit_form) }}
+            {{ form_start(edit_form) }}
+            
+            <h4 class="first">{{ 'contact.edit_contact'|trans }}</h4>
+            <fieldset>
+                <div class="field long">
+                    <label>{{ 'contact.display_name'|trans }}</label>
+                    {{ form_errors(edit_form) }}
+                    {{ form_widget(edit_form.name) }} {{ form_errors(edit_form.name) }}
+                </div>
+            </fieldset>
+
+            <div id="entity_persons" data-prototype-persons="{{ _self.persons_prototype(edit_form.persons, 'Remove Person')|escape }}">
+                {% for person in edit_form.persons %}
+                    {% if loop.index == 1 %}
+                        <h4>{{ 'contact.primary_person'|trans }}</h4>
+                    {% endif %}
+                    <div id="entity_person_contacts" data-prototype-contacts="{{ _self.contacts_prototype(person.contacts, 'Remove Email')|escape }}">
+                        <fieldset>
+                            {{ form_widget(person) }}
+                            {% for contact in person.contacts %}
+                                <div class="field inline long">{{ form_widget(contact) }}</div>
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# <a href="#" class="btn-add" data-target="entity_persons" contact-data-target="entity_person_contacts" >{{ 'contact.add_another_person'|trans }}</a> #}
+
+            <h4>{{ 'contact.contact_details'|trans }}</h4>
+
+            <div class="column">
+
+                {% for location in edit_form.locations %}
+                    {{ form_widget(location) }}
+                {% endfor %}
+
+                <div class="col-1-3 last">
+                    <fieldset id="numbers">
+                        <h6>{{ 'contact.others'|trans }}</h6>
+                        {% for contact in edit_form.contacts %}
+                            <div class="field">{{ form_widget(contact) }}</div>
+                        {% endfor %}
+                    </fieldset>
+                </div>
+
+            </div>
+
+            {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+
+        </div>
+    </div>    
+        
+    
     
 {% endblock %}
