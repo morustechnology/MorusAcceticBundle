@@ -17,6 +17,8 @@ class EntityManager{
     protected $locationRepos, $locationClassRepos, $partsRepos, $personRepos, $transactionRepos, $unitRepos, $unitClassRepos;
     protected $acceticConfigClass, $arClass, $apClass, $contactClass, $contactClassClass, $invoiceClass, $invoiceClassClass;
     protected $locationClass, $locationClassClass, $partsClass, $personClass, $transactionClass, $unitClass, $unitClassClass;
+    protected $pRepos, $pClass, $cRepos, $cClass;
+    
     
     public function __construct(ObjectManager $om, Container $container)
     {
@@ -55,6 +57,7 @@ class EntityManager{
         $unitMetadata           = $om->getClassMetadata($unitParam);
         $unitClassMetadata      = $om->getClassMetadata($unitClassParam);
         
+                
         //  Get Entity Repositories
         $this->acceticConfigRepos  = $om->getRepository($acceticConfigParam);
         $this->apRepos             = $om->getRepository($apParam);
@@ -88,6 +91,13 @@ class EntityManager{
         $this->unitClassClass      = $unitClassMetadata->getName();
         
         
+        $cMetadata = $om->getClassMetadata('Morus\FasBundle\Entity\C');
+        $this->cRepos = $om->getRepository('Morus\FasBundle\Entity\C');
+        $this->cClass = $cMetadata->getName();
+        
+        $pMetadata = $om->getClassMetadata('Morus\FasBundle\Entity\P');
+        $this->pRepos = $om->getRepository('Morus\FasBundle\Entity\P');
+        $this->pClass = $pMetadata->getName();
     }
     
     /**
@@ -177,5 +187,31 @@ class EntityManager{
     public function getUnitRepository()
     {
         return $this->unitRepos;
+    }
+    
+    public function createP()
+    {
+        $pc = $this->pClass;
+        $p = new $pc;
+        
+        return $p;
+    }
+    
+    public function getPRepository()
+    {
+        return $this->pRepos;
+    }
+    
+    public function createC()
+    {
+        $cc = $this->cClass;
+        $c = new $cc;
+        
+        return $c;
+    }
+    
+    public function getCRepository()
+    {
+        return $this->cRepos;
     }
 }

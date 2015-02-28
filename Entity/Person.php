@@ -25,7 +25,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isPrimary", type="boolean")
+     * @ORM\Column(name="isPrimary", type="boolean", nullable=true)
      */
     private $isPrimary;
 

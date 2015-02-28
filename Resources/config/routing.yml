@@ -13,3 +13,4 @@ morus_accetic_contacts:
 morus_accetic_inventory:
     resource: "@MorusAcceticBundle/Resources/config/routing/inventory.yml"
     prefix:   /Inventory
+    
