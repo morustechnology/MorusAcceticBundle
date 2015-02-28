@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Person
  *
  * @ORM\Table(name="accetic_person", uniqueConstraints={@ORM\UniqueConstraint(name="person_id_key", columns={"id"})})
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
 class Person implements \Morus\AcceticBundle\Model\PersonInterface
@@ -25,7 +25,7 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isPrimary", type="boolean")
+     * @ORM\Column(name="isPrimary", type="boolean", nullable=true)
      */
     private $isPrimary;
 

@@ -24,7 +24,6 @@ class ContactsController extends Controller
      */
     public function indexAction(Request $request)
     {
-
         return $this->render('MorusAcceticBundle:Contacts:index.html.twig');
     }
     
@@ -35,16 +34,28 @@ class ContactsController extends Controller
     public function listAjaxAction($ecc)
     {
         $controlCode = strtoupper($ecc);
-
-        $em = $this->getDoctrine()->getManager();
         
+        $aem = $this->get('morus_accetic.entity_manager');
+        $unitRepos = $aem->getUnitRepository();
+        
+        $qb = $unitRepos->createQueryBuilder('u')
+                ->select('u.id, u.name')
+                ->addSelect('p.firstName, p.lastName')
+                ->addSelect('c.description')                
+                ->join('u.persons', 'p', 'WITH', 'p.isPrimary = 1')
+                ->join('p.contacts', 'c')
+                ->where('u.active = 1')
+                ->orderBy('u.name', 'ASC');
+
         if ($controlCode == 'ALL') {
-            $contacts = $em
-                ->getRepository('MorusAcceticBundle:Unit')->findAllList();
+            $qb->leftJoin('u.unitClasses', 'uc');
         } else {
-            $contacts = $em
-                ->getRepository('MorusAcceticBundle:Unit')->findListByControlCode($controlCode);
+            $qb->join('u.unitClasses', 'uc', 'WITH', 'uc.controlCode = :ecc')
+            ->setParameter('ecc', $ecc);
+                    
         }
+        
+        $contacts = $qb->getQuery()->getResult();
         
         return $this->render('MorusAcceticBundle:Contacts:list.html.twig', array(
             'contacts' => $contacts,
@@ -57,12 +68,13 @@ class ContactsController extends Controller
      */
     public function newAction($ecc)
     {        
+        $aem = $this->get('morus_accetic.entity_manager');
+        $unit = $aem->createUnit($ecc);
         
-        $entity = $this->createUnit($ecc);
-        $form = $this->genCreateForm($entity, $ecc);
-
+        $form = $this->genCreateForm($unit, $ecc);
+        
         return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
-            'entity' => $entity,
+            'unit' => $unit,
             'form'   => $form->createView(),
         ));
     }
@@ -73,21 +85,22 @@ class ContactsController extends Controller
      */
     public function createAction(Request $request, $ecc)
     {
-        $entity = $this->createUnit($ecc);
+        $aem = $this->get('morus_accetic.entity_manager');
+        $unit = $aem->createUnit($ecc);
         
-        $form = $this->genCreateForm($entity, $ecc);
+        $form = $this->genCreateForm($unit, $ecc);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($unit);
             $em->flush();
 
             return $this->redirect($this->generateUrl('morus_accetic_contacts'));
         }
 
         return $this->render('MorusAcceticBundle:Contacts:new.html.twig', array(
-            'entity' => $entity,
+            'unit' => $unit,
             'form'   => $form->createView(),
         ));
     }
@@ -113,108 +126,18 @@ class ContactsController extends Controller
 
         return $form;
     }
-
-    private function createUnit($ecc = null)
-    {
-        $controlCode = strtoupper($ecc);
-        $unit = new Unit();
-        $person = new Person();
-        $email = new Contact();
-        $postalLocation = new Location();
-        $physicalLocation = new Location();
-        $telephoneContact = new Contact();
-        $faxContact = new Contact();
-        $mobileContact = new Contact();
-        $directContact = new Contact();
-        $websiteContact = new Contact();
-        
-        $unit->setActive(true);
-        $unit->setCreateDate(new \DateTime("now"));
-        
-        $person->setIsPrimary(true);
-        
-        // Add Contact Type
-        if ($ecc) {
-           $unitClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:UnitClass')
-                ->findOneByControlCode($ecc);
-           if ($unitClass) {
-               $unit->addUnitClass($unitClass);
-           }
-        }
-        
-        //Add Default Contact Person
-        $contactClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
-                ->findOneByControlCode('EMAIL');
-        $email->setContactClass($contactClass);
-        
-        $email->setPerson($person);
-        $person->addContact($email);
-        $unit->addPerson($person);
-        $person->setUnit($unit);
-
-        // Create Default Postal Address
-        $postalLocationClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:LocationClass')
-                ->findOneByControlCode('POSTAL');
-        $postalLocation->setLocationClass($postalLocationClass);
-        
-        $unit->addLocation($postalLocation);
-        $postalLocation->setUnit($unit);
-        
-        // Create Default Physical Address
-        $physicalLocationClass = $this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:LocationClass')
-                ->findOneByControlCode('PHYSICAL');
-        $physicalLocation->setLocationClass($physicalLocationClass);
-        $unit->getLocations()->add($physicalLocation);
-        $physicalLocation->setUnit($unit);
-        
-        //  Add default contacts, e.g. telephone, fax, website
-        $telephoneContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
-                ->findOneByControlCode('TELEPHONE'));
-        $unit->addContact($telephoneContact);
-        $telephoneContact->setUnit($unit);
-        
-        $faxContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
-                ->findOneByControlCode('FAX'));
-        $unit->addContact($faxContact);
-        $faxContact->setUnit($unit);
-        
-        $mobileContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
-                ->findOneByControlCode('MOBILE'));
-        $unit->addContact($mobileContact);
-        $mobileContact->setUnit($unit);
-        
-        $directContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
-                ->findOneByControlCode('DIRECT'));
-        $unit->addContact($directContact);
-        $directContact->setUnit($unit);
-        
-        $websiteContact->setContactClass($this->getDoctrine()
-                ->getRepository('MorusAcceticBundle:ContactClass')
-                ->findOneByControlCode('WEBSITE'));
-        $unit->addContact($websiteContact);
-        $websiteContact->setUnit($unit);
-        
-        return $unit;
-    }
-
+    
     /**
      * Finds and displays a Entity unit.
      *
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $aem = $this->get('morus_accetic.entity_manager');
+        $unitRepos = $aem->getUnitRepository();
 
-        $entity = $em->getRepository('MorusAcceticBundle:Unit')->find($id);
-
+        $entity = $unitRepos->find($id);
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Entity unit.');
         }
@@ -233,9 +156,10 @@ class ContactsController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $aem = $this->get('morus_accetic.entity_manager');
+        $unitRepos = $aem->getUnitRepository();
 
-        $unit = $em->getRepository('MorusAcceticBundle:Unit')->find($id);
+        $unit = $unitRepos->find($id);
 
         if (!$unit) {
             throw $this->createNotFoundException('Unable to find Entity unit.');
@@ -278,9 +202,10 @@ class ContactsController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $aem = $this->get('morus_accetic.entity_manager');
+        $unitRepos = $aem->getUnitRepository();
 
-        $unit = $em->getRepository('MorusAcceticBundle:Unit')->find($id);
+        $unit = $unitRepos->find($id);
 
         if (!$unit) {
             throw $this->createNotFoundException('Unable to find Entity unit.');

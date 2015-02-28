@@ -1,4 +1,10 @@
 services:
+    # Entity Services 
+    morus_accetic.entity_manager:
+        class: Morus\AcceticBundle\Model\EntityManager
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+    
+    # Form Services
     morus_accetic.form.type.unit:
         class: Morus\AcceticBundle\Form\Type\UnitType
         tags:

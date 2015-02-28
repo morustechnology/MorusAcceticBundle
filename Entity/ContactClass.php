@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ContactClass
  *
  * @ORM\Table(name="accetic_contact_class", uniqueConstraints={@ORM\UniqueConstraint(name="contact_class_id_key", columns={"id", "control_code"})})
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
 class ContactClass implements \Morus\AcceticBundle\Model\ContactClassInterface

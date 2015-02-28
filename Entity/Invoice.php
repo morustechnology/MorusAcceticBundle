@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Invoice
  *
  * @ORM\Table(name="accetic_invoice", indexes={@ORM\Index(name="invoice_trans_id_key", columns={"transaction_id"}), @ORM\Index(name="IDX_parts_id", columns={"parts_id"})})
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
 class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
@@ -49,13 +49,6 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
      * @ORM\Column(name="sellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $sellprice;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="precision", type="integer", nullable=true)
-     */
-    private $precision;
 
     /**
      * @var string
@@ -301,29 +294,6 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     public function getSellprice()
     {
         return $this->sellprice;
-    }
-
-    /**
-     * Set precision
-     *
-     * @param integer $precision
-     * @return Invoice
-     */
-    public function setPrecision($precision)
-    {
-        $this->precision = $precision;
-
-        return $this;
-    }
-
-    /**
-     * Get precision
-     *
-     * @return integer 
-     */
-    public function getPrecision()
-    {
-        return $this->precision;
     }
 
     /**

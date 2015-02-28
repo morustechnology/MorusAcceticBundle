@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th class="left">{{ 'contact.display_name'|trans }}</th>
+            <th class="left">{{ 'contact.primary_person'|trans }}</th> 
             <th class="left">{{ 'contact.email'|trans }}</th> 
             <th class="left">{{ 'contact.telephone'|trans }}</th> 
             <th class="right">{{ 'contact.bills_due'|trans }}</th>
@@ -14,16 +15,11 @@
     {% for contact in contacts %}
         <tr>
             <td class="left"><a href="{{ path('morus_accetic_contacts_show', { 'id': contact.id }) }}">{{ contact.name }}</a></td>
-            <td class="left">{{ contact.email }}</td>
-            <td class="left">{{ contact.telephone }}</td>
+            <td class="left">{{ contact.firstName }} {{ contact.lastName }}</td>
+            <td class="left">{{ contact.description }}</td>
             <td class="right"></td>
-            <td class="right">
-                {# 
-                {% for unitClass in contact.unitClasses %}
-                    {{ unitClass.controlCode }}
-                {% endfor %}
-                #}
-            </td>
+            <td class="right"></td>
+            <td class="right"></td>
             <td class="right"></td>
             <td class="right"></td>
         </tr>

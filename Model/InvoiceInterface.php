@@ -77,21 +77,6 @@ interface InvoiceInterface
     public function getSellprice();
 
     /**
-     * Set precision
-     *
-     * @param integer $precision
-     * @return InvoiceInterface
-     */
-    public function setPrecision($precision);
-
-    /**
-     * Get precision
-     *
-     * @return integer 
-     */
-    public function getPrecision();
-
-    /**
      * Set fxsellprice
      *
      * @param string $fxsellprice
