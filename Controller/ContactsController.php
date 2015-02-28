@@ -107,7 +107,7 @@ class ContactsController extends Controller
         ));
         
         $form->add('submit', 'submit', array(
-                'label' => $this->get('translator')->trans('contact.btn.save'),
+                'label' => $this->get('translator')->trans('btn.save'),
                 'attr' => array('class' => 'green-btn')
                 ));
 
@@ -265,7 +265,10 @@ class ContactsController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array(
+            'label' => $this->get('translator')->trans('btn.save'),
+            'attr' => array('class' => 'green-btn')
+        ));
 
         return $form;
     }

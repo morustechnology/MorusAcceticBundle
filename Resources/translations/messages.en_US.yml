@@ -1,6 +1,7 @@
 contact:
     contact_person: Contact Person
     add_contact: Add Contact
+    edit_contact: Edit Contact
     contacts: Contacts
     all: All
     customers: Customers

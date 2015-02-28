@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body -%}
+    
+    
+        
     <ul class="page-control">
         <li>
             <a class="loading-btn" href="{{ path('morus_accetic_ar_new') }}">
@@ -15,8 +18,10 @@
             </a>
         </li>
     </ul>
-            
-    <table class="records_list">
+    
+    <div class="fullwidth-space"></div>
+    
+    <table class="records_list ar">
         <thead>
             <tr>
                 <th>{{ ('ar.number' |trans)}}</th>
@@ -41,7 +46,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                
+
                 <td>
                 <ul>
                     <li>
