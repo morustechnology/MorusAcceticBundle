@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body_title -%}
-    Transaction list
+    {{ 'ar.invoices'|trans }}
 {% endblock %}
 
 {% block body -%}
@@ -38,7 +38,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('morus_accetic_ar_show', { 'id': entity.id }) }}">{{ entity.invnumber }}</a></td>
+                <td><a href="{{ path('morus_accetic_ar_edit', { 'id': entity.id }) }}">{{ entity.invnumber }}</a></td>
                 <td>{# {{ entity.unit.name }} #}</td>
                 <td>{% if entity.transdate %}{{ entity.transdate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td></td>

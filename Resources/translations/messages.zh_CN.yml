@@ -38,6 +38,7 @@ contact:
     overdue_sales_invoices: 过期发票
         
 ar:
+    invoices: Invoices
     number: 编号
     reference: 备注
     to: 给

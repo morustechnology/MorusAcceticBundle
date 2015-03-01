@@ -25,47 +25,41 @@
     {{ 'contact.contact_person'|trans }}
 {% endblock %}
 
-{% block body -%}        
+{% block body -%} 
     <div id="contact-box">
         <h2 id="contact-person" class="view">
-            <span>{{ entity.name }}</span>
-            <a class="blue-btn" href="{{ path('morus_accetic_contacts_edit', { 'id': entity.id }) }}">{{ 'btn.edit'|trans }}</a>
+            <span>{{ contact.name }}</span>
+            <a class="blue-btn" href="{{ path('morus_accetic_contacts_edit', { 'id': contact.id }) }}">{{ 'btn.edit'|trans }}</a>
         </h2>
 
         <div id="contact-detail">
             <div class="field">
-                <label>id</label>
-                <span>{{ entity.id }}</span>
+                <label>{{ 'contact.contact_person'|trans }}</label>
+                <span>
+                    {{ contact.firstName }} {{ contact.lastName }}
+                    <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                </span>
             </div>
             <div class="field">
-                <label>Name</label>
-                <span>{{ entity.name }}</span>
+                <label>{{ 'contact.telephone'|trans }}</label>
+                <span>{{ phone.description }}</span>
             </div>
             <div class="field">
-                <label>Sortorder</label>
-                <span>{{ entity.sortOrder }}</span>
+                <label>{{ 'contact.postal_address'|trans }}</label>
+                <span>{{ postal.address }} {{ postal.city }} {{ postal.state }} {{ postal.zipCode }} {{ postal.country }}</span>
             </div>
             <div class="field">
-                <label>Active</label>
-                <span>{{ entity.active }}</span>
+                <label>{{ 'contact.physical_address'|trans }}</label>
+                <span>{{ physical.address }} {{ physical.city }} {{ physical.state }} {{ physical.zipCode }} {{ physical.country }}</span>
             </div>
-            <div class="field">
-                <label>Createdate</label>
-                <span>{{ entity.createDate|date('Y-m-d H:i:s') }}</span>
-            </div>
-            <div class="field">
-                <label>Lastmodifieddate</label>
-                <span>{{ entity.lastModifiedDate|date('Y-m-d H:i:s') }}</span>
-            </div>
-            <div class="field">
-                <label>Inactivedate</label>
-                <span>{{ entity.inactiveDate|date('Y-m-d H:i:s') }}</span>
-            </div>
+            
         </div>
 
-        <h2 id="contact-subdeatil"></h2>
+        <h2 id="contact-subdetail"></h2>
 
     </div>
+    
+    
 
     <ul class="record_actions page-control">
         <li>
@@ -73,11 +67,11 @@
                 {{ 'btn.back'|trans }}
             </a>
         </li>
-        <li>
+        {#<li>
             <a class="simple-btn" href="{{ path('morus_accetic_contacts_edit', { 'id': entity.id }) }}">
                 {{ 'btn.edit'|trans }}
             </a>
-        </li>
+        </li>#}
         <li><a class="simple-btn" id="{{ ct_del_lk_id }}" href="#">{{ 'btn.delete'|trans }}</a> </li>
         <li>{{ form(delete_form) }}</li>
     </ul>

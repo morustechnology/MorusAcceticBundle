@@ -5,13 +5,6 @@ namespace Morus\AcceticBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Morus\AcceticBundle\Entity\Contact;
-use Morus\AcceticBundle\Entity\Unit;
-use Morus\AcceticBundle\Form\Type\UnitType;
-use Morus\AcceticBundle\Entity\Location;
-use Morus\AcceticBundle\Entity\Person;
-
-
 /**
  * Contact controller.
  *
@@ -112,7 +105,7 @@ class ContactsController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function genCreateForm(Unit $unit, $ecc = null)
+    private function genCreateForm($unit, $ecc = null)
     {
         $form = $this->createForm('accetic_unit', $unit, array(
             'action' => $this->generateUrl('morus_accetic_contacts_create', array('ecc' => $ecc)),
@@ -134,19 +127,63 @@ class ContactsController extends Controller
     public function showAction($id)
     {
         $aem = $this->get('morus_accetic.entity_manager');
+        
+        // Get Contact Info
         $unitRepos = $aem->getUnitRepository();
 
-        $entity = $unitRepos->find($id);
+        $qb = $unitRepos->createQueryBuilder('u')
+                ->select('u.id, u.name')
+                ->addSelect('p.firstName, p.lastName')
+                ->addSelect('c.description as email')                
+                ->join('u.persons', 'p', 'WITH', 'p.isPrimary = 1')
+                ->join('p.contacts', 'c')
+                ->where('u.active = 1')
+                ->andWhere('u.id = :id')
+                ->setParameter('id', $id);
         
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Entity unit.');
+        $contact = $qb->getQuery()->getSingleResult();
+        
+        if (!$contact) {
+            throw $this->createNotFoundException('Unable to find contact.');
         }
+        
+        // Get Phone Number
+        $contactRepos = $aem->getContactRepository();
+        
+        $phoneSql = $contactRepos->createQueryBuilder('c')
+                ->select('c.description')
+                ->join('c.unit', 'u', 'WITH', 'u.id = :id')
+                ->join('c.contactClass', 'cc', 'WITH', 'cc.controlCode = :telephone')
+                ->setParameter('id', $id)
+                ->setParameter('telephone', 'TELEPHONE');
+        $phone = $phoneSql->getQuery()->getSingleResult();
+        
+        // Get Postal Address        
+        $locRepos = $aem->getLocationRepository();
+        
+        $postalSql = $locRepos->createQueryBuilder('l')
+                ->join('l.unit', 'u', 'WITH', 'u.id = :id')
+                ->join('l.locationClass', 'lc', 'WITH', 'lc.controlCode = :postal')
+                ->setParameter('id', $id)
+                ->setParameter('postal', 'POSTAL');
+        $postal = $postalSql->getQuery()->getSingleResult();
+        
+        // Get Physical Address        
+        $physicalSql = $locRepos->createQueryBuilder('l')
+                ->join('l.unit', 'u', 'WITH', 'u.id = :id')
+                ->join('l.locationClass', 'lc', 'WITH', 'lc.controlCode = :postal')
+                ->setParameter('id', $id)
+                ->setParameter('postal', 'PHYSICAL');
+        $physical = $physicalSql->getQuery()->getSingleResult();
 
         $deleteForm = $this->genDeleteForm($id);
 
         return $this->render('MorusAcceticBundle:Contacts:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'contact'       => $contact,
+            'phone'         => $phone,
+            'postal'        => $postal,
+            'physical'      => $physical,
+            'delete_form'   => $deleteForm->createView(),
         ));
     }
 
@@ -182,7 +219,7 @@ class ContactsController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function genEditForm(Unit $unit)
+    private function genEditForm($unit)
     {
         $form = $this->createForm('accetic_unit', $unit, array(
             'action' => $this->generateUrl('morus_accetic_contacts_update', array('id' => $unit->getId())),
@@ -216,6 +253,8 @@ class ContactsController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($unit);
             $em->flush();
 
             return $this->redirect($this->generateUrl('morus_accetic_contacts'));

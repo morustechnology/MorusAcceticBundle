@@ -170,15 +170,7 @@ class EntityManager{
         return $unit;
     }
     
-    /**
-     * Returns an unit repository
-     *
-     * @return UnitRepository
-     */
-    public function getUnitRepository()
-    {
-        return $this->unitRepos;
-    }
+    
     
     /**
      * Returns an empty transaction instance with ar attached
@@ -216,6 +208,29 @@ class EntityManager{
         return $transaction;
     }
     
+    
+    
+    
+    /**
+     * Returns an accetic config repository
+     *
+     * @return AcceticConfigRepository
+     */
+    public function getAcceticConfigRepository()
+    {
+        return $this->acceticConfigRepos;
+    }
+    
+    /**
+     * Returns ap repository
+     *
+     * @return ApRepository
+     */
+    public function getApRepository()
+    {
+        return $this->apRepos;
+    }
+    
     /**
      * Returns ar repository
      *
@@ -224,6 +239,86 @@ class EntityManager{
     public function getArRepository()
     {
         return $this->arRepos;
+    }
+    
+    /**
+     * Returns contact repository
+     *
+     * @return ContactRepository
+     */
+    public function getContactRepository()
+    {
+        return $this->contactRepos;
+    }
+
+    /**
+     * Returns contact class repository
+     *
+     * @return ContactClassRepository
+     */
+    public function getContactClassRepository()
+    {
+        return $this->contactClassRepos;
+    }
+    
+    /**
+     * Returns invoice repository
+     *
+     * @return InvoiceRepository
+     */
+    public function getInvoiceRepository()
+    {
+        return $this->invoiceRepos;
+    }
+    
+    /**
+     * Returns invoice note repository
+     *
+     * @return InvoiceNoteRepository
+     */
+    public function getInvoiceNoteRepository()
+    {
+        return $this->invoiceNoteRepos;
+    }
+    
+    /**
+     * Returns location repository
+     *
+     * @return LocationRepository
+     */
+    public function getLocationRepository()
+    {
+        return $this->locationRepos;
+    }
+    
+    /**
+     * Returns location class repository
+     *
+     * @return LocationClassRepository
+     */
+    public function getLocationClassRepository()
+    {
+        return $this->locationClassRepos;
+    }
+
+    /**
+     * Returns parts repository
+     *
+     * @return PartsRepository
+     */
+    public function getPartsRepository()
+    {
+        return $this->partsRepos;
+    }
+
+    /**
+     * Returns person repository
+     *
+     * @return PersonRepository
+     */
+    public function getPersonRepository()
+    {
+        return $this->personRepos;
     }
     
     /**
@@ -236,5 +331,23 @@ class EntityManager{
         return $this->transactionRepos;
     }
     
+    /**
+     * Returns an unit repository
+     *
+     * @return UnitRepository
+     */
+    public function getUnitRepository()
+    {
+        return $this->unitRepos;
+    }
     
+    /**
+     * Returns unit class repository
+     *
+     * @return UnitClass Repository
+     */
+    public function getUnitClassRepository()
+    {
+        return $this->unitClassRepos;
+    }
 }

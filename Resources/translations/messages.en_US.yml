@@ -38,6 +38,7 @@ contact:
     overdue_sales_invoices: Overdue Sales Invoices
         
 ar:
+    invoices: Invoices
     number: Number
     reference: Ref
     to: To
