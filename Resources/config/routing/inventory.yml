@@ -21,4 +21,3 @@ morus_accetic_inventory_delete_ajax:
 morus_accetic_inventory_delete:
     path:     /{id}/delete
     defaults: { _controller: "MorusAcceticBundle:Inventory:delete" }
-    requirements: { _method: post|delete }

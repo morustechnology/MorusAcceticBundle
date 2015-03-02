@@ -21,18 +21,9 @@ class ArController extends Controller
      */
     public function indexAction()
     {        
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
         $tranRepos = $aem->getArRepository();
-        
-//        $qb = $unitRepos->createQueryBuilder('u')
-//                ->select('u.id, u.name')
-//                ->addSelect('p.firstName, p.lastName')
-//                ->addSelect('c.description')                
-//                ->join('u.persons', 'p', 'WITH', 'p.isPrimary = 1')
-//                ->join('p.contacts', 'c')
-//                ->where('u.active = 1')
-//                ->orderBy('u.name', 'ASC');
         
         $entities = $aem->getArRepository()->findAll();
         
@@ -46,7 +37,7 @@ class ArController extends Controller
      */
     public function createAction(Request $request)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $transaction = $aem->createArTransaction();
         
         $form = $this->genCreateForm($entity);
@@ -95,7 +86,7 @@ class ArController extends Controller
      */
     public function newAction()
     {     
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $transaction = $aem->createArTransaction();
 
         $form   = $this->genCreateForm($transaction);
@@ -111,7 +102,7 @@ class ArController extends Controller
      */
     public function showAction($id)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
         $entity = $aem->getTransactionRepository()->find($id);
 
@@ -133,7 +124,7 @@ class ArController extends Controller
      */
     public function editAction($id)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
         $entity = $aem->getTransactionRepository()->find($id);
 
@@ -175,7 +166,7 @@ class ArController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
         $entity = $aem->getTransactionRepository()->find($id);
 
@@ -209,7 +200,7 @@ class ArController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $aem = $this->get('morus_accetic.entity_manager');
+            $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
             $entity = $aem->getTransactionRepository()->find($id);
 

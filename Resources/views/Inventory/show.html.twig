@@ -13,14 +13,7 @@
     {% endjavascripts %}
     
     <script type='text/javascript'>
-        jQuery(document).ready(function() {
-            // Replace Delete Form Submit button
-            $('#{{ pts_del_lk_id }}').on('click', function(event){
-                event.preventDefault();
-                alert({{ delete_form.vars.attr.id }});
-                $('#{{ delete_form.vars.attr.id }}').find(':submit').click(); 
-            });
-        });
+        
     </script>
 {% endblock javascripts %}
 
@@ -33,9 +26,7 @@
             
     <a id="{{ pts_dlg_lk_id }}" class="loading-btn" href="#" />{{ 'btn.edit_item'|trans }}</a>
 
-    <a id="{{ pts_del_lk_id }}" class="loading-btn" href="#" />{{ 'btn.delete'|trans }}</a>
-
-    {{ form(delete_form) }}
+    <a id="{{ pts_del_lk_id }}" class="loading-btn" href="{{ path('morus_accetic_inventory_delete', {'id' : parts.id}) }}" />{{ 'btn.delete'|trans }}</a>
     
     <br/>
     <br/>

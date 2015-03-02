@@ -92,6 +92,19 @@ class EntityManager{
     }
     
     /**
+     * Returns a parts instance
+     *
+     * @return PartsInterface
+     */
+    public function createParts()
+    {
+        $pc = $this->partsClass;
+        
+        $parts = new $pc;
+        
+        return $parts;
+    }
+    /**
      * Returns an empty unit instance
      *
      * @return UnitInterface

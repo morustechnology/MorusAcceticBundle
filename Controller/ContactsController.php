@@ -28,7 +28,7 @@ class ContactsController extends Controller
     {
         $controlCode = strtoupper($ecc);
         
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $unitRepos = $aem->getUnitRepository();
         
         $qb = $unitRepos->createQueryBuilder('u')
@@ -61,7 +61,7 @@ class ContactsController extends Controller
      */
     public function newAction($ecc)
     {        
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $unit = $aem->createUnit($ecc);
         
         $form = $this->genCreateForm($unit, $ecc);
@@ -78,7 +78,7 @@ class ContactsController extends Controller
      */
     public function createAction(Request $request, $ecc)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $unit = $aem->createUnit($ecc);
         
         $form = $this->genCreateForm($unit, $ecc);
@@ -126,7 +126,7 @@ class ContactsController extends Controller
      */
     public function showAction($id)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
         // Get Contact Info
         $unitRepos = $aem->getUnitRepository();
@@ -193,7 +193,7 @@ class ContactsController extends Controller
      */
     public function editAction($id)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $unitRepos = $aem->getUnitRepository();
 
         $unit = $unitRepos->find($id);
@@ -239,7 +239,7 @@ class ContactsController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $aem = $this->get('morus_accetic.entity_manager');
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $unitRepos = $aem->getUnitRepository();
 
         $unit = $unitRepos->find($id);

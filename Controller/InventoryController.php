@@ -82,7 +82,7 @@ class InventoryController extends Controller
     public function newAjaxAction(Request $request) {
         try {
             $data = $request->get('accetic_parts');
-
+            
             $parts = new Parts();
             $parts->setItemcode(array_key_exists('itemcode', $data) ? $data['itemcode'] : null);
             $parts->setItemname(array_key_exists('itemname', $data) ? $data['itemname'] : null);
@@ -113,8 +113,11 @@ class InventoryController extends Controller
     public function indexAction(Request $request)
     {
         // List All parts
-        $em = $this->getDoctrine()->getManager();
-        $parts = $em->getRepository('MorusAcceticBundle:Parts')->findAll();
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+        
+        
+        $parts = $aem->getPartsRepository()->findAll();
+        
         $parts_list_form = $this->createForm('accetic_parts_list', $parts, array(
             'attr' => array('id' => 'accetic_parts_list'),
             'action' => $this->generateUrl('morus_accetic_inventory_delete_ajax'),
@@ -127,7 +130,7 @@ class InventoryController extends Controller
             ));
         
         // New Item Form
-        $newParts = new Parts();
+        $newParts = $aem->createParts();
         $newParts->setForSale(true);
         $parts_new_form = $this->createForm('accetic_parts', $newParts, array(
             'attr' => array('id' => 'accetic_parts_new'),
@@ -136,9 +139,9 @@ class InventoryController extends Controller
         ));
         
         $parts_new_form->add('submit', 'submit', array(
-                'label' => $this->get('translator')->trans('btn.save'),
-                'attr' => array('style' => 'display:none')
-            ));
+            'label' => $this->get('translator')->trans('btn.save'),
+            'attr' => array('style' => 'display:none')
+        ));
         
         return $this->render('MorusAcceticBundle:Inventory:index.html.twig', array(
             'parts_new_form' => $parts_new_form->createView(),
@@ -153,15 +156,13 @@ class InventoryController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
 
-        $parts = $em->getRepository('MorusAcceticBundle:Parts')->find($id);
+        $parts = $aem->getPartsRepository()->find($id);
 
         if (!$parts) {
             throw $this->createNotFoundException('Unable to find Parts entity.');
         }
-        
-        $deleteForm = $this->createDeleteForm($id);
         
         // Edit Item Form
         $parts_edit_form = $this->createForm('accetic_parts', $parts, array(
@@ -172,13 +173,12 @@ class InventoryController extends Controller
         
         $parts_edit_form->add('submit', 'submit', array(
                 'label' => $this->get('translator')->trans('btn.save'),
-                'attr' => array('style' => 'display:none')
+                'attr' => array('style' => 'display:none'),
             ));
         
         return $this->render('MorusAcceticBundle:Inventory:show.html.twig', array(
             'parts'      => $parts,
             'parts_edit_form' => $parts_edit_form->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     
@@ -186,23 +186,19 @@ class InventoryController extends Controller
      * Deletes a Parts entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+        $entity = $aem->getPartsRepository()->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MorusAcceticBundle:Parts')->find($id);
-            
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Parts entity.');
-            }
-            
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Parts entity.');
         }
-        
+
+        $em->remove($entity);
+        $em->flush();
+
         return $this->redirect($this->generateUrl('morus_accetic_inventory'));
     }
 
