@@ -242,7 +242,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="parts", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="parts", cascade={"persist"}, orphanRemoval=true)
      */
     protected $invoices;
 
