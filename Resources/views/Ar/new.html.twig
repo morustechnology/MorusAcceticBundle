@@ -201,19 +201,19 @@
             
             <fieldset>
                 <div class="field inline">
-                    <label>{{ 'ar.to'|trans }}</label>{{ form_widget(form.ar.unit) }} {{ form_errors(form.ar.unit) }}
+                    <label>{{ 'ar.to'|trans }}</label>{{ form_widget(form.unit) }} {{ form_errors(form.unit) }}
                 </div>
                 <div class="field inline">
-                    <label>{{ 'ar.invnumber'|trans }}</label>{{ form_widget(form.ar.invnumber) }} {{ form_errors(form.ar.invnumber) }}
+                    <label>{{ 'ar.invnumber'|trans }}</label>{{ form_widget(form.invnumber) }} {{ form_errors(form.invnumber) }}
                 </div>
                 <div class="field inline">
-                    <label>{{ 'ar.transdate'|trans }}</label>{{ form_widget(form.ar.transdate) }} {{ form_errors(form.ar.transdate) }}
+                    <label>{{ 'ar.transdate'|trans }}</label>{{ form_widget(form.transdate) }} {{ form_errors(form.transdate) }}
                 </div>
                 <div class="field inline">
-                    <label>{{ 'ar.duedate'|trans }}</label>{{ form_widget(form.ar.duedate) }} {{ form_errors(form.ar.duedate) }}
+                    <label>{{ 'ar.duedate'|trans }}</label>{{ form_widget(form.duedate) }} {{ form_errors(form.duedate) }}
                 </div>
                 <div class="field inline long">
-                    <label>{{ 'ar.reference'|trans }}</label>{{ form_widget(form.ar.reference) }} {{ form_errors(form.ar.reference) }}
+                    <label>{{ 'ar.reference'|trans }}</label>{{ form_widget(form.reference) }} {{ form_errors(form.reference) }}
                 </div>
             </fieldset>
             
@@ -227,8 +227,10 @@
                     <th class="short right">{{ 'ar.invoice.amount'|trans }}</th>
                     <th class="short"></th>
                 </thead>
-                <tbody data-prototype="{{ form_widget(form.invoices.vars.prototype)|e }}">
-                    {{ form_widget(form.invoices) }}
+                <tbody data-prototype="{{ form_widget(form.transaction.invoices.vars.prototype)|e }}">
+                    {% for invoice in form.transaction.invoices %}
+                    {{ form_widget(invoice) }}
+                    {% endfor %}
                 </tbody>
             </table>
                  
@@ -256,14 +258,7 @@
             </ul>
                     
             <div style="clear:both;"></div>
-                    
         </div>
-            
     </div>
-    
-    
-
-    
-    
 {% endblock %}
 

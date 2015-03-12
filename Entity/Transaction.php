@@ -100,16 +100,6 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     protected $invoices;
 
     /**
-     * @var \Morus\AcceticBundle\Model\UnitInterface
-     *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\UnitInterface", inversedBy="transactions", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
-     * })
-     */
-    protected $unit;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -117,22 +107,6 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createDate = new \DateTime("now");
         $this->active = true;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function onPostPersist()
-    {
-        // Add your code here
     }
 
     /**
@@ -407,27 +381,20 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
     {
         return $this->invoices;
     }
-
+    
     /**
-     * Set unit
-     *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
-     * @return Transaction
+     * @ORM\PrePersist
      */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null)
+    public function onPrePersist()
     {
-        $this->unit = $unit;
-
-        return $this;
+        // Add your code here
     }
 
     /**
-     * Get unit
-     *
-     * @return \Morus\AcceticBundle\Model\UnitInterface 
+     * @ORM\PostPersist
      */
-    public function getUnit()
+    public function onPostPersist()
     {
-        return $this->unit;
+        // Add your code here
     }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ArTransactionType extends AbstractType
+class TransactionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,8 @@ class ArTransactionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ar', 'accetic_ar')
-            ->add('invoices', 'accetic_invoices', array(
+            ->add('invoices', 'collection', array(
+                'label' => false,
                 'type' => 'accetic_invoice',
                 'allow_add'    => true,
                 'allow_delete' => true,
@@ -41,6 +41,6 @@ class ArTransactionType extends AbstractType
      */
     public function getName()
     {
-        return 'accetic_ar_transaction';
+        return 'accetic_transaction';
     }
 }

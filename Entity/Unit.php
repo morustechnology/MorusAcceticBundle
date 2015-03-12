@@ -95,13 +95,6 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\TransactionInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
-     */
-    protected $transactions;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
      * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\ArInterface", mappedBy="unit", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $ars;
@@ -136,7 +129,6 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->persons = new \Doctrine\Common\Collections\ArrayCollection();
         $this->locations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->transactions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ars = new \Doctrine\Common\Collections\ArrayCollection();
         $this->aps = new \Doctrine\Common\Collections\ArrayCollection();
         $this->unitClasses = new \Doctrine\Common\Collections\ArrayCollection();
@@ -428,39 +420,6 @@ class Unit implements \Morus\AcceticBundle\Model\UnitInterface
     public function getLocations()
     {
         return $this->locations;
-    }
-
-    /**
-     * Add transactions
-     *
-     * @param \Morus\AcceticBundle\Model\TransactionInterface $transactions
-     * @return Unit
-     */
-    public function addTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transactions)
-    {
-        $this->transactions[] = $transactions;
-
-        return $this;
-    }
-
-    /**
-     * Remove transactions
-     *
-     * @param \Morus\AcceticBundle\Model\TransactionInterface $transactions
-     */
-    public function removeTransaction(\Morus\AcceticBundle\Model\TransactionInterface $transactions)
-    {
-        $this->transactions->removeElement($transactions);
-    }
-
-    /**
-     * Get transactions
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTransactions()
-    {
-        return $this->transactions;
     }
 
     /**

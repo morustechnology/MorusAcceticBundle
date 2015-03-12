@@ -25,10 +25,10 @@ services:
         tags:
             - { name: form.type, alias: accetic_location }
 
-    morus_accetic.form.type.ar.transaction:
-        class: Morus\AcceticBundle\Form\Type\ArTransactionType
+    morus_accetic.form.type.transaction:
+        class: Morus\AcceticBundle\Form\Type\TransactionType
         tags:
-            - { name: form.type, alias: accetic_ar_transaction }
+            - { name: form.type, alias: accetic_transaction }
             
     morus_accetic.form.type.ar:
         class: Morus\AcceticBundle\Form\Type\ArType

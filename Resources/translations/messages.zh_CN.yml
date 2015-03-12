@@ -41,11 +41,11 @@ ar:
     invoices: Invoices
     number: 编号
     reference: 备注
-    to: 给
+    to: 给予
     date: 日期
     due_date: 到期日
     paid: 已付
-    due: 欠
+    due: 总欠
     status: 状态
     sent: 已发送
     new_invoice: 新增发票

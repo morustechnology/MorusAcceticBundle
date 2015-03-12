@@ -187,21 +187,6 @@ interface TransactionInterface
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getInvoices();
-
-    /**
-     * Set unit
-     *
-     * @param \Morus\AcceticBundle\Model\UnitInterface $unit
-     * @return TransactionInterface
-     */
-    public function setUnit(\Morus\AcceticBundle\Model\UnitInterface $unit = null);
-
-    /**
-     * Get unit
-     *
-     * @return \Morus\AcceticBundle\Model\UnitInterface 
-     */
-    public function getUnit();
     
     /**
      * @ORM\PrePersist

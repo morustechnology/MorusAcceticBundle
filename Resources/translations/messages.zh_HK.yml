@@ -42,11 +42,11 @@ ar:
     invoices: 發票
     number: 編號
     reference: 備註
-    to: 給
+    to: 給予
     date: 日期
     due_date: 到期日
     paid: 已付
-    due: 欠
+    due: 總欠
     status: 狀態
     sent: 已送出
     new_invoice: 新增發票

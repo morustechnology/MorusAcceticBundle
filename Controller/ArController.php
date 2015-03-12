@@ -6,8 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Morus\AcceticBundle\Entity\Transaction;
-use Morus\AcceticBundle\Entity\Ar;
-use Morus\AcceticBundle\Entity\Invoice;
 
 /**
  * Ar controller.
@@ -25,12 +23,13 @@ class ArController extends Controller
         
         $tranRepos = $aem->getArRepository();
         
-        $entities = $aem->getArRepository()->findAll();
+        $ars = $aem->getArRepository()->findAll();
         
-        return $this->render('MorusAcceticBundle:Ar:index.html.twig', array(
-            'entities' => $entities,
+        return $this->render($this->container->getParameter('morus_accetic.template.ar.index'), array(
+            'ars' => $ars,
         ));
     }
+    
     /**
      * Creates a new Transaction entity.
      *
@@ -38,21 +37,21 @@ class ArController extends Controller
     public function createAction(Request $request)
     {
         $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
-        $transaction = $aem->createArTransaction();
+        $ar = $aem->createAr();
         
-        $form = $this->genCreateForm($entity);
+        $form = $this->genCreateForm($ar);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($ar);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('morus_accetic_ar_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('morus_accetic_ar'));
         }
 
         return $this->render('MorusAcceticBundle:Ar:new.html.twig', array(
-            'entity' => $entity,
+            'ar' => $ar,
             'form'   => $form->createView(),
         ));
     }
@@ -64,10 +63,10 @@ class ArController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function genCreateForm(Transaction $entity)
+    private function genCreateForm($ar)
     {
-        $form = $this->createForm('accetic_ar_transaction', $entity, array(
-            'attr' => array( 'id' => 'inv_new_form'),
+        $form = $this->createForm('accetic_ar', $ar, array(
+            'attr' => array( 'id' => 'morus_accetic_ar_new_form'),
             'action' => $this->generateUrl('morus_accetic_ar_create'),
             'method' => 'POST',
         ));
@@ -87,34 +86,12 @@ class ArController extends Controller
     public function newAction()
     {     
         $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
-        $transaction = $aem->createArTransaction();
+        $ar = $aem->createAr();
 
-        $form   = $this->genCreateForm($transaction);
+        $form   = $this->genCreateForm($ar);
         return $this->render('MorusAcceticBundle:Ar:new.html.twig', array(
-            'transaction' => $transaction,
+            'transaction' => $ar,
             'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Transaction entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
-        
-        $entity = $aem->getTransactionRepository()->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Transaction entity.');
-        }
-
-        $deleteForm = $this->genDeleteForm($id);
-
-        return $this->render('MorusAcceticBundle:Ar:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -125,19 +102,29 @@ class ArController extends Controller
     public function editAction($id)
     {
         $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
-        
-        $entity = $aem->getTransactionRepository()->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Transaction entity.');
+        // Get ar with invoices lines
+        $qb = $aem->getArRepository()
+                ->createQueryBuilder('ar');
+        
+        $query = $qb
+                ->select('ar')
+                ->join('ar.transaction', 't')
+                ->leftJoin('t.invoices', 'v')
+                ->where($qb->expr()->eq('ar.id', $id));
+        
+        $ar = $query->getQuery()->getSingleResult();
+
+        if (!$ar) {
+            throw $this->createNotFoundException('Unable to find Ar entity.');
         }
 
-        $editForm = $this->genEditForm($entity);
+        $editForm = $this->genEditForm($ar);
         $deleteForm = $this->genDeleteForm($id);
 
         return $this->render('MorusAcceticBundle:Ar:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'ar'      => $ar,
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -149,17 +136,22 @@ class ArController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function genEditForm(Transaction $entity)
+    private function genEditForm($ar)
     {
-        $form = $this->createForm('accetic_ar_transaction', $entity, array(
-            'action' => $this->generateUrl('morus_accetic_ar_update', array('id' => $entity->getId())),
+        $form = $this->createForm('accetic_ar', $ar, array(
+            'attr' => array( 'id' => 'morus_accetic_ar_edit_form'),
+            'action' => $this->generateUrl('morus_accetic_ar_update', array('id' => $ar->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array(
+            'label' => false,
+            'attr' => array( 'style' => 'display:none')
+            ));
 
         return $form;
     }
+    
     /**
      * Edits an existing Transaction entity.
      *
@@ -168,28 +160,41 @@ class ArController extends Controller
     {
         $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         
-        $entity = $aem->getTransactionRepository()->find($id);
+        // Get ar with invoices lines
+        $qb = $aem->getArRepository()
+                ->createQueryBuilder('ar');
+        
+        $query = $qb
+                ->select('ar')
+                ->join('ar.transaction', 't')
+                ->leftJoin('t.invoices', 'v')
+                ->where($qb->expr()->eq('ar.id', $id));
+        
+        $ar = $query->getQuery()->getSingleResult();
 
-        if (!$entity) {
+
+        if (!$ar) {
             throw $this->createNotFoundException('Unable to find Transaction entity.');
         }
 
         $deleteForm = $this->genDeleteForm($id);
-        $editForm = $this->genEditForm($entity);
+        $editForm = $this->genEditForm($ar);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('morus_accetic_ar_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('morus_accetic_ar'));
         }
 
         return $this->render('MorusAcceticBundle:Ar:edit.html.twig', array(
-            'entity'      => $entity,
+            'ar'      => $ar,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    
     /**
      * Deletes a Transaction entity.
      *

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  *
  * @author Michael
  */
-class EntityManager{
+class EntityManager {
     protected $objectManager;
     protected $container;
     protected $acceticConfigRepos, $arRepos, $apRepos, $contactRepos, $contactClassRepos, $invoiceRepos, $invoiceClassRepos;
@@ -135,8 +135,9 @@ class EntityManager{
         $person->setIsPrimary(true);
         
         // Add Contact Type
-        if ($ecc && !$ecc == 'ALL') {
-            $unit->addUnitClass($this->unitClassRepos->findOneByControlCode($ecc));
+        $unitClass = $this->unitClassRepos->findOneByControlCode($controlCode);
+        if ($unitClass) {
+            $unit->addUnitClass($unitClass);
         }
         
         //Add Default Contact Person
@@ -190,7 +191,7 @@ class EntityManager{
      *
      * @return TransactionInterface
      */
-    public function createArTransaction()
+    public function createAr()
     {
         $tc = $this->transactionClass;
         $arc = $this->arClass;
@@ -211,14 +212,18 @@ class EntityManager{
         if ($invPrefix && $invNextNumber) {
             $ar->setInvnumber($invPrefix->getValue() . $invNextNumber->getValue());
         }
-        
+        $ar->setTransaction($transaction);
         $transaction->setAr($ar);
         $transaction->addInvoice($invoiceLine1);
+        $invoiceLine1->setTransaction($transaction);
         $transaction->addInvoice($invoiceLine2);
+        $invoiceLine2->setTransaction($transaction);
         $transaction->addInvoice($invoiceLine3);
+        $invoiceLine3->setTransaction($transaction);
         $transaction->addInvoice($invoiceLine4);
+        $invoiceLine4->setTransaction($transaction);
         
-        return $transaction;
+        return $ar;
     }
     
     

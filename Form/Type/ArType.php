@@ -35,8 +35,7 @@ class ArType extends AbstractType
             ->add('reference', 'text', array(
                 'required' => false,
             ))
-            
-        ;
+            ->add('transaction', 'accetic_transaction', array('label' => false));
     }
     
     /**
