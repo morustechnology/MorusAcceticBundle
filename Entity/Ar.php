@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ar
  *
  * @ORM\Table(name="accetic_ar", uniqueConstraints={@ORM\UniqueConstraint(name="ar_invnumber_key", columns={"invnumber"})}, indexes={@ORM\Index(name="IDX_unit_id", columns={"unit_id"})})
- * @ORM\MappedSuperclass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Ar implements \Morus\AcceticBundle\Model\ArInterface

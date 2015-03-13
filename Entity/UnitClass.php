@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * UnitClass
  *
  * @ORM\Table(name="accetic_unit_class")
- * @ORM\MappedSuperclass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class UnitClass implements \Morus\AcceticBundle\Model\UnitClassInterface

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Parts
  *
  * @ORM\Table(name="accetic_parts", uniqueConstraints={@ORM\UniqueConstraint(name="parts_itemcode_index_u", columns={"itemcode"})})
- * @ORM\MappedSuperclass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Parts implements \Morus\AcceticBundle\Model\PartsInterface
