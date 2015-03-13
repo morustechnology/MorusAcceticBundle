@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Morus\AcceticBundle\Entity\Transaction;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Ar controller.
@@ -13,6 +14,22 @@ use Morus\AcceticBundle\Entity\Transaction;
  */
 class ArController extends Controller
 {
+    public function printAction()
+    {
+        $html = $this->renderView('MorusAcceticBundle:ar:print.html.twig');
+        $pdfGenerator = $this->get('spraed.pdf.generator');
+        $pdfGenerator->generatePDF($html, 'UTF-8');
+        
+        return new Response($pdfGenerator->generatePDF($html),
+                    200,
+                    array(
+                        'Content-Type' => 'application/pdf',
+                        'Content-Disposition' => 'attachment; filename="out.pdf"'
+                    )
+        );
+        
+    }
+    
     /**
      * Lists all Transaction entities.
      *
@@ -25,7 +42,7 @@ class ArController extends Controller
         
         $ars = $aem->getArRepository()->findAll();
         
-        return $this->render($this->container->getParameter('morus_accetic.template.ar.index'), array(
+        return $this->render('MorusAcceticBundle:Ar:index.html.twig', array(
             'ars' => $ars,
         ));
     }

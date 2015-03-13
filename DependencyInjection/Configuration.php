@@ -96,19 +96,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                
-                ->arrayNode('templates')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('ar')
-                            ->children()
-                                ->scalarNode('index')
-                                    ->defaultValue('MorusAcceticBundle:Ar:index.html.twig')
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
             ->end()
         ;
         // Here you should define the parameters that are allowed to
