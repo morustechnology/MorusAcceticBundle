@@ -61,8 +61,33 @@ class ArController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ar);
-            $em->flush();
+            
+            $em->getConnection()->beginTransaction();
+            
+            try {
+                // Generate and save next invoice number
+                
+                
+                $config = $aem->getAcceticConfigRepository()->findOneByControlCode('INV_NEXT_NUM');
+                
+                if($config) {
+                    $invoiceNumber = $ar->getInvnumber();
+                    $suff = $aem->getInvSuff($invoiceNumber);
+                    $nextSuff = $aem->incInvSuff($suff, 1);
+                    $config->setValue($nextSuff);
+                    $em->persist($config);
+                }
+                
+                $em->persist($ar);
+                $em->flush();
+                
+                // Try and commit the transaction
+                $em->getConnection()->commit();
+            } catch (Exception $ex) {
+                // Rollback the failed transaction attempt
+                $em->getConnection()->rollback();
+                throw $ex;
+            }
 
             return $this->redirect($this->generateUrl('morus_accetic_ar'));
         }

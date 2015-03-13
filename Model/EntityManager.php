@@ -18,7 +18,6 @@ class EntityManager {
     protected $acceticConfigClass, $arClass, $apClass, $contactClass, $contactClassClass, $invoiceClass, $invoiceClassClass;
     protected $locationClass, $locationClassClass, $partsClass, $personClass, $transactionClass, $unitClass, $unitClassClass;
     
-    
     public function __construct(ObjectManager $om, Container $container)
     {
         $this->objectManager = $om;
@@ -91,6 +90,36 @@ class EntityManager {
         
     }
     
+    public function nextInvNum() {
+        $invPrefix = $this->acceticConfigRepos->findOneByControlCode('INV_PREFIX');
+        $invNextNumber = $this->acceticConfigRepos->findOneByControlCode('INV_NEXT_NUM');
+        
+        if ($invPrefix && $invNextNumber) {
+            $nextInvoiceNumber = $invPrefix->getValue() . $invNextNumber->getValue();
+        }
+        
+        return $nextInvoiceNumber;
+    }
+    
+    public function getInvSuff($invoiceNumber) {
+        $invPrefix = $this->acceticConfigRepos
+                ->findOneByControlCode('INV_PREFIX')
+                ->getValue();
+        
+        if (substr($invoiceNumber, 0, strlen($invPrefix)) == $invPrefix) {
+            $suff = substr($invoiceNumber, strlen($invPrefix));
+        } 
+        
+        return $suff ? $suff : null;
+    }
+    
+    public function incInvSuff($suff, $int){
+        $len = strlen($suff);
+        $num = intval($suff);
+        $num = $num + $int;
+        return str_pad($num, $len, '0', STR_PAD_LEFT);
+    }
+    
     /**
      * Returns a parts instance
      *
@@ -104,6 +133,7 @@ class EntityManager {
         
         return $parts;
     }
+    
     /**
      * Returns an empty unit instance
      *
@@ -184,8 +214,6 @@ class EntityManager {
         return $unit;
     }
     
-    
-    
     /**
      * Returns an empty transaction instance with ar attached
      *
@@ -205,13 +233,7 @@ class EntityManager {
         $invoiceLine4 = new $ic;
         
         // Get statement process
-        
-        $invPrefix = $this->acceticConfigRepos->findOneByControlCode('INV_PREFIX');
-        $invNextNumber = $this->acceticConfigRepos->findOneByControlCode('INV_NEXT_NUM');
-        
-        if ($invPrefix && $invNextNumber) {
-            $ar->setInvnumber($invPrefix->getValue() . $invNextNumber->getValue());
-        }
+        $ar->setInvnumber($this->nextInvNum());
         $ar->setTransaction($transaction);
         $transaction->setAr($ar);
         $transaction->addInvoice($invoiceLine1);
@@ -225,9 +247,6 @@ class EntityManager {
         
         return $ar;
     }
-    
-    
-    
     
     /**
      * Returns an accetic config repository
