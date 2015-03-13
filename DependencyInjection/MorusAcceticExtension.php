@@ -18,8 +18,7 @@ class MorusAcceticExtension extends Extension
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
-    {
-        $configuration = new Configuration();
+    {        $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         
         $this->remapParametersNamespaces($config['entities'], $container, array(
