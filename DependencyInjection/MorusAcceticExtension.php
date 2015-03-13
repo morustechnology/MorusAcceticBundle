@@ -40,11 +40,11 @@ class MorusAcceticExtension extends Extension
             ),
         ));
         
-        $this->remapParametersNamespaces($config['templates']['ar'], $container, array(
-           '' => array (
-               'index'  => 'morus_accetic.template.ar.index',
-            ), 
-        ));
+//        $this->remapParametersNamespaces($config['templates']['ar'], $container, array(
+//           '' => array (
+//               'index'  => 'morus_accetic.template.ar.index',
+//            ), 
+//        ));
         
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
