@@ -90,6 +90,12 @@ class EntityManager {
         
     }
     
+    /**
+     * 
+     * @return string
+     * 
+     * get next full invoice number (e.g. INV-00001)
+     */
     public function nextInvNum() {
         $invPrefix = $this->acceticConfigRepos->findOneByControlCode('INV_PREFIX');
         $invNextNumber = $this->acceticConfigRepos->findOneByControlCode('INV_NEXT_NUM');
@@ -101,6 +107,13 @@ class EntityManager {
         return $nextInvoiceNumber;
     }
     
+    /**
+     * 
+     * @param type $invoiceNumber
+     * @return type
+     * 
+     * Get full invoice and extract suffix (e.g. 00001)
+     */
     public function getInvSuff($invoiceNumber) {
         $invPrefix = $this->acceticConfigRepos
                 ->findOneByControlCode('INV_PREFIX')
@@ -113,11 +126,35 @@ class EntityManager {
         return $suff ? $suff : null;
     }
     
+    /**
+     * 
+     * @param type $suff
+     * @param type $int
+     * @return type
+     * 
+     * Get invoice suffix ( e.g. 00001) and return by $int increment (e.g. 00002)
+     */
     public function incInvSuff($suff, $int){
         $len = strlen($suff);
         $num = intval($suff);
         $num = $num + $int;
         return str_pad($num, $len, '0', STR_PAD_LEFT);
+    }
+    
+    /**
+     * 
+     * @param type $invnumber
+     * @param type $int
+     * @return type
+     * 
+     * Get full invoice number (e.g. INV-00001) and return by $int increment (e.g. INV-00002)
+     */
+    public function incInvNum($invnumber, $int){
+        $invPrefix = $this->acceticConfigRepos->findOneByControlCode('INV_PREFIX');
+        $suff = $this->getInvSuff($invnumber);
+        $suff = incInvSuff($suff, $int);
+        
+        return $invPrefix . $suff;
     }
     
     /**
