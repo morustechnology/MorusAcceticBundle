@@ -27,7 +27,6 @@ class ArController extends Controller
                         'Content-Disposition' => 'attachment; filename="out.pdf"'
                     )
         );
-        
     }
     
     /**
@@ -66,8 +65,6 @@ class ArController extends Controller
             
             try {
                 // Generate and save next invoice number
-                
-                
                 $config = $aem->getAcceticConfigRepository()->findOneByControlCode('INV_NEXT_NUM');
                 
                 if($config) {
