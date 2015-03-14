@@ -80,6 +80,11 @@ a:hover{
     color: #005e7b;
 }
 
+.notes{
+    font-size: 12px;
+    color: #888;
+}
+
 #header{
     display: inline-block;
     background: #048abb;
@@ -133,6 +138,9 @@ a:hover{
     color: #264b63;
 }
 /*Main-Nav Header Language*/
+.main-nav{
+    float: right;
+}
 .main-nav ul{
     float: left;
     padding: 0;
