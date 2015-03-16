@@ -101,3 +101,5 @@ btn:
     add_employee: 雇员
     add_another_person: 添加联络人
     add_person: 新增联络人
+    print: 列印
+    send_email: 发送电子邮件

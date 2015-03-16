@@ -101,4 +101,6 @@ btn:
     add_employee: Add Employee
     add_another_person: Add another person
     add_person: Add Contact
+    print: Print
+    send_email: Send Email
         
