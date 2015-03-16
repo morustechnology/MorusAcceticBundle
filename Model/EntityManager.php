@@ -152,9 +152,9 @@ class EntityManager {
     public function incInvNum($invnumber, $int){
         $invPrefix = $this->acceticConfigRepos->findOneByControlCode('INV_PREFIX');
         $suff = $this->getInvSuff($invnumber);
-        $suff = incInvSuff($suff, $int);
+        $suff = $this->incInvSuff($suff, $int);
         
-        return $invPrefix . $suff;
+        return $invPrefix->getValue() . $suff;
     }
     
     /**
