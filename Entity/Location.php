@@ -20,105 +20,105 @@ class Location implements \Morus\AcceticBundle\Model\LocationInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="address", type="text", nullable=true)
      */
-    private $address;
+    protected $address;
 
     /**
      * @var string
      *
      * @ORM\Column(name="line_one", type="text", nullable=true)
      */
-    private $lineOne;
+    protected $lineOne;
 
     /**
      * @var string
      *
      * @ORM\Column(name="line_two", type="text", nullable=true)
      */
-    private $lineTwo;
+    protected $lineTwo;
 
     /**
      * @var string
      *
      * @ORM\Column(name="line_three", type="text", nullable=true)
      */
-    private $lineThree;
+    protected $lineThree;
 
     /**
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=500, nullable=true)
      */
-    private $city;
+    protected $city;
 
     /**
      * @var string
      *
      * @ORM\Column(name="state", type="string", length=500, nullable=true)
      */
-    private $state;
+    protected $state;
 
     /**
      * @var string
      *
      * @ORM\Column(name="zip_code", type="string", length=80, nullable=true)
      */
-    private $zipCode;
+    protected $zipCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=500, nullable=true)
      */
-    private $country;
+    protected $country;
 
     /**
      * @var string
      *
      * @ORM\Column(name="attention", type="string", length=800, nullable=true)
      */
-    private $attention;
+    protected $attention;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Morus\AcceticBundle\Model\UnitInterface

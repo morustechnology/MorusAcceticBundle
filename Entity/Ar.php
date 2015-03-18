@@ -20,252 +20,252 @@ class Ar implements \Morus\AcceticBundle\Model\ArInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="invnumber", type="string", length=100, nullable=true)
      */
-    private $invnumber;
+    protected $invnumber;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="transdate", type="date", nullable=true)
      */
-    private $transdate;
+    protected $transdate;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="taxincluded", type="boolean", nullable=true)
      */
-    private $taxincluded;
+    protected $taxincluded;
 
     /**
      * @var string
      *
      * @ORM\Column(name="amount", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $amount;
+    protected $amount;
 
     /**
      * @var string
      *
      * @ORM\Column(name="netAmount", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $netAmount;
+    protected $netAmount;
 
     /**
      * @var string
      *
      * @ORM\Column(name="paid", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $paid;
+    protected $paid;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="datepaid", type="date", nullable=true)
      */
-    private $datepaid;
+    protected $datepaid;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="duedate", type="date", nullable=true)
      */
-    private $duedate;
+    protected $duedate;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="invoice", type="boolean", nullable=true)
      */
-    private $invoice;
+    protected $invoice;
 
     /**
      * @var string
      *
      * @ORM\Column(name="shippingpoint", type="text", nullable=true)
      */
-    private $shippingpoint;
+    protected $shippingpoint;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="terms", type="smallint", nullable=true)
      */
-    private $terms;
+    protected $terms;
 
     /**
      * @var string
      *
      * @ORM\Column(name="reference", type="string", length=200, nullable=true)
      */
-    private $reference;
+    protected $reference;
 
     /**
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
-    private $notes;
+    protected $notes;
 
     /**
      * @var string
      *
      * @ORM\Column(name="curr", type="string", nullable=true)
      */
-    private $curr;
+    protected $curr;
 
     /**
      * @var string
      *
      * @ORM\Column(name="ordnumber", type="text", nullable=true)
      */
-    private $ordnumber;
+    protected $ordnumber;
 
     /**
      * @var string
      *
      * @ORM\Column(name="till", type="string", length=20, nullable=true)
      */
-    private $till;
+    protected $till;
 
     /**
      * @var string
      *
      * @ORM\Column(name="quonumber", type="text", nullable=true)
      */
-    private $quonumber;
+    protected $quonumber;
 
     /**
      * @var string
      *
      * @ORM\Column(name="intnotes", type="text", nullable=true)
      */
-    private $intnotes;
+    protected $intnotes;
 
     /**
      * @var string
      *
      * @ORM\Column(name="shipvia", type="text", nullable=true)
      */
-    private $shipvia;
+    protected $shipvia;
 
     /**
      * @var string
      *
      * @ORM\Column(name="language_code", type="string", length=6, nullable=true)
      */
-    private $languageCode;
+    protected $languageCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="ponumber", type="text", nullable=true)
      */
-    private $ponumber;
+    protected $ponumber;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="on_hold", type="boolean", nullable=true)
      */
-    private $onHold;
+    protected $onHold;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="reverse", type="boolean", nullable=true)
      */
-    private $reverse;
+    protected $reverse;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="approved", type="boolean", nullable=true)
      */
-    private $approved;
+    protected $approved;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="force_closed", type="boolean", nullable=true)
      */
-    private $forceClosed;
+    protected $forceClosed;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $description;
+    protected $description;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="is_return", type="boolean", nullable=true)
      */
-    private $isReturn;
+    protected $isReturn;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="crdate", type="date", nullable=true)
      */
-    private $crdate;
+    protected $crdate;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="printed", type="boolean", nullable=true)
      */
-    private $printed;
+    protected $printed;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="emailed", type="boolean", nullable=true)
      */
-    private $emailed;
+    protected $emailed;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Morus\AcceticBundle\Model\TransactionInterface

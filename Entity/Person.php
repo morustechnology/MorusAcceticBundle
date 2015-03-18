@@ -20,84 +20,84 @@ class Person implements \Morus\AcceticBundle\Model\PersonInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="isPrimary", type="boolean", nullable=true)
      */
-    private $isPrimary;
+    protected $isPrimary;
 
     /**
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=200, nullable=true)
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="middle_name", type="string", length=200, nullable=true)
      */
-    private $middleName;
+    protected $middleName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=200, nullable=true)
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
-    private $birthdate;
+    protected $birthdate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="personal_id", type="text", nullable=true)
      */
-    private $personalId;
+    protected $personalId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

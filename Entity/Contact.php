@@ -20,49 +20,49 @@ class Contact implements \Morus\AcceticBundle\Model\ContactInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $description;
+    protected $description;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Morus\AcceticBundle\Model\UnitInterface

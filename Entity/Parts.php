@@ -20,224 +20,224 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="itemcode", type="string", length=100, nullable=false)
      */
-    private $itemcode;
+    protected $itemcode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="itemname", type="string", length=200, nullable=false)
      */
-    private $itemname;
+    protected $itemname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="unit", type="string", length=100, nullable=true)
      */
-    private $unit;
+    protected $unit;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="forsale", type="boolean", nullable=true)
      */
-    private $forsale;
+    protected $forsale;
 
     /**
      * @var string
      *
      * @ORM\Column(name="listprice", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $listprice;
+    protected $listprice;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $sellprice;
+    protected $sellprice;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sale_description", type="text", nullable=true)
      */
-    private $saleDescription;
+    protected $saleDescription;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="forpurchase", type="boolean", nullable=true)
      */
-    private $forpurchase;
+    protected $forpurchase;
 
     /**
      * @var string
      *
      * @ORM\Column(name="lastcost", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $lastcost;
+    protected $lastcost;
 
     /**
      * @var string
      *
      * @ORM\Column(name="purchase_description", type="text", nullable=true)
      */
-    private $purchaseDescription;
+    protected $purchaseDescription;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="priceupdate", type="date", nullable=true)
      */
-    private $priceupdate;
+    protected $priceupdate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="weight", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $weight;
+    protected $weight;
 
     /**
      * @var string
      *
      * @ORM\Column(name="onhand", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $onhand;
+    protected $onhand;
 
     /**
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
-    private $notes;
+    protected $notes;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="makemodel", type="boolean", nullable=true)
      */
-    private $makemodel;
+    protected $makemodel;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="assembly", type="boolean", nullable=true)
      */
-    private $assembly;
+    protected $assembly;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="alternate", type="boolean", nullable=true)
      */
-    private $alternate;
+    protected $alternate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="rop", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $rop;
+    protected $rop;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bin", type="text", nullable=true)
      */
-    private $bin;
+    protected $bin;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="obsolete", type="boolean", nullable=true)
      */
-    private $obsolete;
+    protected $obsolete;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="bom", type="boolean", nullable=true)
      */
-    private $bom;
+    protected $bom;
 
     /**
      * @var string
      *
      * @ORM\Column(name="image", type="text", nullable=true)
      */
-    private $image;
+    protected $image;
 
     /**
      * @var string
      *
      * @ORM\Column(name="drawing", type="text", nullable=true)
      */
-    private $drawing;
+    protected $drawing;
 
     /**
      * @var string
      *
      * @ORM\Column(name="microfiche", type="text", nullable=true)
      */
-    private $microfiche;
+    protected $microfiche;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="partsgroup_id", type="integer", nullable=true)
      */
-    private $partsgroupId;
+    protected $partsgroupId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="avgcost", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $avgcost;
+    protected $avgcost;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

@@ -20,126 +20,126 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $description;
+    protected $description;
 
     /**
      * @var string
      *
      * @ORM\Column(name="qty", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $qty;
+    protected $qty;
 
     /**
      * @var string
      *
      * @ORM\Column(name="allocated", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $allocated;
+    protected $allocated;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $sellprice;
+    protected $sellprice;
 
     /**
      * @var string
      *
      * @ORM\Column(name="fxsellprice", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $fxsellprice;
+    protected $fxsellprice;
 
     /**
      * @var string
      *
      * @ORM\Column(name="discount", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $discount;
+    protected $discount;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="assemblyitem", type="boolean", nullable=true)
      */
-    private $assemblyitem;
+    protected $assemblyitem;
 
     /**
      * @var string
      *
      * @ORM\Column(name="unit", type="string", nullable=true)
      */
-    private $unit;
+    protected $unit;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="deliverydate", type="date", nullable=true)
      */
-    private $deliverydate;
+    protected $deliverydate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="serialnumber", type="text", nullable=true)
      */
-    private $serialnumber;
+    protected $serialnumber;
 
     /**
      * @var string
      *
      * @ORM\Column(name="vendor_sku", type="text", nullable=true)
      */
-    private $vendorSku;
+    protected $vendorSku;
 
     /**
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
-    private $notes;
+    protected $notes;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

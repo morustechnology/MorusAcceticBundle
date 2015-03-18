@@ -20,63 +20,63 @@ class Transaction implements \Morus\AcceticBundle\Model\TransactionInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="table_name", type="text", nullable=true)
      */
-    private $tableName;
+    protected $tableName;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="approved", type="boolean", nullable=true)
      */
-    private $approved;
+    protected $approved;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="approved_at", type="datetime", nullable=true)
      */
-    private $approvedAt;
+    protected $approvedAt;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Morus\AcceticBundle\Model\ArInterface

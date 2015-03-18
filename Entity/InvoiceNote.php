@@ -20,63 +20,63 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="note_class", type="integer", nullable=false)
      */
-    private $noteClass;
+    protected $noteClass;
 
     /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=false)
      */
-    private $note;
+    protected $note;
 
     /**
      * @var string
      *
      * @ORM\Column(name="subject", type="text", nullable=true)
      */
-    private $subject;
+    protected $subject;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
-    private $sortOrder;
+    protected $sortOrder;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime")
      */
-    private $createDate;
+    protected $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_modified_date", type="datetime", nullable=true)
      */
-    private $lastModifiedDate;
+    protected $lastModifiedDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="inactive_date", type="datetime", nullable=true)
      */
-    private $inactiveDate;
+    protected $inactiveDate;
 
     /**
      * @var \Morus\AcceticBundle\Model\InvoiceInterface
