@@ -8,6 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PartsType extends AbstractType
 {
+    protected $container;
+    
+    /**
+     * 
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -51,7 +62,7 @@ class PartsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Morus\AcceticBundle\Entity\Parts',
+            'data_class' => $this->container->getParameter('morus_accetic.model.parts'),
             'attr' => ['id' => 'accetic_parts']
         ));
     }

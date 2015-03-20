@@ -8,6 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class InvoiceType extends AbstractType
 {
+    protected $container;
+    
+    /**
+     * 
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -16,7 +27,7 @@ class InvoiceType extends AbstractType
     {
         $builder
             ->add('parts', 'entity', array(
-                'class' => 'MorusAcceticBundle:Parts',
+                'class' => $this->container->getParameter('morus_accetic.model.parts'),
                 'property' => 'itemcode',
                 'required' => false
             ))
@@ -44,7 +55,7 @@ class InvoiceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Morus\AcceticBundle\Entity\Invoice'
+            'data_class' => $this->container->getParameter('morus_accetic.model.invoice'),
         ));
     }
 

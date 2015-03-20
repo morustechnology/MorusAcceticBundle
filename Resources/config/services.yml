@@ -4,52 +4,62 @@ services:
         class: Morus\AcceticBundle\Model\EntityManager
         arguments: ['@doctrine.orm.entity_manager', '@service_container']
     
-    # Form Services
+    # Form Type Services
     morus_accetic.form.type.unit:
         class: Morus\AcceticBundle\Form\Type\UnitType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_unit }
             
     morus_accetic.form.type.person:
         class: Morus\AcceticBundle\Form\Type\PersonType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_person }
     
     morus_accetic.form.type.contact:
         class: Morus\AcceticBundle\Form\Type\ContactType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_contact }
     
     morus_accetic.form.type.location:
         class: Morus\AcceticBundle\Form\Type\LocationType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_location }
 
     morus_accetic.form.type.transaction:
         class: Morus\AcceticBundle\Form\Type\TransactionType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_transaction }
             
     morus_accetic.form.type.ar:
         class: Morus\AcceticBundle\Form\Type\ArType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_ar }
     
     morus_accetic.form.type.invoices:
         class: Morus\AcceticBundle\Form\Type\InvoicesType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_invoices }
             
     morus_accetic.form.type.invoice:
         class: Morus\AcceticBundle\Form\Type\InvoiceType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_invoice }
     morus_accetic.form.type.parts:
         class: Morus\AcceticBundle\Form\Type\PartsType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_parts }
 
     morus_accetic.form.type.parts_list:
         class: Morus\AcceticBundle\Form\Type\PartsListType
+        arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_parts_list }

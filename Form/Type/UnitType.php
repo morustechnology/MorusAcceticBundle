@@ -8,6 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UnitType extends AbstractType
 {
+    protected $container;
+    
+    /**
+     * 
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -38,7 +49,7 @@ class UnitType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Morus\AcceticBundle\Entity\Unit'
+            'data_class' => $this->container->getParameter('morus_accetic.model.unit'),
         ));
     }
 

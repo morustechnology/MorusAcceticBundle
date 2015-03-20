@@ -8,6 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArType extends AbstractType
 {
+    protected $container;
+    
+    /**
+     * 
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -16,7 +27,7 @@ class ArType extends AbstractType
     {
         $builder
             ->add('unit', 'entity', array(
-                'class' => 'MorusAcceticBundle:Unit',
+                'class' => $this->container->getParameter('morus_accetic.model.unit'),
                 'property' => 'name'
             ))
             ->add('invnumber', 'text')
@@ -44,7 +55,7 @@ class ArType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Morus\AcceticBundle\Entity\Ar'
+            'data_class' => $this->container->getParameter('morus_accetic.model.ar'),
         ));
     }
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * InvoiceNote
  *
- * @ORM\Table(name="accetic_invoice_note", indexes={@ORM\Index(name="IDX_entity_id", columns={"entity_id"})})
+ * @ORM\Table(name="accetic_invoice_note", indexes={@ORM\Index(name="IDX_invoice_id", columns={"invoice_id"})})
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
@@ -83,7 +83,7 @@ class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface
      *
      * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", inversedBy="invoiceNotes", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
      * })
      */
     protected $invoice;
