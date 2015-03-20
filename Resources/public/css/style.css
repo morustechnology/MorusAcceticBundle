@@ -414,6 +414,7 @@ input{
     padding-left: 2px;
     padding-right: 2px;
     font-size: 11px !important;
+    font-family: sans-serif;
 }
 .long input{
     width: 219px;
