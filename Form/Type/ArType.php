@@ -5,6 +5,7 @@ namespace Morus\AcceticBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class ArType extends AbstractType
 {

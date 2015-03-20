@@ -15,7 +15,7 @@ class PartsListType extends AbstractType
      * 
      * @param Container $container
      */
-    public function __construct(Container $container)
+    public function __construct($container)
     {
         $this->container = $container;
     }
