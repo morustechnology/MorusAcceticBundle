@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Invoice
  *
- * @ORM\Table(name="accetic_invoice", indexes={@ORM\Index(name="invoice_trans_id_key", columns={"transaction_id"}), @ORM\Index(name="IDX_parts_id", columns={"parts_id"})})
+ * @ORM\Table(name="accetic_invoice", indexes={@ORM\Index(name="invoice_trans_id_key", columns={"transaction_id"}), @ORM\Index(name="IDX_product_id", columns={"product_id"})})
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
@@ -149,14 +149,14 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     protected $invoiceNotes;
 
     /**
-     * @var \Morus\AcceticBundle\Model\PartsInterface
+     * @var \Morus\AcceticBundle\Model\ProductInterface
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\PartsInterface", inversedBy="invoices", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\ProductInterface", inversedBy="invoices", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="parts_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })
      */
-    protected $parts;
+    protected $product;
 
     /**
      * @var \Morus\AcceticBundle\Model\TransactionInterface
@@ -629,26 +629,26 @@ class Invoice implements \Morus\AcceticBundle\Model\InvoiceInterface
     }
 
     /**
-     * Set parts
+     * Set product
      *
-     * @param \Morus\AcceticBundle\Model\PartsInterface $parts
+     * @param \Morus\AcceticBundle\Model\ProductInterface $product
      * @return Invoice
      */
-    public function setParts(\Morus\AcceticBundle\Model\PartsInterface $parts = null)
+    public function setProduct(\Morus\AcceticBundle\Model\ProductInterface $product = null)
     {
-        $this->parts = $parts;
+        $this->product = $product;
 
         return $this;
     }
 
     /**
-     * Get parts
+     * Get product
      *
-     * @return \Morus\AcceticBundle\Model\PartsInterface 
+     * @return \Morus\AcceticBundle\Model\ProductInterface 
      */
-    public function getParts()
+    public function getProduct()
     {
-        return $this->parts;
+        return $this->product;
     }
 
     /**

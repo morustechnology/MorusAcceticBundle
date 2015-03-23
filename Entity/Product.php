@@ -5,13 +5,13 @@ namespace Morus\AcceticBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Parts
+ * Product
  *
- * @ORM\Table(name="accetic_parts", uniqueConstraints={@ORM\UniqueConstraint(name="parts_itemcode_index_u", columns={"itemcode"})})
+ * @ORM\Table(name="accetic_product", uniqueConstraints={@ORM\UniqueConstraint(name="product_itemcode_index_u", columns={"itemcode"})})
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-class Parts implements \Morus\AcceticBundle\Model\PartsInterface
+class Product implements \Morus\AcceticBundle\Model\ProductInterface
 {
     /**
      * @var integer
@@ -193,9 +193,9 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * @var integer
      *
-     * @ORM\Column(name="partsgroup_id", type="integer", nullable=true)
+     * @ORM\Column(name="productgroup_id", type="integer", nullable=true)
      */
-    protected $partsgroupId;
+    protected $productgroupId;
 
     /**
      * @var string
@@ -242,7 +242,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="parts", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\InvoiceInterface", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
      */
     protected $invoices;
 
@@ -286,7 +286,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set itemcode
      *
      * @param string $itemcode
-     * @return Parts
+     * @return Product
      */
     public function setItemcode($itemcode)
     {
@@ -309,7 +309,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set itemname
      *
      * @param string $itemname
-     * @return Parts
+     * @return Product
      */
     public function setItemname($itemname)
     {
@@ -332,7 +332,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set unit
      *
      * @param string $unit
-     * @return Parts
+     * @return Product
      */
     public function setUnit($unit)
     {
@@ -355,7 +355,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set forsale
      *
      * @param boolean $forsale
-     * @return Parts
+     * @return Product
      */
     public function setForsale($forsale)
     {
@@ -378,7 +378,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set listprice
      *
      * @param string $listprice
-     * @return Parts
+     * @return Product
      */
     public function setListprice($listprice)
     {
@@ -401,7 +401,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set sellprice
      *
      * @param string $sellprice
-     * @return Parts
+     * @return Product
      */
     public function setSellprice($sellprice)
     {
@@ -424,7 +424,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set saleDescription
      *
      * @param string $saleDescription
-     * @return Parts
+     * @return Product
      */
     public function setSaleDescription($saleDescription)
     {
@@ -447,7 +447,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set forpurchase
      *
      * @param boolean $forpurchase
-     * @return Parts
+     * @return Product
      */
     public function setForpurchase($forpurchase)
     {
@@ -470,7 +470,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set lastcost
      *
      * @param string $lastcost
-     * @return Parts
+     * @return Product
      */
     public function setLastcost($lastcost)
     {
@@ -493,7 +493,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set purchaseDescription
      *
      * @param string $purchaseDescription
-     * @return Parts
+     * @return Product
      */
     public function setPurchaseDescription($purchaseDescription)
     {
@@ -516,7 +516,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set priceupdate
      *
      * @param \DateTime $priceupdate
-     * @return Parts
+     * @return Product
      */
     public function setPriceupdate($priceupdate)
     {
@@ -539,7 +539,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set weight
      *
      * @param string $weight
-     * @return Parts
+     * @return Product
      */
     public function setWeight($weight)
     {
@@ -562,7 +562,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set onhand
      *
      * @param string $onhand
-     * @return Parts
+     * @return Product
      */
     public function setOnhand($onhand)
     {
@@ -585,7 +585,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set notes
      *
      * @param string $notes
-     * @return Parts
+     * @return Product
      */
     public function setNotes($notes)
     {
@@ -608,7 +608,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set makemodel
      *
      * @param boolean $makemodel
-     * @return Parts
+     * @return Product
      */
     public function setMakemodel($makemodel)
     {
@@ -631,7 +631,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set assembly
      *
      * @param boolean $assembly
-     * @return Parts
+     * @return Product
      */
     public function setAssembly($assembly)
     {
@@ -654,7 +654,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set alternate
      *
      * @param boolean $alternate
-     * @return Parts
+     * @return Product
      */
     public function setAlternate($alternate)
     {
@@ -677,7 +677,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set rop
      *
      * @param string $rop
-     * @return Parts
+     * @return Product
      */
     public function setRop($rop)
     {
@@ -700,7 +700,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set bin
      *
      * @param string $bin
-     * @return Parts
+     * @return Product
      */
     public function setBin($bin)
     {
@@ -723,7 +723,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set obsolete
      *
      * @param boolean $obsolete
-     * @return Parts
+     * @return Product
      */
     public function setObsolete($obsolete)
     {
@@ -746,7 +746,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set bom
      *
      * @param boolean $bom
-     * @return Parts
+     * @return Product
      */
     public function setBom($bom)
     {
@@ -769,7 +769,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set image
      *
      * @param string $image
-     * @return Parts
+     * @return Product
      */
     public function setImage($image)
     {
@@ -792,7 +792,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set drawing
      *
      * @param string $drawing
-     * @return Parts
+     * @return Product
      */
     public function setDrawing($drawing)
     {
@@ -815,7 +815,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set microfiche
      *
      * @param string $microfiche
-     * @return Parts
+     * @return Product
      */
     public function setMicrofiche($microfiche)
     {
@@ -835,33 +835,33 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
     }
 
     /**
-     * Set partsgroupId
+     * Set productgroupId
      *
-     * @param integer $partsgroupId
-     * @return Parts
+     * @param integer $productgroupId
+     * @return Product
      */
-    public function setPartsgroupId($partsgroupId)
+    public function setProductgroupId($productgroupId)
     {
-        $this->partsgroupId = $partsgroupId;
+        $this->productgroupId = $productgroupId;
 
         return $this;
     }
 
     /**
-     * Get partsgroupId
+     * Get productgroupId
      *
      * @return integer 
      */
-    public function getPartsgroupId()
+    public function getProductgroupId()
     {
-        return $this->partsgroupId;
+        return $this->productgroupId;
     }
 
     /**
      * Set avgcost
      *
      * @param string $avgcost
-     * @return Parts
+     * @return Product
      */
     public function setAvgcost($avgcost)
     {
@@ -884,7 +884,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set sortOrder
      *
      * @param integer $sortOrder
-     * @return Parts
+     * @return Product
      */
     public function setSortOrder($sortOrder)
     {
@@ -907,7 +907,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set active
      *
      * @param boolean $active
-     * @return Parts
+     * @return Product
      */
     public function setActive($active)
     {
@@ -930,7 +930,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return Parts
+     * @return Product
      */
     public function setCreateDate($createDate)
     {
@@ -953,7 +953,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set lastModifiedDate
      *
      * @param \DateTime $lastModifiedDate
-     * @return Parts
+     * @return Product
      */
     public function setLastModifiedDate($lastModifiedDate)
     {
@@ -976,7 +976,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Set inactiveDate
      *
      * @param \DateTime $inactiveDate
-     * @return Parts
+     * @return Product
      */
     public function setInactiveDate($inactiveDate)
     {
@@ -999,7 +999,7 @@ class Parts implements \Morus\AcceticBundle\Model\PartsInterface
      * Add invoices
      *
      * @param \Morus\AcceticBundle\Model\InvoiceInterface $invoices
-     * @return Parts
+     * @return Product
      */
     public function addInvoice(\Morus\AcceticBundle\Model\InvoiceInterface $invoices)
     {

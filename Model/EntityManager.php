@@ -14,9 +14,9 @@ class EntityManager {
     protected $objectManager;
     protected $container;
     protected $acceticConfigRepos, $arRepos, $apRepos, $contactRepos, $contactClassRepos, $invoiceRepos, $invoiceClassRepos;
-    protected $locationRepos, $locationClassRepos, $partsRepos, $personRepos, $transactionRepos, $unitRepos, $unitClassRepos;
+    protected $locationRepos, $locationClassRepos, $productRepos, $personRepos, $transactionRepos, $unitRepos, $unitClassRepos;
     protected $acceticConfigClass, $arClass, $apClass, $contactClass, $contactClassClass, $invoiceClass, $invoiceClassClass;
-    protected $locationClass, $locationClassClass, $partsClass, $personClass, $transactionClass, $unitClass, $unitClassClass;
+    protected $locationClass, $locationClassClass, $productClass, $personClass, $transactionClass, $unitClass, $unitClassClass;
     
     public function __construct(ObjectManager $om, Container $container)
     {
@@ -33,7 +33,7 @@ class EntityManager {
         $invoiceNoteParam    = $this->container->getParameter('morus_accetic.model.invoice_note');
         $locationParam       = $this->container->getParameter('morus_accetic.model.location');
         $locationClassParam  = $this->container->getParameter('morus_accetic.model.location_class');
-        $partsParam          = $this->container->getParameter('morus_accetic.model.parts');
+        $productParam          = $this->container->getParameter('morus_accetic.model.product');
         $personParam         = $this->container->getParameter('morus_accetic.model.person');
         $transactionParam    = $this->container->getParameter('morus_accetic.model.transaction');
         $unitParam           = $this->container->getParameter('morus_accetic.model.unit');
@@ -49,7 +49,7 @@ class EntityManager {
         $invoiceNoteMetadata    = $om->getClassMetadata($invoiceNoteParam);
         $locationMetadata       = $om->getClassMetadata($locationParam);
         $locationClassMetadata  = $om->getClassMetadata($locationClassParam);
-        $partsMetadata          = $om->getClassMetadata($partsParam);
+        $productMetadata          = $om->getClassMetadata($productParam);
         $personMetadata         = $om->getClassMetadata($personParam);
         $transactionMetadata    = $om->getClassMetadata($transactionParam);
         $unitMetadata           = $om->getClassMetadata($unitParam);
@@ -66,7 +66,7 @@ class EntityManager {
         $this->invoiceNoteRepos    = $om->getRepository($invoiceNoteParam);
         $this->locationRepos       = $om->getRepository($locationParam);
         $this->locationClassRepos  = $om->getRepository($locationClassParam);
-        $this->partsRepos          = $om->getRepository($partsParam);
+        $this->productRepos          = $om->getRepository($productParam);
         $this->personRepos         = $om->getRepository($personParam);
         $this->transactionRepos    = $om->getRepository($transactionParam);
         $this->unitRepos           = $om->getRepository($unitParam);
@@ -82,7 +82,7 @@ class EntityManager {
         $this->invoiceNoteClass    = $invoiceNoteMetadata->getName();
         $this->locationClass       = $locationMetadata->getName();
         $this->locationClassClass  = $locationClassMetadata->getName();
-        $this->partsClass          = $partsMetadata->getName();
+        $this->productClass          = $productMetadata->getName();
         $this->personClass         = $personMetadata->getName();
         $this->transactionClass    = $transactionMetadata->getName();
         $this->unitClass           = $unitMetadata->getName();
@@ -158,17 +158,17 @@ class EntityManager {
     }
     
     /**
-     * Returns a parts instance
+     * Returns a product instance
      *
-     * @return PartsInterface
+     * @return ProductInterface
      */
-    public function createParts()
+    public function createProduct()
     {
-        $pc = $this->partsClass;
+        $pc = $this->productClass;
         
-        $parts = new $pc;
+        $product = new $pc;
         
-        return $parts;
+        return $product;
     }
     
     /**
@@ -376,13 +376,13 @@ class EntityManager {
     }
 
     /**
-     * Returns parts repository
+     * Returns product repository
      *
-     * @return PartsRepository
+     * @return ProductRepository
      */
-    public function getPartsRepository()
+    public function getProductRepository()
     {
-        return $this->partsRepos;
+        return $this->productRepos;
     }
 
     /**

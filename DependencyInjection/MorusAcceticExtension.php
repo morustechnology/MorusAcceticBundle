@@ -32,7 +32,7 @@ class MorusAcceticExtension extends Extension
                 'invoice_note'      => 'morus_accetic.model.invoice_note',
                 'location'          => 'morus_accetic.model.location',
                 'location_class'    => 'morus_accetic.model.location_class',
-                'parts'             => 'morus_accetic.model.parts',
+                'product'             => 'morus_accetic.model.product',
                 'person'            => 'morus_accetic.model.person',
                 'transaction'       => 'morus_accetic.model.transaction',
                 'unit'              => 'morus_accetic.model.unit',

@@ -10,7 +10,7 @@
 {% block accetic_invoice_widget %}
     {% spaceless %}
         <tr id="{{ form.vars.id }}" class="test">
-            <td class="left non-textable">{{ form_widget(form.parts)}}</td>
+            <td class="left non-textable">{{ form_widget(form.product)}}</td>
             <td class="left">{{ form_widget(form.description)}}</td>
             <td class="right">{{ form_widget(form.qty) }}</td>
             <td class="right">{{ form_widget(form.sellprice)}}</td>

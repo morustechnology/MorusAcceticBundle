@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class PartsType extends AbstractType
+class ProductType extends AbstractType
 {
     protected $container;
     
@@ -63,8 +63,8 @@ class PartsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => $this->container->getParameter('morus_accetic.model.parts'),
-            'attr' => ['id' => 'accetic_parts']
+            'data_class' => $this->container->getParameter('morus_accetic.model.product'),
+            'attr' => ['id' => 'accetic_product']
         ));
     }
 
@@ -73,6 +73,6 @@ class PartsType extends AbstractType
      */
     public function getName()
     {
-        return 'accetic_parts';
+        return 'accetic_product';
     }
 }

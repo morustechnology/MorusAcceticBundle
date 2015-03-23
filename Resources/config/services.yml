@@ -52,14 +52,14 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_invoice }
-    morus_accetic.form.type.parts:
-        class: Morus\AcceticBundle\Form\Type\PartsType
+    morus_accetic.form.type.product:
+        class: Morus\AcceticBundle\Form\Type\ProductType
         arguments: ['@service_container']
         tags:
-            - { name: form.type, alias: accetic_parts }
+            - { name: form.type, alias: accetic_product }
 
-    morus_accetic.form.type.parts_list:
-        class: Morus\AcceticBundle\Form\Type\PartsListType
+    morus_accetic.form.type.product_list:
+        class: Morus\AcceticBundle\Form\Type\ProductListType
         arguments: ['@service_container']
         tags:
-            - { name: form.type, alias: accetic_parts_list }
+            - { name: form.type, alias: accetic_product_list }

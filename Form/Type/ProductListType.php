@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class PartsListType extends AbstractType
+class ProductListType extends AbstractType
 {
     protected $container;
     
@@ -28,7 +28,7 @@ class PartsListType extends AbstractType
     {
         $builder
             ->add('id', 'entity', array(
-                'class' => $this->container->getParameter('morus_accetic.model.parts'),
+                'class' => $this->container->getParameter('morus_accetic.model.product'),
                 'property' => 'itemname',
                 'expanded' => true,
                 'multiple' => true
@@ -48,6 +48,6 @@ class PartsListType extends AbstractType
      */
     public function getName()
     {
-        return 'accetic_parts_list';
+        return 'accetic_product_list';
     }
 }

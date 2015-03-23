@@ -23,7 +23,7 @@
         init();
         function init() {
             // Show/Hide purchase division base on default value
-            var purchase = $('#{{ parts_form.forpurchase.vars.id }}').prop('checked');
+            var purchase = $('#{{ product_form.forpurchase.vars.id }}').prop('checked');
             if ( purchase ) {
                 $('#{{ pts_dlg_pur_dtl_id }}').show();
             } else {
@@ -31,14 +31,14 @@
             }
 
             // Show/Hide sale division base on default value
-            var sale = $('#{{ parts_form.forsale.vars.id }}').prop('checked');
+            var sale = $('#{{ product_form.forsale.vars.id }}').prop('checked');
             if ( sale ) {
                 $('#{{ pts_dlg_sal_dtl_id }}').show();
             } else {
                 $('#{{ pts_dlg_sal_dtl_id }}').hide();
             }
 
-            $('#{{ parts_form.listprice.vars.id }}').inputmask("decimal", { 
+            $('#{{ product_form.listprice.vars.id }}').inputmask("decimal", { 
                 radixPoint: ".", 
                 groupSeparator: ",",
                 groupSize: 3,
@@ -46,7 +46,7 @@
                 autoGroup: true,
                 placeholder: "0.00"
             });
-            $('#{{ parts_form.lastcost.vars.id }}').inputmask("decimal", { 
+            $('#{{ product_form.lastcost.vars.id }}').inputmask("decimal", { 
                 radixPoint: ".", 
                 groupSeparator: ",",
                 groupSize: 3,
@@ -57,9 +57,9 @@
         }
 
 
-        // New Parts Dialog
+        // New Product Dialog
         // =====================================================================
-        // Init New Parts Dialog Box
+        // Init New Product Dialog Box
         $( "#{{ pts_dlg_div_id }}" ).dialog({
             autoOpen: false,
             height: 300,
@@ -67,7 +67,7 @@
             modal: true,
             buttons: {
                 "{{ 'btn.save'|trans }}": function() {
-                    $('#{{ parts_form.vars.attr.id }}').find(':submit').click();  // Trigger form submit button
+                    $('#{{ product_form.vars.attr.id }}').find(':submit').click();  // Trigger form submit button
                 },
                 "{{ 'btn.cancel'|trans }}": function() {
                     $( "#{{ pts_dlg_div_id }}" ).dialog( "close" );
@@ -84,7 +84,7 @@
         });
 
         // When purchse checkbox value change
-        $('#{{ parts_form.forpurchase.vars.id }}').change(function() {
+        $('#{{ product_form.forpurchase.vars.id }}').change(function() {
             if (this.checked) {
                 $('#{{ pts_dlg_pur_dtl_id }}').show('blind');
             } else {
@@ -93,7 +93,7 @@
         }); 
 
         // When sale checkbox value change
-        $('#{{ parts_form.forsale.vars.id }}').change(function() {
+        $('#{{ product_form.forsale.vars.id }}').change(function() {
             if (this.checked) {
                 $('#{{ pts_dlg_sal_dtl_id }}').show('blind');
             } else {
@@ -101,14 +101,14 @@
             }
         }); 
 
-        // Init Add New Parts button
+        // Init Add New Product button
         $( "#{{ pts_dlg_lk_id }}" ).on('click', function(event){
             event.preventDefault();
             $( "#{{ pts_dlg_div_id }}" ).dialog( "open" );
         });
 
-        // Init Dialog Box -> New Parts form submit action
-        $('#{{ parts_form.vars.attr.id }}').submit(function(event) {
+        // Init Dialog Box -> New Product form submit action
+        $('#{{ product_form.vars.attr.id }}').submit(function(event) {
             event.preventDefault();
             postNewForm( $(this), function( response ) {
                 if (response.success) {
@@ -146,27 +146,27 @@
 </script>
     
 <div id="{{ pts_dlg_div_id }}" title="{{ pts_dlg_title }}">  
-    {{ form_start(parts_form) }}
-        {{ form_errors(parts_form) }}
+    {{ form_start(product_form) }}
+        {{ form_errors(product_form) }}
 
-        {{ 'inventory.itemcode'|trans }} {{ form_widget(parts_form.itemcode) }}{{ form_errors(parts_form.itemcode) }} <br/>
-        {{ 'inventory.itemname'|trans }} {{ form_widget(parts_form.itemname) }} {{ form_errors(parts_form.itemname) }}
-        {{ 'inventory.unit'|trans }} {{ form_widget(parts_form.unit) }}
+        {{ 'inventory.itemcode'|trans }} {{ form_widget(product_form.itemcode) }}{{ form_errors(product_form.itemcode) }} <br/>
+        {{ 'inventory.itemname'|trans }} {{ form_widget(product_form.itemname) }} {{ form_errors(product_form.itemname) }}
+        {{ 'inventory.unit'|trans }} {{ form_widget(product_form.unit) }}
         <hr/>
 
-        {{ form_widget(parts_form.forsale) }} {{ 'inventory.sale'|trans }}
+        {{ form_widget(product_form.forsale) }} {{ 'inventory.sale'|trans }}
         <div id="{{ pts_dlg_sal_dtl_id }}" >
-        {{ 'inventory.listprice'|trans }} {{ form_widget(parts_form.listprice) }}
-        {{ 'inventory.saleDescription'|trans }} {{ form_widget(parts_form.saleDescription) }}
+        {{ 'inventory.listprice'|trans }} {{ form_widget(product_form.listprice) }}
+        {{ 'inventory.saleDescription'|trans }} {{ form_widget(product_form.saleDescription) }}
         </div>
 
         <br/>
-        {{ form_widget(parts_form.forpurchase) }} {{ 'inventory.purchase'|trans }} 
+        {{ form_widget(product_form.forpurchase) }} {{ 'inventory.purchase'|trans }} 
         <div id="{{ pts_dlg_pur_dtl_id }}" >
-            {{ 'inventory.lastcost'|trans }} {{ form_widget(parts_form.lastcost) }}
-            {{ 'inventory.purchaseDescription'|trans }} {{ form_widget(parts_form.purchaseDescription) }}
+            {{ 'inventory.lastcost'|trans }} {{ form_widget(product_form.lastcost) }}
+            {{ 'inventory.purchaseDescription'|trans }} {{ form_widget(product_form.purchaseDescription) }}
         </div>
-        {{ form_widget( parts_form.submit ) }}
-        {{ form_rest(parts_form) }}
-    {{ form_end(parts_form) }}
+        {{ form_widget( product_form.submit ) }}
+        {{ form_rest(product_form) }}
+    {{ form_end(product_form) }}
 </div>

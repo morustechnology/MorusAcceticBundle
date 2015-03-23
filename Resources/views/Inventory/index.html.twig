@@ -22,26 +22,26 @@
     
     <script type='text/javascript'>
         jQuery(document).ready(function() {
-            // Parts List Script
+            // Product List Script
             // =====================================================================
             
             // Check All input box action
             $('#check_all').change(function() {
                 if (this.checked) {
-                    $("input[id^='accetic_parts_list_id']").prop('checked', true);
+                    $("input[id^='accetic_product_list_id']").prop('checked', true);
                 } else {
-                    $("input[id^='accetic_parts_list_id']").prop('checked', false);
+                    $("input[id^='accetic_product_list_id']").prop('checked', false);
                 }
             });
             
             // Replace Form Submit button
             $('#{{ pts_del_lk_id }}').on('click', function(event){
                 event.preventDefault();
-                $('#{{ parts_list_form.vars.attr.id }}').find(':submit').click(); 
+                $('#{{ product_list_form.vars.attr.id }}').find(':submit').click(); 
             });
         
             // Delete Action
-            $('#{{ parts_list_form.vars.attr.id }}').submit(function(event) {
+            $('#{{ product_list_form.vars.attr.id }}').submit(function(event) {
                 event.preventDefault();
                 postDeleteForm( $(this), function( response ) {
                     if (response.success) {
@@ -58,7 +58,7 @@
                  * Get all form values
                  */
                 var values = {};
-                $("input[name^=accetic_parts_list]", $form).each( function(index) {
+                $("input[name^=accetic_product_list]", $form).each( function(index) {
                     if ( this.checked ) {
                         values[this.id] = this.value;
                     }
@@ -107,10 +107,10 @@
             
     <br/><br/>
     <div id="accetic_inventory_list">
-        {{ form_start(parts_list_form) }}
-            {{ form_errors(parts_list_form) }}
+        {{ form_start(product_list_form) }}
+            {{ form_errors(product_list_form) }}
             
-            {{ form_widget(parts_list_form.delete_parts) }}
+            {{ form_widget(product_list_form.delete_product) }}
             <table class="fas-records-list">
                 <tr>
                 {# sorting of properties based on query components #}
@@ -123,9 +123,9 @@
                 </tr>
 
                 {# table body #}
-                {% for p in parts %}
+                {% for p in product %}
                 <tr>
-                    <td>{{ form_widget(parts_list_form.id[p.id], { 'attr' : { 'name' : p.id  }}) }}</td>
+                    <td>{{ form_widget(product_list_form.id[p.id], { 'attr' : { 'name' : p.id  }}) }}</td>
                     <td><a href="{{ path('morus_accetic_inventory_show', { 'id': p.id }) }}">{{ p.itemcode }}</a></td>
                     <td>{{ p.itemname }}</td>
                     <td class="right">{{ p.lastcost|number_format(2, '.', ',') }}</td>
@@ -134,15 +134,15 @@
                 </tr>
                 {% endfor %}
             </table>
-            {{ form_rest(parts_list_form) }}
-        {{ form_end(parts_list_form) }}
+            {{ form_rest(product_list_form) }}
+        {{ form_end(product_list_form) }}
     </div>
     
-    {# New Parts Dialog #}
-    {{ include('MorusAcceticBundle:Inventory:parts.dialog.html.twig', {  
+    {# New Product Dialog #}
+    {{ include('MorusAcceticBundle:Inventory:product.dialog.html.twig', {  
         'pts_dlg_title' : pts_dlg_title,
         'pts_dlg_lk_id' : pts_dlg_lk_id,
-        'parts_form' : parts_new_form
+        'product_form' : product_new_form
     }) }}
     
 {% endblock %}

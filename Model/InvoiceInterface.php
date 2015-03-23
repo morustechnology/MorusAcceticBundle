@@ -294,19 +294,19 @@ interface InvoiceInterface
     public function getInvoiceNotes();
 
     /**
-     * Set parts
+     * Set product
      *
-     * @param \Morus\AcceticBundle\Model\Parts $parts
+     * @param \Morus\AcceticBundle\Model\Product $product
      * @return InvoiceInterface
      */
-    public function setParts(\Morus\AcceticBundle\Model\PartsInterface $parts = null);
+    public function setProduct(\Morus\AcceticBundle\Model\ProductInterface $product = null);
 
     /**
-     * Get parts
+     * Get product
      *
-     * @return \Morus\AcceticBundle\Model\PartsInterface 
+     * @return \Morus\AcceticBundle\Model\ProductInterface 
      */
-    public function getParts();
+    public function getProduct();
 
     /**
      * Set transaction

@@ -18,7 +18,7 @@
 {% endblock javascripts %}
 
 {% block body_title -%}
-    {{ parts.itemname }}
+    {{ product.itemname }}
 {% endblock %}
 
 {% block body -%}
@@ -40,7 +40,7 @@
             </a>
         </li>
         <li>
-            <a id="{{ pts_del_lk_id }}" class="loading-btn" href="{{ path('morus_accetic_inventory_delete', {'id' : parts.id}) }}" />
+            <a id="{{ pts_del_lk_id }}" class="loading-btn" href="{{ path('morus_accetic_inventory_delete', {'id' : product.id}) }}" />
             {% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}
             <em class="icons add icon" style="background:url('{{ asset_url }}') no-repeat;background-position:-220px -50px;" ></em>
             {% endimage %}
@@ -51,35 +51,35 @@
     
     <div id="container-box" class="">
         <div class="section-header">
-            <h2>{{ parts.itemname }}</h2>
-            {{ parts.itemcode }}<br/>
+            <h2>{{ product.itemname }}</h2>
+            {{ product.itemcode }}<br/>
         </div>
     
         <div class="section-form inset form">
             <br/>
-            {% if (parts.forpurchase) %}
+            {% if (product.forpurchase) %}
                 <h3>{{ 'inventory.purchases'|trans }}</h3>
                 <hr/>
-                {{ 'inventory.unitprice'|trans }} {{ parts.lastcost }} / {{ parts.unit }}
+                {{ 'inventory.unitprice'|trans }} {{ product.lastcost }} / {{ product.unit }}
                 <hr/>
-                {{ 'inventory.description'|trans }} {{ parts.purchaseDescription }}
+                {{ 'inventory.description'|trans }} {{ product.purchaseDescription }}
             {% endif %}
             <br/>
-            {% if (parts.forsale) %}
+            {% if (product.forsale) %}
                 <h3>{{ 'inventory.sales'|trans }}</h3>
                 <hr/>
-                {{ 'inventory.unitprice'|trans }} {{ parts.listprice }} / {{ parts.unit }}
+                {{ 'inventory.unitprice'|trans }} {{ product.listprice }} / {{ product.unit }}
                 <hr/>
-                {{ 'inventory.description'|trans }} {{ parts.saleDescription }}
+                {{ 'inventory.description'|trans }} {{ product.saleDescription }}
             {% endif %}
 
             <hr/>
 
-            {# Edit Parts Dialog #}
-            {{ include('MorusAcceticBundle:Inventory:parts.dialog.html.twig', {  
+            {# Edit Product Dialog #}
+            {{ include('MorusAcceticBundle:Inventory:product.dialog.html.twig', {  
                 'pts_dlg_title' : pts_dlg_title,
                 'pts_dlg_lk_id' : pts_dlg_lk_id,
-                'parts_form' : parts_edit_form
+                'product_form' : product_edit_form
             }) }}
         </div>
     </div>

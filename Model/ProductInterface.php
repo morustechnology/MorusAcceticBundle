@@ -5,11 +5,11 @@ namespace Morus\AcceticBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Description of PartsInterface
+ * Description of ProductInterface
  *
  * @author Michael
  */
-interface PartsInterface {
+interface ProductInterface {
     
     /**
      * Get id
@@ -22,7 +22,7 @@ interface PartsInterface {
      * Set itemcode
      *
      * @param string $itemcode
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setItemcode($itemcode);
 
@@ -37,7 +37,7 @@ interface PartsInterface {
      * Set itemname
      *
      * @param string $itemname
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setItemname($itemname);
 
@@ -52,7 +52,7 @@ interface PartsInterface {
      * Set unit
      *
      * @param string $unit
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setUnit($unit);
 
@@ -67,7 +67,7 @@ interface PartsInterface {
      * Set forSale
      *
      * @param boolean $forSale
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setForSale($forSale);
 
@@ -82,7 +82,7 @@ interface PartsInterface {
      * Set listprice
      *
      * @param string $listprice
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setListprice($listprice);
 
@@ -97,7 +97,7 @@ interface PartsInterface {
      * Set sellprice
      *
      * @param string $sellprice
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setSellprice($sellprice);
 
@@ -112,7 +112,7 @@ interface PartsInterface {
      * Set saleDescription
      *
      * @param string $saleDescription
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setSaleDescription($saleDescription);
 
@@ -127,7 +127,7 @@ interface PartsInterface {
      * Set forPurchase
      *
      * @param boolean $forPurchase
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setForPurchase($forPurchase);
 
@@ -142,7 +142,7 @@ interface PartsInterface {
      * Set lastcost
      *
      * @param string $lastcost
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setLastcost($lastcost);
 
@@ -157,7 +157,7 @@ interface PartsInterface {
      * Set purchaseDescription
      *
      * @param string $purchaseDescription
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setPurchaseDescription($purchaseDescription);
 
@@ -172,7 +172,7 @@ interface PartsInterface {
      * Set priceupdate
      *
      * @param \DateTime $priceupdate
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setPriceupdate($priceupdate);
 
@@ -187,7 +187,7 @@ interface PartsInterface {
      * Set weight
      *
      * @param string $weight
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setWeight($weight);
 
@@ -202,7 +202,7 @@ interface PartsInterface {
      * Set onhand
      *
      * @param string $onhand
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setOnhand($onhand);
 
@@ -217,7 +217,7 @@ interface PartsInterface {
      * Set notes
      *
      * @param string $notes
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setNotes($notes);
 
@@ -232,7 +232,7 @@ interface PartsInterface {
      * Set makemodel
      *
      * @param boolean $makemodel
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setMakemodel($makemodel);
 
@@ -247,7 +247,7 @@ interface PartsInterface {
      * Set assembly
      *
      * @param boolean $assembly
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setAssembly($assembly);
 
@@ -262,7 +262,7 @@ interface PartsInterface {
      * Set alternate
      *
      * @param boolean $alternate
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setAlternate($alternate);
 
@@ -277,7 +277,7 @@ interface PartsInterface {
      * Set rop
      *
      * @param string $rop
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setRop($rop);
 
@@ -292,7 +292,7 @@ interface PartsInterface {
      * Set bin
      *
      * @param string $bin
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setBin($bin);
 
@@ -307,7 +307,7 @@ interface PartsInterface {
      * Set obsolete
      *
      * @param boolean $obsolete
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setObsolete($obsolete);
 
@@ -322,7 +322,7 @@ interface PartsInterface {
      * Set bom
      *
      * @param boolean $bom
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setBom($bom);
 
@@ -337,7 +337,7 @@ interface PartsInterface {
      * Set image
      *
      * @param string $image
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setImage($image);
 
@@ -352,7 +352,7 @@ interface PartsInterface {
      * Set drawing
      *
      * @param string $drawing
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setDrawing($drawing);
 
@@ -367,7 +367,7 @@ interface PartsInterface {
      * Set microfiche
      *
      * @param string $microfiche
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setMicrofiche($microfiche);
 
@@ -379,25 +379,25 @@ interface PartsInterface {
     public function getMicrofiche();
 
     /**
-     * Set partsgroupId
+     * Set productgroupId
      *
-     * @param integer $partsgroupId
-     * @return PartsInterface
+     * @param integer $productgroupId
+     * @return ProductInterface
      */
-    public function setPartsgroupId($partsgroupId);
+    public function setProductgroupId($productgroupId);
 
     /**
-     * Get partsgroupId
+     * Get productgroupId
      *
      * @return integer 
      */
-    public function getPartsgroupId();
+    public function getProductgroupId();
 
     /**
      * Set avgcost
      *
      * @param string $avgcost
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setAvgcost($avgcost);
 
@@ -412,7 +412,7 @@ interface PartsInterface {
      * Set sortOrder
      *
      * @param integer $sortOrder
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setSortOrder($sortOrder);
 
@@ -427,7 +427,7 @@ interface PartsInterface {
      * Set active
      *
      * @param boolean $active
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setActive($active);
 
@@ -442,7 +442,7 @@ interface PartsInterface {
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setCreateDate($createDate);
 
@@ -457,7 +457,7 @@ interface PartsInterface {
      * Set lastModifiedDate
      *
      * @param \DateTime $lastModifiedDate
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setLastModifiedDate($lastModifiedDate);
 
@@ -472,7 +472,7 @@ interface PartsInterface {
      * Set inactiveDate
      *
      * @param \DateTime $inactiveDate
-     * @return PartsInterface
+     * @return ProductInterface
      */
     public function setInactiveDate($inactiveDate);
 
