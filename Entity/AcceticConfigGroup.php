@@ -5,13 +5,13 @@ namespace Morus\AcceticBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AcceticConfig
+ * AcceticConfigGroup
  *
- * @ORM\Table(name="accetic_config")
+ * @ORM\Table(name="accetic_config_group")
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
+class AcceticConfigGroup implements \Morus\AcceticBundle\Model\AcceticConfigGroupInterface
 {
     /**
      * @var integer
@@ -21,21 +21,7 @@ class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="control_code", type="string", length=50, nullable=false)
-     */
-    protected $controlCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="value", type="text", nullable=false)
-     */
-    protected $value;
-
+    
     /**
      * @var string
      *
@@ -86,24 +72,22 @@ class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
     protected $inactiveDate;
     
     /**
-     * @var \Morus\AcceticBundle\Model\AcceticConfigGroupInterface
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToOne(targetEntity="Morus\AcceticBundle\Model\AcceticConfigGroupInterface", inversedBy="acceticConfigs", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="group_id", referencedColumnName="id")
-     * })
+     * @ORM\OneToMany(targetEntity="Morus\AcceticBundle\Model\AcceticConfigInterface", mappedBy="acceticConfigGroup", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    protected $acceticConfigGroup;
+    protected $acceticConfigs;
     
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->acceticConfigs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createDate = new \DateTime("now");
         $this->active = true;
     }
-
+    
     /**
      * Get id
      *
@@ -113,53 +97,7 @@ class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
     {
         return $this->id;
     }
-
-    /**
-     * Set controlCode
-     *
-     * @param string $controlCode
-     * @return AcceticConfig
-     */
-    public function setControlCode($controlCode)
-    {
-        $this->controlCode = $controlCode;
-
-        return $this;
-    }
-
-    /**
-     * Get controlCode
-     *
-     * @return string 
-     */
-    public function getControlCode()
-    {
-        return $this->controlCode;
-    }
-
-    /**
-     * Set value
-     *
-     * @param string $value
-     * @return AcceticConfig
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string 
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
+    
     /**
      * Set name
      *
@@ -322,26 +260,36 @@ class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
     }
     
     /**
-     * Set acceticConfigGroup
+     * Add acceticConfig
      *
-     * @param \Morus\AcceticBundle\Model\AcceticConfigGroupInterface $acceticConfigGroup
-     * @return AcceticConfig
+     * @param \Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfig
+     * @return AcceticConfigGroup
      */
-    public function setAcceticConfigGroup(\Morus\AcceticBundle\Model\AcceticConfigGroupInterface $acceticConfigGroup = null)
+    public function addAcceticConfig(\Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfigs)
     {
-        $this->acceticConfigGroup = $acceticConfigGroup;
+        $this->acceticConfigs[] = $acceticConfig;
 
         return $this;
     }
 
     /**
-     * Get acceticConfigGroup
+     * Remove acceticConfig
      *
-     * @return \Morus\AcceticBundle\Model\AcceticConfigGroupInterface 
+     * @param \Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfig
      */
-    public function getAcceticConfigGroup()
+    public function removeAcceticConfig(\Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfig)
     {
-        return $this->acceticConfigGroup;
+        $this->acceticConfigs->removeElement($acceticConfig);
+    }
+
+    /**
+     * Get acceticConfigs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAcceticConfigs()
+    {
+        return $this->acceticConfigs;
     }
     
     /**
@@ -358,21 +306,5 @@ class AcceticConfig implements \Morus\AcceticBundle\Model\AcceticConfigInterface
     public function onPostPersist()
     {
         // Add your code here
-    }
-    
-    /*
-     * Dummy Function - Set Config Control Code
-     */
-    public function setConfigControlCode($configControlCode)
-    {
-
-    }
-
-    /*
-     * Get Config Control Code
-     */
-    public function getConfigControlCode()
-    {
-        return $this->controlCode;
     }
 }

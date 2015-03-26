@@ -63,3 +63,15 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: form.type, alias: accetic_product_list }
+            
+    morus_accetic.form.type.config.group:
+        class: Morus\AcceticBundle\Form\Type\ConfigGroupType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: accetic_config_group }
+            
+    morus_accetic.form.type.config:
+        class: Morus\AcceticBundle\Form\Type\ConfigType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: accetic_config }

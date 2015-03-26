@@ -5,9 +5,9 @@ namespace Morus\AcceticBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AcceticConfig
+ * AcceticConfigGroup
  */
-interface AcceticConfigInterface
+interface AcceticConfigGroupInterface
 {
     /**
      * Get id
@@ -15,37 +15,7 @@ interface AcceticConfigInterface
      * @return integer 
      */
     public function getId();
-
-    /**
-     * Set controlCode
-     *
-     * @param string $controlCode
-     * @return AcceticConfig
-     */
-    public function setControlCode($controlCode);
-
-    /**
-     * Get controlCode
-     *
-     * @return string 
-     */
-    public function getControlCode();
-
-    /**
-     * Set value
-     *
-     * @param string $value
-     * @return AcceticConfig
-     */
-    public function setValue($value);
-
-    /**
-     * Get value
-     *
-     * @return string 
-     */
-    public function getValue();
-
+    
     /**
      * Set name
      *
@@ -135,6 +105,7 @@ interface AcceticConfigInterface
      * @return \DateTime 
      */
     public function getLastModifiedDate();
+
     /**
      * Set inactiveDate
      *
@@ -151,19 +122,26 @@ interface AcceticConfigInterface
     public function getInactiveDate();
     
     /**
-     * Set acceticConfigGroup
+     * Add acceticConfig
      *
-     * @param \Morus\AcceticBundle\Model\AcceticConfigGroupInterface $acceticConfigGroup
-     * @return AcceticConfig
+     * @param \Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfig
+     * @return AcceticConfigGroup
      */
-    public function setAcceticConfigGroup(\Morus\AcceticBundle\Model\AcceticConfigGroupInterface $acceticConfigGroup = null);
+    public function addAcceticConfig(\Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfigs);
 
     /**
-     * Get acceticConfigGroup
+     * Remove acceticConfig
      *
-     * @return \Morus\AcceticBundle\Model\AcceticConfigGroupInterface 
+     * @param \Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfig
      */
-    public function getAcceticConfigGroup();
+    public function removeAcceticConfig(\Morus\AcceticBundle\Model\AcceticConfigInterface $acceticConfig);
+
+    /**
+     * Get acceticConfigs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAcceticConfigs();
     
     /**
      * @ORM\PrePersist
@@ -174,14 +152,5 @@ interface AcceticConfigInterface
      * @ORM\PostPersist
      */
     public function onPostPersist();
-    
-    /*
-     * Dummy Function - Set Config Control Code
-     */
-    public function setConfigControlCode($configControlCode);
 
-    /*
-     * Get Config Control Code
-     */
-    public function getConfigControlCode();
 }

@@ -1,6 +1,8 @@
-INSERT INTO `accetic_config`(`control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_PREFIX', 'INV-', 'Invoice Prefix', 0, 1, now());
-INSERT INTO `accetic_config`(`control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_NEXT_NUM', '00001', 'Invoice Next Number', 0, 1, now());
-INSERT INTO `accetic_config`(`control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ('INV_DUE_INTERVAL', '7', 'Default invoice due date interval.', 0, 1, now());
+INSERT INTO `accetic_config_group`(`name`, `sort_order`, `active`, `create_date`) VALUES ('INVOICE', 0, 1, now());
+
+INSERT INTO `accetic_config`(`group_id`, `control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ((SELECT `id` FROM `accetic_config_group` WHERE `name` = 'INVOICE'), 'INV_PREFIX', 'INV-', 'Invoice Prefix', 0, 1, now());
+INSERT INTO `accetic_config`(`group_id`, `control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ((SELECT `id` FROM `accetic_config_group` WHERE `name` = 'INVOICE'), 'INV_NEXT_NUM', '00001', 'Invoice Next Number', 0, 1, now());
+INSERT INTO `accetic_config`(`group_id`, `control_code`, `value`, `name`, `sort_order`, `active`, `create_date`) VALUES ((SELECT `id` FROM `accetic_config_group` WHERE `name` = 'INVOICE'), 'INV_DUE_INTERVAL', '7', 'Default invoice due date interval.', 0, 1, now());
 
 # INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('COMPANY', 'Company', 0, 1, now());
 # INSERT INTO `accetic_company_class`(`control_code`, `class`, `sort_order`, `active`, `create_date`) VALUES ('EDUCATION', 'Education', 1, 1, now());

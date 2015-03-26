@@ -1,3 +1,15 @@
+config:
+    invoice_config: 發票設定
+    automatic_sequencing: 自動排序設定
+    automatic_sequencing_desc: |
+        設定下一張發票，信用票據或採購訂單編號。
+        數字將會由你新增每個新單據自動增加。
+    invoice_prefix: 發票編碼 (Prefix)
+    next_invoice_num: 下一張發票編號
+    invoice_default_due_date: 發票預設到期日
+    days_after_invoice_from: 於發票日期後
+    days_after_invoice_to: 天。
+    
 contact:
     customer_number: 客戶編號
     contact_person: 聯絡人

@@ -1,0 +1,21 @@
+{% block accetic_config_group_widget %}
+    {% spaceless %}
+        {% for config in form.acceticConfigs %}
+            {{ form_widget(config) }}
+        {% endfor %}
+    {% endspaceless %}
+{% endblock accetic_config_group_widget %}
+
+{% block accetic_config_widget %}
+    {% spaceless %}
+        {% if form.configControlCode.vars.value == 'INV_PREFIX' %}
+            {{ 'config.invoice_prefix'|trans }} {{ form_widget(form.value) }} <br/>
+        {% elseif form.configControlCode.vars.value == 'INV_NEXT_NUM' %}
+            {{ 'config.next_invoice_num'|trans }} {{ form_widget(form.value) }} <br/>
+        {% elseif form.configControlCode.vars.value == 'INV_DUE_INTERVAL' %}
+            {{ 'config.invoice_default_due_date'|trans }} <br/>
+            {{ 'config.days_after_invoice_from'|trans }} {{ form_widget(form.value) }} {{ 'config.days_after_invoice_to'|trans }} <br/>
+        {% endif %}
+        
+    {% endspaceless %}
+{% endblock accetic_config_widget %}

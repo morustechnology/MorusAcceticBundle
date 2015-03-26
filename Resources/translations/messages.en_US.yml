@@ -1,3 +1,15 @@
+config:
+    invoice_config: Invoice Settings
+    automatic_sequencing: Automatic Sequencing
+    automatic_sequencing_desc: |
+        Define the number to be used when creating your next invoice, credit note or purchase order.
+        The number will automatically increment with each new document you create.
+    invoice_prefix: Invoice Prefix
+    next_invoice_num: Next Number
+    invoice_default_due_date: Invoice Default Due date
+    days_after_invoice_from: 
+    days_after_invoice_to: day(s) after the Invoice date.
+
 contact:
     customer_number: Customer Number
     contact_person: Contact Person

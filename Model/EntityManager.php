@@ -13,9 +13,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 class EntityManager {
     protected $objectManager;
     protected $container;
-    protected $acceticConfigRepos, $arRepos, $apRepos, $contactRepos, $contactClassRepos, $invoiceRepos, $invoiceClassRepos;
+    protected $acceticConfigGroupRepos, $acceticConfigRepos, $arRepos, $apRepos, $contactRepos, $contactClassRepos, $invoiceRepos, $invoiceClassRepos;
     protected $locationRepos, $locationClassRepos, $productRepos, $personRepos, $transactionRepos, $unitRepos, $unitClassRepos;
-    protected $acceticConfigClass, $arClass, $apClass, $contactClass, $contactClassClass, $invoiceClass, $invoiceClassClass;
+    protected $acceticConfigGroupClass, $acceticConfigClass, $arClass, $apClass, $contactClass, $contactClassClass, $invoiceClass, $invoiceClassClass;
     protected $locationClass, $locationClassClass, $productClass, $personClass, $transactionClass, $unitClass, $unitClassClass;
     
     public function __construct(ObjectManager $om, Container $container)
@@ -24,69 +24,73 @@ class EntityManager {
         $this->container = $container;
         
         // Get Entities class config
-        $acceticConfigParam  = $this->container->getParameter('morus_accetic.model.accetic_config');
-        $apParam             = $this->container->getParameter('morus_accetic.model.ap');
-        $arParam             = $this->container->getParameter('morus_accetic.model.ar');
-        $contactParam        = $this->container->getParameter('morus_accetic.model.contact');
-        $contactClassParam   = $this->container->getParameter('morus_accetic.model.contact_class');
-        $invoiceParam        = $this->container->getParameter('morus_accetic.model.invoice');
-        $invoiceNoteParam    = $this->container->getParameter('morus_accetic.model.invoice_note');
-        $locationParam       = $this->container->getParameter('morus_accetic.model.location');
-        $locationClassParam  = $this->container->getParameter('morus_accetic.model.location_class');
-        $productParam          = $this->container->getParameter('morus_accetic.model.product');
-        $personParam         = $this->container->getParameter('morus_accetic.model.person');
-        $transactionParam    = $this->container->getParameter('morus_accetic.model.transaction');
-        $unitParam           = $this->container->getParameter('morus_accetic.model.unit');
-        $unitClassParam      = $this->container->getParameter('morus_accetic.model.unit_class');
+        $acceticConfigGroupParam    = $this->container->getParameter('morus_accetic.model.accetic_config_group');
+        $acceticConfigParam         = $this->container->getParameter('morus_accetic.model.accetic_config');
+        $apParam                    = $this->container->getParameter('morus_accetic.model.ap');
+        $arParam                    = $this->container->getParameter('morus_accetic.model.ar');
+        $contactParam               = $this->container->getParameter('morus_accetic.model.contact');
+        $contactClassParam          = $this->container->getParameter('morus_accetic.model.contact_class');
+        $invoiceParam               = $this->container->getParameter('morus_accetic.model.invoice');
+        $invoiceNoteParam           = $this->container->getParameter('morus_accetic.model.invoice_note');
+        $locationParam              = $this->container->getParameter('morus_accetic.model.location');
+        $locationClassParam         = $this->container->getParameter('morus_accetic.model.location_class');
+        $productParam               = $this->container->getParameter('morus_accetic.model.product');
+        $personParam                = $this->container->getParameter('morus_accetic.model.person');
+        $transactionParam           = $this->container->getParameter('morus_accetic.model.transaction');
+        $unitParam                  = $this->container->getParameter('morus_accetic.model.unit');
+        $unitClassParam             = $this->container->getParameter('morus_accetic.model.unit_class');
         
         // Get Class Metadata from Entity Manager
-        $acceticConfigMetadata  = $om->getClassMetadata($acceticConfigParam);
-        $apMetadata             = $om->getClassMetadata($apParam);
-        $arMetadata             = $om->getClassMetadata($arParam);
-        $contactMetadata        = $om->getClassMetadata($contactParam);
-        $contactClassMetadata   = $om->getClassMetadata($contactClassParam);
-        $invoiceMetadata        = $om->getClassMetadata($invoiceParam);
-        $invoiceNoteMetadata    = $om->getClassMetadata($invoiceNoteParam);
-        $locationMetadata       = $om->getClassMetadata($locationParam);
-        $locationClassMetadata  = $om->getClassMetadata($locationClassParam);
-        $productMetadata          = $om->getClassMetadata($productParam);
-        $personMetadata         = $om->getClassMetadata($personParam);
-        $transactionMetadata    = $om->getClassMetadata($transactionParam);
-        $unitMetadata           = $om->getClassMetadata($unitParam);
-        $unitClassMetadata      = $om->getClassMetadata($unitClassParam);
+        $acceticConfigGroupMetadata     = $om->getClassMetadata($acceticConfigGroupParam);
+        $acceticConfigMetadata          = $om->getClassMetadata($acceticConfigParam);
+        $apMetadata                     = $om->getClassMetadata($apParam);
+        $arMetadata                     = $om->getClassMetadata($arParam);
+        $contactMetadata                = $om->getClassMetadata($contactParam);
+        $contactClassMetadata           = $om->getClassMetadata($contactClassParam);
+        $invoiceMetadata                = $om->getClassMetadata($invoiceParam);
+        $invoiceNoteMetadata            = $om->getClassMetadata($invoiceNoteParam);
+        $locationMetadata               = $om->getClassMetadata($locationParam);
+        $locationClassMetadata          = $om->getClassMetadata($locationClassParam);
+        $productMetadata                = $om->getClassMetadata($productParam);
+        $personMetadata                 = $om->getClassMetadata($personParam);
+        $transactionMetadata            = $om->getClassMetadata($transactionParam);
+        $unitMetadata                   = $om->getClassMetadata($unitParam);
+        $unitClassMetadata              = $om->getClassMetadata($unitClassParam);
         
                 
         //  Get Entity Repositories
-        $this->acceticConfigRepos  = $om->getRepository($acceticConfigParam);
-        $this->apRepos             = $om->getRepository($apParam);
-        $this->arRepos             = $om->getRepository($arParam);
-        $this->contactRepos        = $om->getRepository($contactParam);
-        $this->contactClassRepos   = $om->getRepository($contactClassParam);
-        $this->invoiceRepos        = $om->getRepository($invoiceParam);
-        $this->invoiceNoteRepos    = $om->getRepository($invoiceNoteParam);
-        $this->locationRepos       = $om->getRepository($locationParam);
-        $this->locationClassRepos  = $om->getRepository($locationClassParam);
-        $this->productRepos          = $om->getRepository($productParam);
-        $this->personRepos         = $om->getRepository($personParam);
-        $this->transactionRepos    = $om->getRepository($transactionParam);
-        $this->unitRepos           = $om->getRepository($unitParam);
-        $this->unitClassRepos      = $om->getRepository($unitClassParam);
+        $this->acceticConfigGroupRepos  = $om->getRepository($acceticConfigGroupParam);
+        $this->acceticConfigRepos       = $om->getRepository($acceticConfigParam);
+        $this->apRepos                  = $om->getRepository($apParam);
+        $this->arRepos                  = $om->getRepository($arParam);
+        $this->contactRepos             = $om->getRepository($contactParam);
+        $this->contactClassRepos        = $om->getRepository($contactClassParam);
+        $this->invoiceRepos             = $om->getRepository($invoiceParam);
+        $this->invoiceNoteRepos         = $om->getRepository($invoiceNoteParam);
+        $this->locationRepos            = $om->getRepository($locationParam);
+        $this->locationClassRepos       = $om->getRepository($locationClassParam);
+        $this->productRepos             = $om->getRepository($productParam);
+        $this->personRepos              = $om->getRepository($personParam);
+        $this->transactionRepos         = $om->getRepository($transactionParam);
+        $this->unitRepos                = $om->getRepository($unitParam);
+        $this->unitClassRepos           = $om->getRepository($unitClassParam);
         
-        // Get Class Name        
-        $this->acceticConfigClass  = $acceticConfigMetadata->getName();
-        $this->apClass             = $apMetadata->getName();
-        $this->arClass             = $arMetadata->getName();
-        $this->contactClass        = $contactMetadata->getName();
-        $this->contactClassClass   = $contactClassMetadata->getName();
-        $this->invoiceClass        = $invoiceMetadata->getName();
-        $this->invoiceNoteClass    = $invoiceNoteMetadata->getName();
-        $this->locationClass       = $locationMetadata->getName();
-        $this->locationClassClass  = $locationClassMetadata->getName();
-        $this->productClass          = $productMetadata->getName();
-        $this->personClass         = $personMetadata->getName();
-        $this->transactionClass    = $transactionMetadata->getName();
-        $this->unitClass           = $unitMetadata->getName();
-        $this->unitClassClass      = $unitClassMetadata->getName();
+        // Get Class Name     
+        $this->acceticConfigGroupClass  = $acceticConfigGroupMetadata->getName();
+        $this->acceticConfigClass       = $acceticConfigMetadata->getName();
+        $this->apClass                  = $apMetadata->getName();
+        $this->arClass                  = $arMetadata->getName();
+        $this->contactClass             = $contactMetadata->getName();
+        $this->contactClassClass        = $contactClassMetadata->getName();
+        $this->invoiceClass             = $invoiceMetadata->getName();
+        $this->invoiceNoteClass         = $invoiceNoteMetadata->getName();
+        $this->locationClass            = $locationMetadata->getName();
+        $this->locationClassClass       = $locationClassMetadata->getName();
+        $this->productClass             = $productMetadata->getName();
+        $this->personClass              = $personMetadata->getName();
+        $this->transactionClass         = $transactionMetadata->getName();
+        $this->unitClass                = $unitMetadata->getName();
+        $this->unitClassClass           = $unitClassMetadata->getName();
         
     }
     
@@ -283,6 +287,16 @@ class EntityManager {
         $invoiceLine4->setTransaction($transaction);
         
         return $ar;
+    }
+    
+    /**
+     * Returns an accetic config group repository
+     *
+     * @return AcceticConfigGroupRepository
+     */
+    public function getAcceticConfigGroupRepository()
+    {
+        return $this->acceticConfigGroupRepos;
     }
     
     /**

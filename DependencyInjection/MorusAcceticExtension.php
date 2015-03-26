@@ -23,6 +23,7 @@ class MorusAcceticExtension extends Extension
         
         $this->remapParametersNamespaces($config['entities'], $container, array(
             '' => array(
+                'accetic_config_group'    => 'morus_accetic.model.accetic_config_group',
                 'accetic_config'    => 'morus_accetic.model.accetic_config',
                 'ap'                => 'morus_accetic.model.ap',
                 'ar'                => 'morus_accetic.model.ar',

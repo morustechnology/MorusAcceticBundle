@@ -1,0 +1,11 @@
+morus_accetic_config:
+    path:     /
+    defaults: { _controller: "MorusAcceticBundle:Config:index" }
+
+morus_accetic_config_invoice:
+    path:     /Invoice
+    defaults: { _controller: "MorusAcceticBundle:Config:invoice" }
+    
+morus_accetic_config_invoice_update:
+    path:     /Invoice/Update
+    defaults: { _controller: "MorusAcceticBundle:Config:invoiceUpdate" }

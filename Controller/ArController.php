@@ -222,6 +222,7 @@ class ArController extends Controller
 
         if ($editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $em->persist($ar);
             $em->flush();
 
             return $this->redirect($this->generateUrl('morus_accetic_ar'));

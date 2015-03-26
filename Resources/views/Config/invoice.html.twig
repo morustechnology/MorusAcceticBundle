@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form 'MorusAcceticBundle:Config:layout.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    
+{% endblock %}
+
+{% block body_title -%}
+    {{ 'config.invoice_config'|trans }}
+{% endblock %}
+
+{% block body -%}
+    {{ 'config.automatic_sequencing'|trans }}
+    <hr/>
+    {{ 'config.automatic_sequencing_desc'|trans|nl2br }}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+        {% for config in form.acceticConfigs %}
+            {{ form_widget(config) }}
+        {% endfor %}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

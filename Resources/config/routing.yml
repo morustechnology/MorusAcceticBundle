@@ -14,3 +14,7 @@ morus_accetic_inventory:
     resource: "@MorusAcceticBundle/Resources/config/routing/inventory.yml"
     prefix:   /Inventory
     
+morus_accetic_config:
+    resource: "@MorusAcceticBundle/Resources/config/routing/config.yml"
+    prefix:   /Config
+    
