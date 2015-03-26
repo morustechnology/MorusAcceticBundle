@@ -1,4 +1,5 @@
 contact:
+    customer_number: 客户编号
     contact_person: 联络人
     add_contact: 新增通讯录
     edit_contact: 修改通讯录
@@ -38,7 +39,7 @@ contact:
     overdue_sales_invoices: 过期发票
         
 ar:
-    invoices: Invoices
+    invoices: 发票
     number: 编号
     reference: 备注
     to: 给予

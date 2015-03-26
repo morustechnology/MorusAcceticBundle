@@ -1,4 +1,5 @@
 contact:
+    customer_number: Customer Number
     contact_person: Contact Person
     add_contact: Add Contact
     edit_contact: Edit Contact

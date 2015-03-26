@@ -1,4 +1,5 @@
 contact:
+    customer_number: 客戶編號
     contact_person: 聯絡人
     add_contact: 新增通訊錄
     edit_contact: 修改通訊錄
