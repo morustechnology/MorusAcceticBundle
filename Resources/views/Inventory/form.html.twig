@@ -1,0 +1,32 @@
+{% form_theme form 'MorusAcceticBundle:Default:form_errors.html.twig' %}
+
+{% set pts_dlg_div_id = 'acc_pts_dlg_div' %}
+{% set pts_dlg_sal_dtl_id = 'acc_pts_dlg_sal_dtl' %}
+{% set pts_dlg_pur_dtl_id = 'acc_pts_dlg_pur_dtl' %}
+{% set pts_dlg_title = 'test' %}
+
+<div id="{{ pts_dlg_div_id }}" title="{{ pts_dlg_title }}">  
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+
+        {{ 'inventory.itemcode'|trans }} {{ form_widget(form.itemcode) }}{{ form_errors(form.itemcode) }} <br/>
+        {{ 'inventory.itemname'|trans }} {{ form_widget(form.itemname) }} {{ form_errors(form.itemname) }}
+        {{ 'inventory.unit'|trans }} {{ form_widget(form.unit) }}
+        <hr/>
+
+        {{ form_widget(form.forsale) }} {{ 'inventory.sale'|trans }}
+        <div id="{{ pts_dlg_sal_dtl_id }}" >
+        {{ 'inventory.listprice'|trans }} {{ form_widget(form.listprice) }}
+        {{ 'inventory.saleDescription'|trans }} {{ form_widget(form.saleDescription) }}
+        </div>
+
+        <br/>
+        {{ form_widget(form.forpurchase) }} {{ 'inventory.purchase'|trans }} 
+        <div id="{{ pts_dlg_pur_dtl_id }}" >
+            {{ 'inventory.lastcost'|trans }} {{ form_widget(form.lastcost) }}
+            {{ 'inventory.purchaseDescription'|trans }} {{ form_widget(form.purchaseDescription) }}
+        </div>
+        {{ form_widget( form.submit ) }}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+</div>

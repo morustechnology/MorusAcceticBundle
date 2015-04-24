@@ -1,3 +1,25 @@
+sys:
+    loading: Loading...
+    connecting: Connecting...
+    
+error:
+    fail_connent_server: Fail to connect server.
+    
+validation:
+    notblank: This value should not be blank.
+    blank: This value should be blank.
+    notnull: This value should not be null.
+    null: This value should be null.
+    true: This value should be true.
+    false: This value should be false.
+    type: This value should be of type {{ type }}.
+    email: This value is not a valid email address.
+    length:
+        minmessage: This value is too short. It should have {{ limit }} characters or more.
+        maxmessage: This value is too long. It should have {{ limit }} characters or less.
+    url: This value is not a valid URL.
+    uniqueentity: This value is already used.
+    
 config:
     invoice_config: Invoice Settings
     automatic_sequencing: Automatic Sequencing

@@ -16,6 +16,172 @@ use Morus\AcceticBundle\Entity\Product;
 class InventoryController extends Controller
 {
     /**
+     * Lists all Product entities.
+     *
+     */
+    public function indexAction(Request $request)
+    {
+        return $this->render('MorusAcceticBundle:Inventory:index.html.twig');
+    }
+    
+    /**
+     * Lists all Product entities.
+     *
+     */
+    public function listAction(Request $request)
+    {
+        // List All product
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+
+        $product = $aem->getProductRepository()->findAll();
+        
+        $form = $this->createForm('accetic_product_list', $product, array(
+            'attr' => array('id' => 'accetic_product_list'),
+            'action' => $this->generateUrl('morus_accetic_inventory_delete_ajax'),
+            'method' => 'POST',
+        ));
+        
+        $form->add('delete_product', 'submit', array(
+                'label' => $this->get('translator')->trans('btn.delete'),
+                'attr' => array('style' => 'display:none')
+            ));
+        
+        
+        return $this->render('MorusAcceticBundle:Inventory:list.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product
+        ));
+    }
+    
+    /**
+     * Handle New Product action.
+     *
+     */
+    public function newAction(Request $request)
+    {        
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+        
+        $product = $aem->createProduct();
+        
+        $form = $this->genCreateForm($product, false);
+        
+        return $this->render('MorusAcceticBundle:Inventory:new.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product,
+        ));
+    }
+    
+    /**
+     * Handle New Product action via ajax.
+     *
+     */
+    public function ajaxNewAction(Request $request)
+    {        
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+        
+        $product = $aem->createProduct();
+        
+        $form = $this->genCreateForm($product, true);
+        
+        return $this->render('MorusAcceticBundle:Inventory:form.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product,
+        ));
+    }
+    
+    /**
+     * Creates a new Product entity.
+     *
+     */
+    public function createAction(Request $request)
+    {
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+        
+        // New Item Form
+        $product = $aem->createProduct();
+        
+        $form = $this->genCreateForm($product, false);
+        
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('morus_accetic_inventory'));
+        }
+        
+        return $this->render('MorusAcceticBundle:Inventory:new.html.twig', array(
+            'form'   => $form->createView(),
+            'product' => $product,
+        ));
+    }
+    
+    /**
+     * Accept ajax call to create a new Product entity.
+     *
+     */
+    public function ajaxCreateAction(Request $request)
+    {
+        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
+        
+        // New Item Form
+        $product = $aem->createProduct();
+        
+        $form = $this->genCreateForm($product, true);
+        
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+//            $em->flush();
+            
+//            sleep(50);
+            $json = array("success" => true);
+            $response = new Response(json_encode($json));
+            $response->headers->set('content-Type', 'application/json');
+            return $response;
+        }
+        
+        return $this->render('MorusAcceticBundle:Inventory:form.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product,
+        ));
+        
+    }
+    
+    /**
+     * Creates a form to create a Entity product.
+     *
+     * @param Product $product
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function genCreateForm( $product, $ajax )
+    {
+        $actionUrl = $ajax ? 'morus_accetic_inventory_ajax_create' : 'morus_accetic_inventory_create';
+        $style = $ajax ? 'display:none' : '';
+        
+        $form = $this->createForm('accetic_product', $product, array(
+            'attr' => array('id' => 'accetic_product_new'),
+            'action' => $this->generateUrl($actionUrl),
+            'method' => 'POST',
+        ));
+        
+        $form->add('submit', 'submit', array(
+            'label' => $this->get('translator')->trans('btn.save'),
+            'attr' => array('style' => $style)
+        ));
+        
+        return $form;
+    }
+    
+    
+    
+    
+    /**
      * Handle Ajax call for deleting Product.
      *
      */
@@ -96,8 +262,9 @@ class InventoryController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
-            
+//            sleep (10 );
             $em->flush();
+            
             $response = array("success" => true);
             return new Response(json_encode($response));
         } catch (Exception $ex) {
@@ -106,49 +273,9 @@ class InventoryController extends Controller
         }
     }
     
-    /**
-     * Lists all Product entities.
-     *
-     */
-    public function indexAction(Request $request)
-    {
-        // List All product
-        $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
-        
-        
-        $product = $aem->getProductRepository()->findAll();
-        
-        $product_list_form = $this->createForm('accetic_product_list', $product, array(
-            'attr' => array('id' => 'accetic_product_list'),
-            'action' => $this->generateUrl('morus_accetic_inventory_delete_ajax'),
-            'method' => 'POST',
-        ));
-        
-        $product_list_form->add('delete_product', 'submit', array(
-                'label' => $this->get('translator')->trans('btn.delete'),
-                'attr' => array('style' => 'display:none')
-            ));
-        
-        // New Item Form
-        $newProduct = $aem->createProduct();
-        $newProduct->setForSale(true);
-        $product_new_form = $this->createForm('accetic_product', $newProduct, array(
-            'attr' => array('id' => 'accetic_product_new'),
-            'action' => $this->generateUrl('morus_accetic_inventory_new_ajax'),
-            'method' => 'POST',
-        ));
-        
-        $product_new_form->add('submit', 'submit', array(
-            'label' => $this->get('translator')->trans('btn.save'),
-            'attr' => array('style' => 'display:none')
-        ));
-        
-        return $this->render('MorusAcceticBundle:Inventory:index.html.twig', array(
-            'product_new_form' => $product_new_form->createView(),
-            'product_list_form' => $product_list_form->createView(),
-            'product' => $product
-        ));
-    }
+    
+    
+    
     
     /**
      * Finds and displays a Product entity.
@@ -218,4 +345,6 @@ class InventoryController extends Controller
             ->getForm()
         ;
     }
+    
+    
 }

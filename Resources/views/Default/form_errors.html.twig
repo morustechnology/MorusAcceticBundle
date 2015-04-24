@@ -1,0 +1,10 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                {% if loop.index > 1 %},{% endif %}
+                {{ error.message|trans }}
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}

@@ -1,10 +1,33 @@
 morus_accetic_inventory:
     path:     /
     defaults: { _controller: "MorusAcceticBundle:Inventory:index" }
-
+    
+morus_accetic_inventory_list:
+    path:     /
+    defaults: { _controller: "MorusAcceticBundle:Inventory:list" }
+    
 morus_accetic_inventory_show:
     path:     /{id}/show
     defaults: { _controller: "MorusAcceticBundle:Inventory:show" }
+        
+morus_accetic_inventory_new:
+    path:     /new
+    defaults: { _controller: "MorusAcceticBundle:Inventory:new" }
+
+morus_accetic_inventory_ajax_new:
+    path:     /ajax/new
+    defaults: { _controller: "MorusAcceticBundle:Inventory:ajaxNew" }
+
+morus_accetic_inventory_create:
+    path:     /create
+    defaults: { _controller: "MorusAcceticBundle:Inventory:create" }
+
+morus_accetic_inventory_ajax_create:
+    path:     /ajax/create
+    defaults: { _controller: "MorusAcceticBundle:Inventory:ajaxCreate" }
+    
+    
+    
     
 morus_accetic_inventory_new_ajax:
     path:     /newAjax

@@ -30,6 +30,7 @@ class ProductListType extends AbstractType
             ->add('id', 'entity', array(
                 'class' => $this->container->getParameter('morus_accetic.model.product'),
                 'property' => 'itemname',
+                'label' => false,
                 'expanded' => true,
                 'multiple' => true
             ));

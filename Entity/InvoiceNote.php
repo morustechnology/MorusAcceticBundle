@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * InvoiceNote
  *
  * @ORM\Table(name="accetic_invoice_note", indexes={@ORM\Index(name="IDX_invoice_id", columns={"invoice_id"})})
- * @ORM\MappedSuperclass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class InvoiceNote implements \Morus\AcceticBundle\Model\InvoiceNoteInterface

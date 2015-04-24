@@ -1,0 +1,51 @@
+{% set pts_del_lk_id = 'acc_pts_del_lk' %}
+{% set pts_dlg_lk_id = 'acc_pts_dlg_lk' %}
+{% set pts_dlg_title = 'inventory.new_inventory_item'|trans %}
+
+<script type='text/javascript'>
+    
+
+</script>
+    
+<ul class="page-control">
+    <li>
+        <a id="{{ pts_del_lk_id }}" class="loading-btn" />
+        {% image '@MorusAcceticBundle/Resources/public/images/icons-pack.png' %}
+        <em class="icons add icon" style="background:url('{{ asset_url }}') no-repeat;background-position:-220px -50px;" ></em>
+        {% endimage %}
+        {{ 'btn.delete'|trans }}
+        </a>
+    </li>
+</ul>
+<br/><br/>
+<div id="accetic_inventory_list">
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_widget(form.delete_product) }}
+        <table class="fas-records-list">
+            <tr>
+            {# sorting of properties based on query components #}
+                <th><input id="check_all" type="checkbox"/></th>
+                <th>{{ 'inventory.itemcode'|trans }}</th>
+                <th>{{ 'inventory.itemname'|trans }}</th>
+                <th>{{ 'inventory.lastcost'|trans }}</th>
+                <th>{{ 'inventory.listprice'|trans }}</th>
+
+            </tr>
+
+            {# table body #}
+            {% for p in product %}
+            <tr>
+                <td>{{ form_widget(form.id[p.id], { 'attr' : { 'name' : p.id  }}) }}</td>
+                <td><a href="{{ path('morus_accetic_inventory_show', { 'id': p.id }) }}">{{ p.itemcode }}</a></td>
+                <td>{{ p.itemname }}</td>
+                <td class="right">{{ p.lastcost|number_format(2, '.', ',') }}</td>
+                <td class="right">{{ p.listprice|number_format(2, '.', ',') }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+</div>

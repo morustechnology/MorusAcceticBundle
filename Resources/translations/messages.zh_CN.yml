@@ -1,3 +1,25 @@
+sys:
+    loading: 加载中...
+    connecting: 连线中...
+
+error:
+    fail_connent_server: 无法连接服务器
+
+validation:
+    notblank: 请填写资料
+    blank: This value should be blank.
+    notnull: This value should not be null.
+    null: This value should be null.
+    true: This value should be true.
+    false: This value should be false.
+    type: This value should be of type {{ type }}.
+    email: This value is not a valid email address.
+    length:
+        minmessage: This value is too short. It should have {{ limit }} characters or more.
+        maxmessage: This value is too long. It should have {{ limit }} characters or less.
+    url: This value is not a valid URL.
+    uniqueentity: This value is already used.
+    
 config:
     invoice_config: 发票设定
     automatic_sequencing: 自动排序设定
@@ -98,6 +120,8 @@ inventory:
     sales: 销售
     unitprice: 单价
     description: 描述
+    assert:
+        max: 描述单价
     
 btn:
     add_new_item: 新增货品

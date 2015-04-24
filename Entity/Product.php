@@ -3,12 +3,15 @@
 namespace Morus\AcceticBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Product
  *
  * @ORM\Table(name="accetic_product", uniqueConstraints={@ORM\UniqueConstraint(name="product_itemcode_index_u", columns={"itemcode"})})
- * @ORM\MappedSuperclass
+ * @ORM\Entity
+ * @UniqueEntity("itemcode", message="validation.uniqueentity")
  * @ORM\HasLifecycleCallbacks
  */
 class Product implements \Morus\AcceticBundle\Model\ProductInterface
@@ -25,7 +28,8 @@ class Product implements \Morus\AcceticBundle\Model\ProductInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="itemcode", type="string", length=100, nullable=false)
+     * @ORM\Column(name="itemcode", type="string", length=100, nullable=false, unique=true)
+     * @Assert\NotBlank(message="validation.notblank")
      */
     protected $itemcode;
 
@@ -254,6 +258,7 @@ class Product implements \Morus\AcceticBundle\Model\ProductInterface
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createDate = new \DateTime("now");
         $this->active = true;
+        $this->forSale = true;
     }
 
     /**

@@ -238,6 +238,7 @@ class ContactsController extends Controller
      *
      */
     public function updateAction(Request $request, $id)
+            
     {
         $aem = $this->get('morus_accetic.entity_manager'); // Get Accetic Entity Manager from service
         $unitRepos = $aem->getUnitRepository();

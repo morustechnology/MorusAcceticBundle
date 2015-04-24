@@ -4,13 +4,15 @@ namespace Morus\AcceticBundle\Model;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Doctrine\ORM\EntityManager as BaseEntityManager;
 
 /**
  * Description of EntityManager
  *
  * @author Michael
  */
-class EntityManager {
+class EntityManager extends BaseEntityManager 
+{
     protected $objectManager;
     protected $container;
     protected $acceticConfigGroupRepos, $acceticConfigRepos, $arRepos, $apRepos, $contactRepos, $contactClassRepos, $invoiceRepos, $invoiceClassRepos;

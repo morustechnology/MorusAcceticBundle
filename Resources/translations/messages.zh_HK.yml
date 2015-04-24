@@ -1,3 +1,25 @@
+sys:
+    loading: 載入中...
+    connecting: 連線中...
+
+error:
+    fail_connent_server: 無法連接服務器
+
+validation:
+    notblank: 請填寫資料
+    blank: This value should be blank.
+    notnull: This value should not be null.
+    null: This value should be null.
+    true: This value should be true.
+    false: This value should be false.
+    type: This value should be of type {{ type }}.
+    email: This value is not a valid email address.
+    length:
+        minmessage: This value is too short. It should have {{ limit }} characters or more.
+        maxmessage: This value is too long. It should have {{ limit }} characters or less.
+    url: This value is not a valid URL.
+    uniqueentity: This value is already used.
+    
 config:
     invoice_config: 發票設定
     automatic_sequencing: 自動排序設定
@@ -99,7 +121,9 @@ inventory:
     sales: 銷售
     unitprice: 單價
     description: 描述
-    
+    assert:
+        max: 描述單價
+        
 btn:
     add_new_item: 新增貨品
     edit_item: 修改貨品

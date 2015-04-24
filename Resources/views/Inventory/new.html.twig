@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block body_title -%}
+    {{ 'inventory.new_inventory_item'|trans }}
+{% endblock %}
+
+{% block body -%}
+    {{ include('MorusAcceticBundle:Inventory:form.html.twig') }}
+{% endblock body %}

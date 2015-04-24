@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AcceticConfigGroup
  *
  * @ORM\Table(name="accetic_config_group")
- * @ORM\MappedSuperclass
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class AcceticConfigGroup implements \Morus\AcceticBundle\Model\AcceticConfigGroupInterface
